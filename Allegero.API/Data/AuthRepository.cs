@@ -20,7 +20,7 @@ namespace Allegero.API.Data
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            await _context.users.AddAsync(user);
+            await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
 
             return user;
@@ -28,7 +28,7 @@ namespace Allegero.API.Data
 
         public async Task<User> Login(string username, string password)
         {
-            var user = await _context.users.Include(i => i.ItemsToSell).Include(i => i.BoughtItems).FirstOrDefaultAsync(u => u.Username == username);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
 
             if (user == null)
                 return null;
@@ -41,7 +41,7 @@ namespace Allegero.API.Data
 
         public async Task<bool> UserExist(string username)
         {
-            if(await _context.users.AnyAsync(x => x.Username == username))
+            if(await _context.Users.AnyAsync(x => x.Username == username))
                 return true;
 
             return false;

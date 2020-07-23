@@ -7,6 +7,7 @@ namespace Allegero.API.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int Quantity { get; set; } // ilosc
         public string Description { get; set; }
         public DateTime DateAdded { get; set; }
 
@@ -14,7 +15,10 @@ namespace Allegero.API.Models
         public ICollection<Photo> ItemPhotos { get; set; }
         
         // 2 linijki do wyswietlenia powiazanego userka
-        public User User { get; set; }
-        public int UserId { get; set; }
+        public User Seller { get; set; }
+        public int SellerId { get; set; }
+        public User Buyer { get; set; }
+        public int BuyerId { get; set; }
+
     }
 }

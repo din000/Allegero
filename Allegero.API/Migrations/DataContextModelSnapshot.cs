@@ -26,6 +26,9 @@ namespace Allegero.API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("BuyerId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("datetime2");
 
@@ -35,14 +38,19 @@ namespace Allegero.API.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SellerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("BuyerId");
 
-                    b.ToTable("items");
+                    b.HasIndex("SellerId");
+
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("Allegero.API.Models.Photo", b =>
@@ -68,7 +76,7 @@ namespace Allegero.API.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("photos");
+                    b.ToTable("Photos");
                 });
 
             modelBuilder.Entity("Allegero.API.Models.User", b =>
@@ -92,22 +100,28 @@ namespace Allegero.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("users");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Allegero.API.Models.Item", b =>
                 {
-                    b.HasOne("Allegero.API.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("Allegero.API.Models.User", "Buyer")
+                        .WithMany("BoughtItems")
+                        .HasForeignKey("BuyerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Allegero.API.Models.User", "Seller")
+                        .WithMany("ItemsToSell")
+                        .HasForeignKey("SellerId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("Allegero.API.Models.Photo", b =>
                 {
                     b.HasOne("Allegero.API.Models.Item", "Item")
-                        .WithMany()
+                        .WithMany("ItemPhotos")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

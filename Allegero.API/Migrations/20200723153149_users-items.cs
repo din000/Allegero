@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Allegero.API.Migrations
 {
-    public partial class ItemsPhotosUsers : Migration
+    public partial class usersitems : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "users",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -20,33 +20,41 @@ namespace Allegero.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_users", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "items",
+                name: "Items",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
+                    Quantity = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     DateAdded = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<int>(nullable: false)
+                    SellerId = table.Column<int>(nullable: false),
+                    BuyerId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_items", x => x.Id);
+                    table.PrimaryKey("PK_Items", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_items_users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "users",
+                        name: "FK_Items_Users_BuyerId",
+                        column: x => x.BuyerId,
+                        principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Items_Users_SellerId",
+                        column: x => x.SellerId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "photos",
+                name: "Photos",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -58,36 +66,41 @@ namespace Allegero.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_photos", x => x.Id);
+                    table.PrimaryKey("PK_Photos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_photos_items_ItemId",
+                        name: "FK_Photos_Items_ItemId",
                         column: x => x.ItemId,
-                        principalTable: "items",
+                        principalTable: "Items",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_items_UserId",
-                table: "items",
-                column: "UserId");
+                name: "IX_Items_BuyerId",
+                table: "Items",
+                column: "BuyerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_photos_ItemId",
-                table: "photos",
+                name: "IX_Items_SellerId",
+                table: "Items",
+                column: "SellerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Photos_ItemId",
+                table: "Photos",
                 column: "ItemId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "photos");
+                name: "Photos");
 
             migrationBuilder.DropTable(
-                name: "items");
+                name: "Items");
 
             migrationBuilder.DropTable(
-                name: "users");
+                name: "Users");
         }
     }
 }
