@@ -30,11 +30,11 @@ namespace Allegero.API.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
-                    Quantity = table.Column<int>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false, defaultValue: 1),
                     Description = table.Column<string>(nullable: true),
                     DateAdded = table.Column<DateTime>(nullable: false),
                     SellerId = table.Column<int>(nullable: false),
-                    BuyerId = table.Column<int>(nullable: false)
+                    BuyerId = table.Column<int>(nullable: true, defaultValue: null)
                 },
                 constraints: table =>
                 {

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Allegero.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200723153149_users-items")]
+    [Migration("20200724131528_users-items")]
     partial class usersitems
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -22,8 +22,8 @@ namespace Allegero.API.Controllers
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
         public AuthController(IAuthRepository repository,
-                                IConfiguration config,
-                                IMapper mapper) //IConfiguration ejst po to zeby odwolac sie do appsettings.json
+                              IConfiguration config,
+                              IMapper mapper) //IConfiguration ejst po to zeby odwolac sie do appsettings.json
         {
             _repository = repository;
             _config = config;

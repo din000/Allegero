@@ -13,6 +13,7 @@ namespace Allegero.API.Helpers
             CreateMap<User, UserForLocalStorageDto>();
             CreateMap<User, UserForDetailedDto>();
             CreateMap<UserForRegisterDto, User>();
+            CreateMap<ItemForCreateDto, Item>();
         }
     }
 }

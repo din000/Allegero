@@ -10,7 +10,7 @@ namespace Allegero.API.Models
         public byte[] PasswordSalt { get; set; }
         public string PublicPhotoID { get; set; } // zdj uzytkownika
         public ICollection<Item> ItemsToSell { get; set; } // kolekcja rzeczy ktore sprzedaje
-        public ICollection<Item> BoughtItems { get; set; } // kolekcja rzeczy ktore kupil
+        public ICollection<Item> BoughtItems { get; set; } = null; // kolekcja rzeczy ktore kupil
         
     }
 }

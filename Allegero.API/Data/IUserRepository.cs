@@ -8,5 +8,6 @@ namespace Allegero.API.Data
     {
         Task<IEnumerable<Item>> GetAuctions();
         Task<Item> GetAuction(int auctionId);
+        Task<User> GetUser(int userId);
     }
 }
