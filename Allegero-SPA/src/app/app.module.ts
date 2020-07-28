@@ -5,13 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthService } from './_services/auth.service';
 import { NavComponent } from './nav/nav.component';
+import { ResponsikComponent } from './responsywny_leyout/responsik/responsik.component';
+
 
 
 
 @NgModule({
    declarations: [
       AppComponent,
-      NavComponent
+      NavComponent,
+      ResponsikComponent
    ],
    imports: [
       BrowserModule,
