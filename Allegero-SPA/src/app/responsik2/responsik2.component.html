@@ -1,0 +1,128 @@
+<header>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-sm-12 col-12">
+        <div class="btn-group">
+          <button class="btn border dropdown-toggle my-md-4 my-2 text-white" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">USD</button>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item">ERU - Euro</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-12 text-center">
+        <h2 class="my-md-3 site-title text-white">Online Store</h2>
+      </div>
+      <div class="col-md-4 col-12 text-right">
+        <p class="my-md-4 header-links">
+          <a href="#" class="px-2">Sign in</a>
+          <a href="#" class="px-1">Create an account</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- home itd pod nav -->
+  <div class="container-fluid p-0">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">HOME <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">FEATURES</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">COLLECTION</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">SHOW</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">ABOUT US</a>
+          </li>
+        </ul>
+      </div>
+      <!-- ikonki po prawej -->
+      <div class="navbar-nav">
+        <li class="nav-item border rounded-circle mx-2 search-icon">
+          <i class="fa fa-search p-2"></i>
+        </li>
+        <li class="nav-item border rounded-circle mx-2 basket-icon">
+          <i class="fa fa-shopping-basket p-2"></i>
+        </li>
+      </div>
+
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- slider -->
+  <div class="container-fluid p-0">
+    <ngb-carousel *ngIf="images">
+      <ng-template ngbSlide *ngFor="let item of images">
+        <div class="picsum-img-wrapper">
+          <img [src]="item" alt="Random first slide">
+        </div>
+      </ng-template>
+    </ngb-carousel>
+  </div>
+</main>
+
+<!--  slider 2 -->
+<div>Some tags before</div>
+<owl-carousel-o [options]="customOptions">
+  <ng-template carouselSlide *ngFor="let item of images">
+    <div class="carousel-img1">
+      <img class="p-2 img-circle rounded-circle mx-auto" style="height: 300px; width: 300px;" src="{{item}}">
+    </div>
+    <div class="text-center">
+      <span class="text">FOTEL</span>
+    </div>
+  </ng-template>
+</owl-carousel-o>
+<div>Some tags after</div>
+
+<!-- slider 3 -->
+<owl-carousel-o [options]="customOptions">
+
+  <ng-container *ngFor="let slide of images">
+    <ng-template carouselSlide>
+      <img [src]="slide">
+    </ng-template>
+  </ng-container>
+
+</owl-carousel-o>
+
+<!-- slider 4 z kartami-->
+<div class="container slider4 pr-0 pl-0">
+  <owl-carousel-o [options]="customOptions" #owlCar>
+    <ng-template carouselSlide *ngFor="let item of images">
+      <div class="p-2">
+        <div class="card" style="height: 15rem; border: 2px solid;" (click)="owlCar.prev()">
+          <img class="p-2 img-circle rounded-circle mx-auto" style="height: 10rem; width: 10rem;" src="{{item}}">
+          <div class="text-center">
+            <span class="text">FOTEL</span>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </owl-carousel-o>
+
+  <div class="carousel-btns">
+    <div>
+      <button class="btn btn-1" style="float: left;" (click)="owlCar.prev()">
+        <i class="fa fa-chevron-left fa-2x"></i>
+      </button>
+      <button class="btn btn-2" style="float: right;" (click)="owlCar.next()">
+        <i class="fa fa-chevron-right fa-2x"></i>
+      </button>
+    </div>
+  </div>
+</div>
