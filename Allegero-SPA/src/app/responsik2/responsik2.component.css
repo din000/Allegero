@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Gugi&family=Lato:wght@300&family=Roboto:wght@300&family=Sofia&display=swap');
 
+/* ten root jest w najglowniejszym komponenciku stylow */
 :root {
     --light-grey: grey;
     --primary-color: red;

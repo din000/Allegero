@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "-": "0.0.1",
     "@angular/animations": "~9.1.11",
     "@angular/common": "~9.1.11",
     "@angular/compiler": "~9.1.11",
@@ -26,9 +27,11 @@
     "bootstrap": "^4.5.0",
     "font-awesome": "^4.7.0",
     "ng-scrollreveal": "^2.2.0",
+    "ngx": "^2.4.0",
     "ngx-bootstrap": "^5.6.1",
     "ngx-owl-carousel-o": "^4.0.0",
     "rxjs": "~6.5.4",
+    "save": "^2.4.0",
     "scrollreveal": "^4.0.7",
     "tslib": "^1.13.0",
     "zone.js": "~0.10.2"
