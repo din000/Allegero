@@ -25,10 +25,10 @@ export class Responsik2Component implements OnInit {
             '../../assets/laptop2.jpg',
             '../../assets/laptop3.jpg'];
 
-            itemsPerSlide = 1;
-            singleSlideOffset = true;
-            noWrap = false;
-            slidesChangeMessage = '';
+            // itemsPerSlide = 1;
+            // singleSlideOffset = true;
+            // noWrap = false;
+            // slidesChangeMessage = '';
 
               customOptions: OwlOptions = {
                 loop: true,

@@ -51,24 +51,6 @@
   </nav>
 </header>
 
-<!-- register moje xd -->
-<!-- <body class="text-center">
-  <form class="form-signin">
-    <i class="mb-4 fa fa-amazon fa-3x"></i>
-    <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
-    <label for="inputEmail" class="sr-only">Username</label>
-    <input type="text" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label>
-    </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-    <p class="mt-5 mb-3 text-muted">© 2017-2020</p>
-  </form>
-</body> -->
 
 <!-- ngx modal login -->
 <ng-template #template>
@@ -83,7 +65,7 @@
       <i class="mb-4 fa fa-amazon fa-3x"></i>
       <h1 class="h3 mb-3 font-weight-normal text-center">Please do it</h1>
       <label for="inputEmail" class="sr-only">Username</label>
-      <input type="text" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+      <input type="text" id="inputEmail" class="form-control" placeholder="Username" required="" autofocus="">
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
       <div class="checkbox mb-3">
@@ -111,7 +93,7 @@
       <i class="mb-4 fa fa-amazon fa-3x"></i>
       <h1 class="h3 mb-3 font-weight-normal text-center">Please do it</h1>
       <label for="inputEmail" class="sr-only">Username</label>
-      <input type="text" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+      <input type="text" id="inputEmail" class="form-control" placeholder="Username" required="" autofocus="">
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
       <div class="checkbox mb-3">
@@ -124,3 +106,154 @@
     </form>
   </div>
 </ng-template>
+
+<!-- section 4 -->
+<!-- left -->
+<div class="section-4">
+  <div class="div-left"></div>
+  <div class="div1">
+    <div class="card card-categories">
+      <div class="header">
+        <h4 class="modal-title text-center">Categories</h4>
+      </div>
+      <hr>
+      <a href="#"><i class="fa fa-random" style="margin-right: 5%;"></i>Jakas kategoria</a>
+      <a href="#"><i class="fa fa-random" style="margin-right: 5%;"></i>Jakas kategoria</a>
+      <a href="#"><i class="fa fa-random" style="margin-right: 5%;"></i>Jakas kategoria</a>
+      <a href="#"><i class="fa fa-random" style="margin-right: 5%;"></i>Jakas kategoria</a>
+      <a href="#"><i class="fa fa-random" style="margin-right: 5%;"></i>Jakas kategoria</a>
+      <a href="#"><i class="fa fa-random" style="margin-right: 5%;"></i>Jakas kategoria</a>
+      <a href="#"><i class="fa fa-random" style="margin-right: 5%;"></i>Jakas kategoria</a>
+      <a href="#"><i class="fa fa-random" style="margin-right: 5%;"></i>Jakas kategoria</a>
+      <a href="#"><i class="fa fa-random" style="margin-right: 5%;"></i>Jakas kategoria</a>
+      <a href="#"><i class="fa fa-random" style="margin-right: 5%;"></i>Jakas kategoria</a>
+    </div>
+  </div> 
+  <!-- ----------------------------center----------------------------------- -->
+  <div class="center-div">
+    <!-- slider 1-->
+    <div class="div2 slider1">
+      <ngb-carousel *ngIf="images">
+        <ng-template ngbSlide *ngFor="let item of images">
+          <div class="picsum-img-wrapper">
+            <img [src]="item" alt="Random first slide" style="width: 100%; min-height: 230px; max-height: 230px;">
+          </div>
+        </ng-template>
+      </ngb-carousel>  
+    </div>
+    <!-- odstep -->
+    <div class="div5" style="height: 8px;"></div>
+    <!-- slider 2 -->
+    <div class="div2 slider2">
+      <div class="container slider4 pr-0 pl-0">
+        <h4 style="position: absolute; padding-left: 20px; padding-top: 10px;">Warto zobaczyc:</h4>
+        <hr style="position: absolute;">
+        <owl-carousel-o [options]="customOptions" #owlCar>
+          <ng-template carouselSlide *ngFor="let item of images">
+            <div class="pr-1 pl-1" style="padding-top: 50px;">
+              <div class="card" style="height: 150px; border: 0px solid;" (click)="owlCar.prev()">
+                <img class="p-2 img-circle rounded-circle mx-auto" style="height: 8rem; width: 8rem;" src="{{item}}">
+                <div class="text-center">
+                  <span class="text">FOTEL</span>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </owl-carousel-o>
+      
+        <div class="carousel-btns">
+          <div>
+            <button class="btn btn-1" style="float: left;" (click)="owlCar.prev()">
+              <i class="fa fa-chevron-left fa-2x"></i>
+            </button>
+            <button class="btn btn-2" style="float: right;" (click)="owlCar.next()">
+              <i class="fa fa-chevron-right fa-2x"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- right -->
+  <div class="div3">
+    <div class="card card-categories">
+      <div class="header">
+        <h4 class="modal-title text-center">Premium</h4>
+      </div>
+      <hr>
+      <div class="pl-2 pt-2 pb-5">
+        <h3 class="pt-1"><i class="fa fa-star pr-2" style="color: red;"></i>Zbieraj punkty</h3>
+        <h3 class="pt-1"><i class="fa fa-star pr-2" style="color: red;"></i>2 dni realizacja</h3>
+        <h3 class="pt-1"><i class="fa fa-star pr-2" style="color: red;"></i>-30% dostawa</h3>
+        <h3 class="pt-1"><i class="fa fa-star pr-2" style="color: red;"></i>Miesiac free</h3>
+      </div>
+      <button class="btn btn-primary" style="height: 70px;">Kup teraz</button>
+    </div>
+  </div>
+  <div class="div-right"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- section suport -->
+<div class="container">
+  <div class="section-3">
+    <div class="contaner">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="d-flex flex-row">
+            <i class="fa fa-question fa-3x m-2"></i>
+            <div class="d-flex flex-column">
+              <h3 class="m-2">24/7 Support</h3>
+              <p class="m-2">Lorem ipsum dolor sit amet, pellentesque eu,
+                pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="d-flex flex-row">
+            <i class="fa fa-question fa-3x m-2"></i>
+            <div class="d-flex flex-column">
+              <h3 class="m-2">24/7 Support</h3>
+              <p class="m-2">Lorem ipsum dolor sit amet, pellentesque eu,
+                pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="d-flex flex-row">
+            <i class="fa fa-question fa-3x m-2"></i>
+            <div class="d-flex flex-column">
+              <h3 class="m-2">24/7 Support</h3>
+              <p class="m-2">Lorem ipsum dolor sit amet, pellentesque eu,
+                pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- footer -->
+<hr>
+<h5 style="color:blue" class="text-center">Allegero &copy;</h5>
