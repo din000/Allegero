@@ -6,7 +6,7 @@
     cursor: pointer;
 }
 
-/* moje */
+/* moje nav*/
 .navbar{
     min-height: 100px;
 }
@@ -142,7 +142,7 @@ header .form-inline input{
 }
 
 
-/* slider 2 with cards */
+/* section 4 slider 2 with cards */
 .slider2{
     width: 100%;
     min-height: 100%;
@@ -173,6 +173,53 @@ header .form-inline input{
 }
 
 
+/* section 5 */
+.section-5{
+    background-color: rgb(238, 231, 231);
+    display: flex;
+    flex-direction: row;
+    padding: 1% 0%;
+    /* padding: 0 10%; */
+}
+.section-5 .div1{
+    /* background-color: red; */
+    width: 26%;
+    height: 460px;
+    margin-right: 0.5%;  
+}
+.section-5 .div2{
+    background-color: red;
+    width: 26%;
+    height: 460px;
+    margin-left: 0.5%; 
+    margin-right: 0.5%; 
+}
+.section-5 .quadra-divs{
+    /* background-color: red; */
+    width: 26%;
+    height: 460px;
+    margin-left: 0.5%;  
+}
+.section-5 .div-left{
+    width: 100%;
+    /* background-color: yellow; */
+    max-width: 10%;
+}
+.section-5 .div-right{
+    width: 100%;
+    /* background-color: yellow; */
+    max-width: 10%;
+}
+.section-5 .product:hover{
+    background-color: whitesmoke;
+    cursor: pointer;
+}
+
+/* footer */
+.social i{
+    color: brown;
+    font-size: 30px;
+}
 
 
 
