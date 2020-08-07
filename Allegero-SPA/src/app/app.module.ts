@@ -14,6 +14,10 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { AlertifyService } from './_services/_alertify.service';
+import { HttpClientModule } from '@angular/common/http';
+import { ErrorInterceptorProvider } from './_services/error.interceptor';
+import { appRoutes } from './route';
 
 
 
@@ -30,14 +34,18 @@ import { ModalModule } from 'ngx-bootstrap/modal';
       NgbModule,
       BrowserAnimationsModule,
       CarouselModule,
-      RouterModule.forRoot([]),
+      // RouterModule.forRoot([]),
+      RouterModule.forRoot(appRoutes),
       ReactiveFormsModule,
       FormsModule,
-      ModalModule.forRoot()
+      ModalModule.forRoot(),
+      HttpClientModule
 
    ],
    providers: [
-      AuthService
+      AuthService,
+      AlertifyService,
+      ErrorInterceptorProvider
    ],
    bootstrap: [
       AppComponent

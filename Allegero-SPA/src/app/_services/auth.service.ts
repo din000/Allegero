@@ -27,9 +27,9 @@ export class AuthService {
         if (data) {
           localStorage.setItem('token', data.token);
           localStorage.setItem('user', JSON.stringify(data.user));
-          this.decodedToken = this.jwtHelper.decodeToken(data.token);
-          this.currentUser = this.jwtHelper.decodeToken(data.user);
-          this.changeMainPhoto(this.currentUser.publicPhotoID);
+          // this.decodedToken = this.jwtHelper.decodeToken(data.token);
+          // this.currentUser = this.jwtHelper.decodeToken(data.user);
+          // this.changeMainPhoto(this.currentUser.publicPhotoID);
         }
       }));
   }

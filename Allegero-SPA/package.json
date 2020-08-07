@@ -23,6 +23,7 @@
     "@angular/router": "~9.1.11",
     "@auth0/angular-jwt": "^5.0.1",
     "@ng-bootstrap/ng-bootstrap": "^6.2.0",
+    "alertifyjs": "^1.13.1",
     "aos": "^2.3.4",
     "bootstrap": "^4.5.0",
     "font-awesome": "^4.7.0",

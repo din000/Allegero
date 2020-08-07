@@ -43,7 +43,23 @@
       <a href="#"><i class="fa fa-bell-o fa-2x text-white"></i></a>
     </div>
 
-    <div class="header-links">
+    <div *ngIf="loggedIn()" style="position: absolute; right: 8%; color: white;">
+      <!-- <h5>Witaj {{authService.decodedToken?.unique_name}}</h5> -->
+      <div class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <a><h4 id="dropdownBasic1" ngbDropdownToggle>Witaj Dominik</h4></a>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem>Action - 1</button>
+              <button ngbDropdownItem>Another Action</button>
+              <button ngbDropdownItem (click)="logOut()">Wyloguj sie</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!loggedIn()" class="header-links">
       <a href="#" class="px-2" (click)="openModalLogin(template)">Sign in</a>
       <a href="#" class="px-1" (click)="openModalRegister(template2)">Create an account</a>
     </div>
@@ -61,19 +77,17 @@
     </button>
   </div>
   <div class="modal-body text-center">
-    <form class="form-signin">
+    <form class="form-signin" #loginForm="ngForm" (ngSubmit)="login()">
       <i class="mb-4 fa fa-amazon fa-3x"></i>
       <h1 class="h3 mb-3 font-weight-normal text-center">Please do it</h1>
-      <label for="inputEmail" class="sr-only">Username</label>
-      <input type="text" id="inputEmail" class="form-control" placeholder="Username" required="" autofocus="">
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+      <input type="text" class="form-control" placeholder="Username" required name="username" [(ngModel)]="model.username">
+      <input type="password" class="form-control" placeholder="Password" required name="password" [(ngModel)]="model.password">
       <div class="checkbox mb-3">
         <label>
           <input type="checkbox" value="remember-me"> Remember me
         </label>
       </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sing in</button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="modalRef.hide()">Sing in</button>
       <p class="mt-5 mb-3 text-muted">© 2017-2020</p>
     </form>
   </div>
@@ -89,19 +103,17 @@
     </button>
   </div>
   <div class="modal-body text-center">
-    <form class="form-signin">
+    <form class="form-signin" [formGroup]="registerForm" (ngSubmit)="register()">
       <i class="mb-4 fa fa-amazon fa-3x"></i>
       <h1 class="h3 mb-3 font-weight-normal text-center">Please do it</h1>
-      <label for="inputEmail" class="sr-only">Username</label>
-      <input type="text" id="inputEmail" class="form-control" placeholder="Username" required="" autofocus="">
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+      <input type="text" id="inputEmail" class="form-control" placeholder="Username" required="" autofocus="" formControlName="username">
+      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="" formControlName="password">
       <div class="checkbox mb-3">
         <label>
           <input type="checkbox" value="remember-me"> Remember me
         </label>
       </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="modalRef.hide()">Register</button>
       <p class="mt-5 mb-3 text-muted">© 2017-2020</p>
     </form>
   </div>

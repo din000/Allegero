@@ -37,6 +37,7 @@ namespace Allegero.API
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MojePolaczenie")));
+            services.AddCors();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IGenericRepository, GenericRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
@@ -60,6 +61,8 @@ namespace Allegero.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
             app.UseAuthentication();
 
             app.UseHttpsRedirection();
