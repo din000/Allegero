@@ -1,13 +1,7 @@
 .container1{
     margin-left: 5%;
 }
-header .header-links a {
-    cursor: pointer;
-}
 
-header .header-links a:hover {
-    text-decoration: underline;
-}
 .dropdown-toggle, .dropdown-item {
     cursor: pointer;
 }

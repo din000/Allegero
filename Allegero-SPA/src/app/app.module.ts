@@ -18,6 +18,8 @@ import { AlertifyService } from './_services/_alertify.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { appRoutes } from './route';
+import { ProductCardComponent } from './product-card/product-card.component';
+import { MainSiteComponent } from './main_site/main_site.component';
 
 
 
@@ -27,6 +29,8 @@ import { appRoutes } from './route';
       NavComponent,
       ResponsikComponent,
       Responsik2Component,
+      ProductCardComponent,
+      MainSiteComponent
    ],
    imports: [
       BrowserModule,
@@ -34,13 +38,12 @@ import { appRoutes } from './route';
       NgbModule,
       BrowserAnimationsModule,
       CarouselModule,
-      // RouterModule.forRoot([]),
+      // RouterModule.forRoot([),
       RouterModule.forRoot(appRoutes),
       ReactiveFormsModule,
       FormsModule,
       ModalModule.forRoot(),
       HttpClientModule
-
    ],
    providers: [
       AuthService,
