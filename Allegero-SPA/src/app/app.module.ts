@@ -20,7 +20,7 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { appRoutes } from './route';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { MainSiteComponent } from './main_site/main_site.component';
-
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 
 @NgModule({
@@ -43,7 +43,9 @@ import { MainSiteComponent } from './main_site/main_site.component';
       ReactiveFormsModule,
       FormsModule,
       ModalModule.forRoot(),
-      HttpClientModule
+      HttpClientModule,
+      // https://github.com/kolkov/ngx-gallery
+      NgxGalleryModule
    ],
    providers: [
       AuthService,
