@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductCardComponent implements OnInit {
 
+  przykladowaOcena = 4;
+  currentRate = 4.4;
+
   constructor() { }
 
   ngOnInit() {

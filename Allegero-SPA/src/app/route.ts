@@ -8,7 +8,7 @@ import { MainSiteComponent } from './main_site/main_site.component';
 export const appRoutes: Routes = [
     { path: 'nav', component: NavComponent},
     { path: 'main', component: MainSiteComponent},
-    { path: 'użytkownicy', component: Responsik2Component},
+    { path: 'productCard', component: ProductCardComponent},
     { path: 'polubienia', component: Responsik2Component},
     { path: '**', redirectTo: '', pathMatch: 'full'}
 ];

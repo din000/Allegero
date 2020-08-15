@@ -1,0 +1,46 @@
+/* poczatek */
+.section-1{
+    width: 100%;
+    background-color: rgb(238, 231, 231);
+}
+.section-1 .product-card{
+    margin-left: 15%;
+    margin-right: 15%;
+    padding: 20px 0%;
+}
+
+/* 4 ponizsze to do ratingu sprzedajacego */
+.seller-rate{
+    display: flex;
+    flex-direction: row;
+    vertical-align: middle;
+}
+.star {
+    position: relative;
+    display: inline-block;
+    font-size: 25px;
+    color: #d3d3d3;
+  }
+  .full {
+    color: red;
+  }
+  .half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: red;
+  }
+
+  
+  /* transaction - entry */
+  /* wylacza strzalki przy inpuciku */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

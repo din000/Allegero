@@ -34,7 +34,6 @@ export class NavComponent implements OnInit{
 
   ngOnInit() {
     this.createRegisterForm(); // pozniej pokombinuje jak przeniesc ta cala rejestracje do osobnego komponentu
-    this.router.navigate(['/main']);
   }
 
   // do loginu i rejestracji

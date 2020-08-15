@@ -1,3 +1,145 @@
-<p>
-  product-card works!
-</p>
+<div class="section-1">
+  <div class="product-card">
+    <div class="card" style="display: flex; flex-direction: row; height: 750px;">
+
+      <!-- LEWA CZESC ZE ZDJECIAMI -->
+      <div class="photos" style="width: 60%;">
+        <h5>Fotel</h5>
+      </div>
+
+      <!-- PRAWA CZESC -->
+      <div class="desc" style="width: 40%;">
+        <h5 style="margin-top: 5%; font-size: 16px; font-weight: bold;">Oryginalny Smartband Xiaomi MiBand 5 + NFC NFC
+          !!!</h5>
+
+        <p class="mb-0">od:&nbsp;&nbsp; <a href="#">Tutaj sprzedawce</a> </p>
+
+        <div class="seller-rate">
+          <p class="p-0" style="margin-top: 10px">{{currentRate}}&nbsp;&nbsp;</p>
+          <!-- rating -->
+          <ng-template #t let-fill="fill">
+            <span class="star" [class.full]="fill === 100">
+              <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+            </span>
+          </ng-template>
+          <ngb-rating [(rate)]="currentRate" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+          <a href="#" style="margin-top: 10px;">&nbsp; 3 oceny produktu</a>
+        </div>
+
+        <div class="price-etc mt-5">
+          <h4 class="card mb-0"
+            style="width: fit-content; background-color: rgb(9, 199, 9); color: white; display: inline-block;">-30%</h4>
+          <h5 class="mb-0" style="display: inline-block; padding-left: 2%; text-decoration: line-through; color: grey;">
+            300zł</h5>
+          <h1>2000zl</h1>
+        </div>
+
+        <p class="mt-5 mb-0" style="color: grey">3 osoby kupily 3 sztuki</p>
+        <hr class="mt-1" style="width: 95%;">
+
+        <div class="delivery-info">
+          <div class="info-1 mb-3" style="display: flex; flex-direction: row;">
+            <div class="icon mt-auto mb-auto mr-3"><i class="fa fa-globe fa-2x"></i></div>
+            <div class="desc">
+              <p class="p-0 m-0" style="font-size:small; font-weight: bold;">Kraj wysylki</p>
+              <p class="p-0 m-0" style="font-size:small;">Africa</p>
+            </div>
+          </div>
+          <div class="info-1 mb-3" style="display: flex; flex-direction: row;">
+            <div class="icon mt-auto mb-auto mr-3"><i class="fa fa-globe fa-2x"></i></div>
+            <div class="desc">
+              <p class="p-0 m-0" style="font-size:small; font-weight: bold;">Kraj wysylki</p>
+              <p class="p-0 m-0" style="font-size:small;">Africa</p>
+            </div>
+          </div>
+          <div class="info-1 mb-3" style="display: flex; flex-direction: row;">
+            <div class="icon mt-auto mb-auto mr-3"><i class="fa fa-globe fa-2x"></i></div>
+            <div class="desc">
+              <p class="p-0 m-0" style="font-size:small; font-weight: bold;">Kraj wysylki</p>
+              <p class="p-0 m-0" style="font-size:small;">Africa</p>
+            </div>
+          </div>
+          <div class="info-1 mb-3" style="display: flex; flex-direction: row;">
+            <div class="icon mt-auto mb-auto mr-3"><i class="fa fa-globe fa-2x"></i></div>
+            <div class="desc">
+              <p class="p-0 m-0" style="font-size:small; font-weight: bold;">Kraj wysylki</p>
+              <p class="p-0 m-0" style="font-size:small;">Africa</p>
+            </div>
+          </div>
+        </div>
+        <hr class="m-0 mb-2" style="width: 95%;">
+
+        <div class="transaction-entry">
+          <p class="p-0 mb-0" style="font-size: 13px; color:grey">Liczba sztuk:</p>
+          <div class="plus-minus" style="height: 40px; position: relative;">
+            <button class="btn" style="width: 40px; height: 100%; position: absolute; border: 1px solid grey;">-</button>
+            <input type="number" style="width: 64px; height: 100%; padding: 8px; text-align: center; position: absolute; left: 40px;"
+              autocomplete="off">
+            <button class="btn" style="width: 40px; height: 100%; position: absolute; left: 104px; border: 1px solid grey;">+</button>
+          </div>
+          <button class="btn btn-primary mt-1 mb-1" style="width: 95%;">Dodaj do koszyka</button>
+          <button class="btn btn-primary mb-1" style="width: 95%;">Kup teraz</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-1">
+  <div class="card" style="display: flex; flex-direction: row; height: 76px; margin-left: 15%; margin-right: 15%;">
+    <p class="p-0 mt-auto mb-auto ml-5" style="width: fit-content; height: fit-content;"><a href="#">Zaoszczedz</a> 10zl w aplikacji mobilnej</p>
+  </div>
+</div>
+
+<div class="section-1" style="padding-top: 20px;">
+  <div class="card" style="margin-left: 15%; margin-right: 15%; height: 350px; ">
+    <div class="body pl-5">
+      <h2 class="pt-4">Parametry</h2>
+      <hr>
+      <div class="info" style="display: flex; flex-direction: row;">
+        <div class="c1" style="width: 290px;">
+          <p>Stan</p>
+          <p>Faktura</p>
+          <p>Przekatna</p>
+          <p>Rozdzielczosc</p>
+          <p>Matryca</p>
+          <p>Ekran dotykowy</p>
+        </div>
+        <div class="c1" style="width: 290px;">
+          <p>Stan</p>
+          <p>Faktura</p>
+          <p>Przekatna</p>
+          <p>Rozdzielczosc</p>
+          <p>Matryca</p>
+          <p>Ekran dotykowy</p>
+        </div>
+        <div class="c1" style="width: 290px;">
+          <p>Stan</p>
+          <p>Faktura</p>
+          <p>Przekatna</p>
+          <p>Rozdzielczosc</p>
+          <p>Matryca</p>
+          <p>Ekran dotykowy</p>
+        </div>
+        <div class="c1" style="width: 290px;">
+          <p>Stan</p>
+          <p>Faktura</p>
+          <p>Przekatna</p>
+          <p>Rozdzielczosc</p>
+          <p>Matryca</p>
+          <p>Ekran dotykowy</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-1" style="padding-top: 20px; padding-bottom: 50px;">
+  <div class="card" style="margin-left: 15%; margin-right: 15%; height: 1350px; ">
+    <div class="body pl-5">
+      <h2 class="pt-4">Opis</h2>
+      <hr>
+    </div>
+  </div>
+</div>
