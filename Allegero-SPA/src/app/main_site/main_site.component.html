@@ -1,5 +1,6 @@
 <!-- section 4 TOP -->
 <!-- left -->
+{{occasion.name}}
 <div class="section-4">
   <div class="div-left"></div>
   <div class="div1">
@@ -101,19 +102,19 @@
       </div>
     </div>
     <div class="zdjecie" style="height: 40%; width: 50%; margin: auto; margin-top: 5%; margin-bottom: 5%;">
-      <img src="../../assets/OKAZJA.webp" alt="" style="width: 100%; height: 100%;">
+      <img src="{{occasion.itemPhotos[0].url}}" alt="" style="width: 100%; height: 100%;">
     </div>
     <!-- opis pod obrazkiem -->
     <div class="desc" style="width: 100%; height: 21.3%; position: absolute; bottom: 0%; display: flex;">
-     <div class="1" style="height: 100%; width: 30%;"></div>
-     <div class="2" style="height: 100%; min-width: 135px;">
-      <h4 class="card" style="width: fit-content; background-color: rgb(9, 199, 9); color: white; display: inline-block;">-30%</h4>
-      <h5 style="display: inline-block; padding-left: 2%; text-decoration: line-through; color: grey;">300zł</h5>
-      <h1>2000zl</h1>
+     <div class="1" style="height: 100%; width: 15%;"></div>
+     <div class="2" style="height: 100%; min-width: 170px;">
+      <h4 class="card" style="width: fit-content; background-color: rgb(9, 199, 9); color: white; display: inline-block;">-{{percent}}%</h4>
+      <h5 style="display: inline-block; padding-left: 2%; text-decoration: line-through; color: grey;">{{occasion.price}}zł</h5>
+      <h1>{{occasion.newestPrice}}zl</h1>
     </div>
      <div class="3" style="height: 100%; min-width: 198px;">
-    <h3>Fotel xD</h3>
-    <p>Fotel zajebisty dla wszystkich :D</p>
+    <h3>{{occasion?.name}}</h3>
+    <p>{{occasion.description}}</p>
   </div>
      <div class="4" style="height: 100%; width: 15%;"></div>
     </div>  

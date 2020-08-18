@@ -30,8 +30,13 @@ namespace Allegero.API.Data
         public async Task<User> GetUser(int userId)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
-
             return user;
+        }
+
+        public async Task<Item> GetOccasion()
+        {
+            var occasion = await _context.Items.Include(p => p.ItemPhotos).FirstOrDefaultAsync(i => i.IsOccasion == true);
+            return occasion;
         }
     }
 }

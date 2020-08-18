@@ -21,6 +21,8 @@ import { appRoutes } from './route';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { MainSiteComponent } from './main_site/main_site.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { UserService } from './_services/user.service';
+import { MainResolver } from './_resolvers/main.resolver';
 
 
 @NgModule({
@@ -50,7 +52,9 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
    providers: [
       AuthService,
       AlertifyService,
-      ErrorInterceptorProvider
+      ErrorInterceptorProvider,
+      UserService,
+      MainResolver
    ],
    bootstrap: [
       AppComponent

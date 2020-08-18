@@ -30,5 +30,13 @@ namespace Allegero.API.Controllers
 
             return Ok(auction);
         }
+
+        [HttpGet("occasion")]
+        public async Task<IActionResult> GetOccasion()
+        {
+            var occasion = await _repository.GetOccasion();
+
+            return Ok(occasion);
+        }
     }
 }

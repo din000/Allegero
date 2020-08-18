@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { UserService } from '../_services/user.service';
+import { Item } from '../_models/Item';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-main-site',
@@ -9,6 +12,12 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 export class MainSiteComponent implements OnInit {
 
   model: any = {};
+
+  // do okazji
+  occasion: Item;
+  percent: number;
+  timer: Date;
+  curDate = new Date();
 
   images = ['../../assets/laptop1.jpg',
             '../../assets/laptop2.jpg',
@@ -21,9 +30,11 @@ export class MainSiteComponent implements OnInit {
   interval; // domyslnie jest 6, dziala dobrze XD
   secondsLeft = 60;
   minLeft = 59;
-  hoursLeft = 23;
+  hoursLeft = 2;
+  currDayInMins: number; // trza to bylo to, ogolnie lipa ale nie chce mi sie juz tlumaczyc
 
-  constructor() { }
+  constructor(private userService: UserService,
+              private route: ActivatedRoute) { }
 
       // do slajderow
       customOptions: OwlOptions = {
@@ -45,17 +56,55 @@ export class MainSiteComponent implements OnInit {
 
   ngOnInit() {
     this.startTimer();
+
+    // okazja
+    this.route.data.subscribe(data => {
+      this.occasion = data.mainData;
+      this.percent = (this.occasion.newestPrice / this.occasion.price) * 100;
+      const occasionEnd = new Date(this.occasion.whenOccasionWasStarted);
+
+      const currDayInHours = 23 - this.curDate.getHours();
+      const currDayInSec = 60 - this.curDate.getSeconds();
+      if (currDayInSec > 0) {
+        this.currDayInMins = 59 - this.curDate.getMinutes();
+      } else {
+        this.currDayInMins = 60 - this.curDate.getMinutes();
+      }
+
+      const nextDayInHours = occasionEnd.getHours();
+      const nextDayInMins = occasionEnd.getMinutes();
+      const nextDayInSec = occasionEnd.getSeconds();
+
+      this.hoursLeft = currDayInHours + nextDayInHours;
+      this.minLeft = this.currDayInMins + nextDayInMins;
+      this.secondsLeft = currDayInSec + nextDayInSec;
+    });
+
+    if (this.secondsLeft >= 60) {
+      this.secondsLeft -= 60;
+      this.minLeft += 1;
+      if (this.minLeft >= 60) {
+        this.minLeft -= 60;
+        this.hoursLeft += 1;
+      }
+    }
+    console.log(this.hoursLeft, this.minLeft, this.secondsLeft);
   }
 
     // do minitnika
     startTimer() {
       this.interval = setInterval(() => {
         if (this.hoursLeft >= 0 && this.minLeft >= 0 && this.secondsLeft >= 0){
+          if (this.minLeft >= 60) {
+            this.minLeft -= 60;
+            this.hoursLeft += 1;
+          }
           if (this.hoursLeft > 0 && this.minLeft === 0){
             this.minLeft = 59; // 59 bo petla robi sie gdy jest 0 i traci sie 1 sekunde
-            if (this.hoursLeft > 0){
-              this.hoursLeft --;
-            }
+            this.hoursLeft --;
+            // if (this.hoursLeft > 0){
+            //   this.hoursLeft --;
+            // }
           }
           if (this.secondsLeft > 0){
             this.secondsLeft --;
@@ -70,8 +119,17 @@ export class MainSiteComponent implements OnInit {
       }, 1000);
     }
 
-  // do minutnika
+  // do minutnika ale nie uzywamy tej opcji
   pauseTimer() {
     clearInterval(this.interval);
+  }
+
+  // zaladowanie okazji
+  loadOccasion() {
+    this.userService.getOccasion()
+      .subscribe(response => {
+          this.occasion = response;
+          console.log(this.occasion);
+        });
   }
 }
