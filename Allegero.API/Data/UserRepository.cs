@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,8 +36,29 @@ namespace Allegero.API.Data
 
         public async Task<Item> GetOccasion()
         {
-            var occasion = await _context.Items.Include(p => p.ItemPhotos).FirstOrDefaultAsync(i => i.IsOccasion == true);
-            return occasion;
+            // petla sprawdza czy okazja nie przeterminowala sie, jezeli przeterminowana to zmienia status okazji na false
+            do
+            {
+                DateTime currDate = DateTime.Now;
+                var occasion = await _context.Items.Include(p => p.ItemPhotos).FirstOrDefaultAsync(i => i.IsOccasion == true);
+
+                if (currDate.CompareTo(occasion.WhenOccasionWasStarted) == 1)
+                {
+                    occasion.IsOccasion = false;
+                    _context.Items.Update(occasion);
+                    await _context.SaveChangesAsync();
+                }
+                if (currDate.CompareTo(occasion.WhenOccasionWasStarted) == 0)
+                {
+                     occasion.IsOccasion = false;
+                    _context.Items.Update(occasion);
+                    await _context.SaveChangesAsync();
+                }
+                if (currDate.CompareTo(occasion.WhenOccasionWasStarted) == -1)
+                {
+                    return occasion;
+                }
+            } while (true);
         }
     }
 }

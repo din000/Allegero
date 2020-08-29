@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Allegero.API.Migrations
 {
-    public partial class usersitems : Migration
+    public partial class ItemsPhotosUsers : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,11 +30,15 @@ namespace Allegero.API.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
-                    Quantity = table.Column<int>(nullable: false, defaultValue: 1),
+                    Price = table.Column<decimal>(nullable: false),
+                    NewestPrice = table.Column<decimal>(nullable: true),
+                    Quantity = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     DateAdded = table.Column<DateTime>(nullable: false),
+                    IsOccasion = table.Column<bool>(nullable: false),
+                    WhenOccasionWasStarted = table.Column<DateTime>(nullable: true),
                     SellerId = table.Column<int>(nullable: false),
-                    BuyerId = table.Column<int>(nullable: true, defaultValue: null)
+                    BuyerId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {

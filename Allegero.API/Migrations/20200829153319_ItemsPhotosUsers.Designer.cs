@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Allegero.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200724131528_users-items")]
-    partial class usersitems
+    [Migration("20200829153319_ItemsPhotosUsers")]
+    partial class ItemsPhotosUsers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,7 +28,7 @@ namespace Allegero.API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BuyerId")
+                    b.Property<int?>("BuyerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateAdded")
@@ -37,14 +37,26 @@ namespace Allegero.API.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsOccasion")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("NewestPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<int>("SellerId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("WhenOccasionWasStarted")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -110,8 +122,7 @@ namespace Allegero.API.Migrations
                     b.HasOne("Allegero.API.Models.User", "Buyer")
                         .WithMany("BoughtItems")
                         .HasForeignKey("BuyerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Allegero.API.Models.User", "Seller")
                         .WithMany("ItemsToSell")

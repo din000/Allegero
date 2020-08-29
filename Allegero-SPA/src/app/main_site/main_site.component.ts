@@ -15,7 +15,7 @@ export class MainSiteComponent implements OnInit {
 
   // do okazji
   occasion: Item;
-  percent: number;
+  percent: string;
   timer: Date;
   curDate = new Date();
 
@@ -60,24 +60,40 @@ export class MainSiteComponent implements OnInit {
     // okazja
     this.route.data.subscribe(data => {
       this.occasion = data.mainData;
-      this.percent = (this.occasion.newestPrice / this.occasion.price) * 100;
+      this.percent = (100 - (this.occasion.newestPrice / this.occasion.price) * 100).toFixed(2);
       const occasionEnd = new Date(this.occasion.whenOccasionWasStarted);
 
-      const currDayInHours = 23 - this.curDate.getHours();
-      const currDayInSec = 60 - this.curDate.getSeconds();
-      if (currDayInSec > 0) {
-        this.currDayInMins = 59 - this.curDate.getMinutes();
-      } else {
-        this.currDayInMins = 60 - this.curDate.getMinutes();
+      // ustawia dobrze minutnik, ALE dziala tylko jezeli jest max 1 dzien promocja bo nie chcialo mi sie myslec
+      if (this.curDate.getDate() - occasionEnd.getDate() < 0){
+        const currDayInHours = 23 - this.curDate.getHours();
+        const currDayInSec = 60 - this.curDate.getSeconds();
+        if (currDayInSec > 0) {
+          this.currDayInMins = 59 - this.curDate.getMinutes();
+        } else {
+          this.currDayInMins = 60 - this.curDate.getMinutes();
+        }
+
+        const nextDayInHours = occasionEnd.getHours();
+        const nextDayInMins = occasionEnd.getMinutes();
+        const nextDayInSec = occasionEnd.getSeconds();
+
+        this.hoursLeft = currDayInHours + nextDayInHours;
+        this.minLeft = this.currDayInMins + nextDayInMins;
+        this.secondsLeft = currDayInSec + nextDayInSec;
       }
 
-      const nextDayInHours = occasionEnd.getHours();
-      const nextDayInMins = occasionEnd.getMinutes();
-      const nextDayInSec = occasionEnd.getSeconds();
+      if (this.curDate.getDate() - occasionEnd.getDate() === 0){
+        this.hoursLeft = this.curDate.getHours();
+        this.minLeft = this.curDate.getMinutes();
+        this.secondsLeft = this.curDate.getSeconds();
+      }
 
-      this.hoursLeft = currDayInHours + nextDayInHours;
-      this.minLeft = this.currDayInMins + nextDayInMins;
-      this.secondsLeft = currDayInSec + nextDayInSec;
+      if (this.curDate.getDate() - occasionEnd.getDate() > 0){
+        this.hoursLeft = 0;
+        this.minLeft = 0;
+        this.secondsLeft = 0;
+        // this.pauseTimer();
+      }
     });
 
     if (this.secondsLeft >= 60) {
@@ -88,7 +104,6 @@ export class MainSiteComponent implements OnInit {
         this.hoursLeft += 1;
       }
     }
-    console.log(this.hoursLeft, this.minLeft, this.secondsLeft);
   }
 
     // do minitnika
@@ -119,7 +134,7 @@ export class MainSiteComponent implements OnInit {
       }, 1000);
     }
 
-  // do minutnika ale nie uzywamy tej opcji
+  // do minutnika
   pauseTimer() {
     clearInterval(this.interval);
   }
