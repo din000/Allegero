@@ -23,6 +23,7 @@ import { MainSiteComponent } from './main_site/main_site.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { UserService } from './_services/user.service';
 import { MainResolver } from './_resolvers/main.resolver';
+import { ManyAuctionsResolver } from './_resolvers/manyAuctions.resolver';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { MainResolver } from './_resolvers/main.resolver';
       AlertifyService,
       ErrorInterceptorProvider,
       UserService,
-      MainResolver
+      MainResolver,
+      ManyAuctionsResolver,
    ],
    bootstrap: [
       AppComponent

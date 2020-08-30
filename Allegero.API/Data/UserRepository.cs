@@ -28,6 +28,12 @@ namespace Allegero.API.Data
             return auctions;
         }
 
+        public async Task<IEnumerable<Item>> GetManyAuctions(int number)
+        {
+            var auctions = _context.Items.Take(number).Include(p => p.ItemPhotos).AsQueryable();
+            return auctions;
+        }
+
         public async Task<User> GetUser(int userId)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);

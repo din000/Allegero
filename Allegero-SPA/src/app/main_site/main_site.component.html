@@ -1,6 +1,6 @@
 <!-- section 4 TOP -->
 <!-- left -->
-{{occasion.name}}
+
 <div class="section-4">
   <div class="div-left"></div>
   <div class="div1">
@@ -41,12 +41,12 @@
         <h4 style="position: absolute; padding-left: 20px; padding-top: 10px;">Warto zobaczyc:</h4>
         <hr style="position: absolute;">
         <owl-carousel-o [options]="customOptions" #owlCar>
-          <ng-template carouselSlide *ngFor="let item of images">
+          <ng-template carouselSlide *ngFor="let item of auctionsToSlider2">
             <div class="pr-1 pl-1" style="padding-top: 50px;">
               <div class="card" style="height: 150px; border: 0px solid;" (click)="owlCar.prev()">
-                <img class="p-2 img-circle rounded-circle mx-auto" style="height: 8rem; width: 8rem;" src="{{item}}">
+                <img class="p-2 img-circle rounded-circle mx-auto" style="height: 8rem; width: 8rem;" src="{{item.itemPhotos[0].url}}">
                 <div class="text-center">
-                  <span class="text">FOTEL</span>
+                  <span class="text">{{item.name}}</span>
                 </div>
               </div>
             </div>
@@ -126,36 +126,18 @@
         <h4>Laptopy:</h4>
         <hr>
       </div>
-      <div class="product" style="width: 100%; height: 23%; display: flex;" [routerLink]="['/productCard']">
+      
+      <div *ngFor="let item of auctions3" class="product" style="width: 100%; height: 23%; display: flex;" [routerLink]="['/productCard']">
         <div class="img ml-5" style="width: 85px; height: 80px; margin-top: auto; margin-bottom: auto;">
-          <img src="../../assets/OKAZJA.webp" alt="" style="width: 100%; height: 100%;">
+          <img src={{item.itemPhotos[0].url}} alt="" style="width: 100%; height: 100%;">
         </div>
         <div class="desc ml-2" style="width: 200px; height: 80px; margin-top: auto; margin-bottom: auto;">
-          <h5 class="m-0">Fotel</h5>
-          <h4 class="m-0">2000zl</h4>
-          <p>Najlepszy dla wszystkich</p>
+          <h5 class="m-0">{{item.name}}</h5>
+          <h4 class="m-0">{{item.price}}zl</h4>
+          <p>{{item.description}}</p>
         </div>
       </div>
-      <div class="product" style="width: 100%; height: 23%; display: flex;">
-        <div class="img ml-5" style="width: 85px; height: 80px; margin-top: auto; margin-bottom: auto;">
-          <img src="../../assets/OKAZJA.webp" alt="" style="width: 100%; height: 100%;">
-        </div>
-        <div class="desc ml-2" style="width: 200px; height: 80px; margin-top: auto; margin-bottom: auto;">
-          <h5 class="m-0">Fotel</h5>
-          <h4 class="m-0">2000zl</h4>
-          <p>Najlepszy dla wszystkich</p>
-        </div>
-      </div>
-      <div class="product" style="width: 100%; height: 23%; display: flex;">
-        <div class="img ml-5" style="width: 85px; height: 80px; margin-top: auto; margin-bottom: auto;">
-          <img src="../../assets/OKAZJA.webp" alt="" style="width: 100%; height: 100%;">
-        </div>
-        <div class="desc ml-2" style="width: 200px; height: 80px; margin-top: auto; margin-bottom: auto;">
-          <h5 class="m-0">Fotel</h5>
-          <h4 class="m-0">2000zl</h4>
-          <p>Najlepszy dla wszystkich</p>
-        </div>
-      </div>
+      
       <div class="see-more text-center">
         <hr style="margin-bottom: 2.7%;">
         <a href="#" style="text-decoration: none;">ZOBACZ WIECEJ</a>

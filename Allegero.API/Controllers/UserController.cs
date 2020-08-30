@@ -23,6 +23,14 @@ namespace Allegero.API.Controllers
             return Ok(auctions);
         }
 
+        [HttpGet("many/{number}")]
+        public async Task<IActionResult> GetManyAuctions(int number)
+        {
+            var auctions = await _repository.GetManyAuctions(number);
+
+            return Ok(auctions);
+        }
+
         [HttpGet("{auctionId}")]
         public async Task<IActionResult> GetAuction(int auctionId)
         {

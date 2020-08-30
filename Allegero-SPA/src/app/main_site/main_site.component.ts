@@ -13,6 +13,11 @@ export class MainSiteComponent implements OnInit {
 
   model: any = {};
 
+  // aukcje
+  auctions5: Item[];
+  auctions3: Item[];
+  auctionsToSlider2: Item[];
+
   // do okazji
   occasion: Item;
   percent: string;
@@ -56,6 +61,14 @@ export class MainSiteComponent implements OnInit {
 
   ngOnInit() {
     this.startTimer();
+
+    // 3 auctions
+    this.route.data.subscribe(data => {
+      this.auctions5 = data.manyAuctions;
+    });
+
+    this.auctions3 = this.auctions5.slice(0, 3);
+    this.auctionsToSlider2 = this.auctions5.slice(0, 5);
 
     // okazja
     this.route.data.subscribe(data => {
