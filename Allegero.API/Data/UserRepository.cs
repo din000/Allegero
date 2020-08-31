@@ -17,7 +17,7 @@ namespace Allegero.API.Data
 
         public async Task<Item> GetAuction(int auctionId)
         {
-            var auction = await _context.Items.FirstOrDefaultAsync(i => i.Id == auctionId);
+            var auction = await _context.Items.Include(p => p.ItemPhotos).FirstOrDefaultAsync(i => i.Id == auctionId);
 
             return auction;
         }

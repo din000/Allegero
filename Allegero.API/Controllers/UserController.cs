@@ -31,7 +31,7 @@ namespace Allegero.API.Controllers
             return Ok(auctions);
         }
 
-        [HttpGet("{auctionId}")]
+        [HttpGet("auction/{auctionId}")]
         public async Task<IActionResult> GetAuction(int auctionId)
         {
             var auction = await _repository.GetAuction(auctionId);
@@ -45,6 +45,14 @@ namespace Allegero.API.Controllers
             var occasion = await _repository.GetOccasion();
 
             return Ok(occasion);
+        }
+
+        [HttpGet("user/{id}")]
+        public async Task<IActionResult> GetUser(int id)
+        {
+            var user = await _repository.GetUser(id);
+
+            return Ok(user);
         }
     }
 }

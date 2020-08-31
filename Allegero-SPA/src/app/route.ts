@@ -5,13 +5,16 @@ import { ProductCardComponent } from './product-card/product-card.component';
 import { MainSiteComponent } from './main_site/main_site.component';
 import { MainResolver } from './_resolvers/main.resolver';
 import { ManyAuctionsResolver } from './_resolvers/manyAuctions.resolver';
+import { ProductCardResolver } from './_resolvers/productCard.resolver';
+import { UserResolver } from './_resolvers/user.resolver';
 
 
 export const appRoutes: Routes = [
     { path: 'nav', component: NavComponent, resolve: {mainData: MainResolver}},
     { path: 'main', component: MainSiteComponent, resolve: {mainData: MainResolver,
                                                             manyAuctions: ManyAuctionsResolver}},
-    { path: 'productCard', component: ProductCardComponent},
+    { path: 'productCard/:idAuction/:idUser', component: ProductCardComponent, resolve: {auction: ProductCardResolver,
+                                                                                         user: UserResolver}},
     { path: 'polubienia', component: Responsik2Component},
     { path: '**', redirectTo: '', pathMatch: 'full'}
 ];

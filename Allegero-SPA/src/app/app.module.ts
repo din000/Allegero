@@ -24,6 +24,8 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { UserService } from './_services/user.service';
 import { MainResolver } from './_resolvers/main.resolver';
 import { ManyAuctionsResolver } from './_resolvers/manyAuctions.resolver';
+import { ProductCardResolver } from './_resolvers/productCard.resolver';
+import { UserResolver } from './_resolvers/user.resolver';
 
 
 @NgModule({
@@ -57,6 +59,8 @@ import { ManyAuctionsResolver } from './_resolvers/manyAuctions.resolver';
       UserService,
       MainResolver,
       ManyAuctionsResolver,
+      ProductCardResolver,
+      UserResolver,
    ],
    bootstrap: [
       AppComponent
