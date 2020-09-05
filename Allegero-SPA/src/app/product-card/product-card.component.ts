@@ -17,19 +17,28 @@ export class ProductCardComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
+  // info o aukcji
   przykladowaOcena = 4;
   currentRate = 4.4;
+  quantity = 1;
 
   // konkretna aukcja i uzytkownik
   auction: Item;
   user: User;
+
+  // procent obnizki
+  percent: string;
+
+  // dostawa
+  deliveryDate1 = new Date();
+  deliveryDate2 = new Date();
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.data.subscribe(data => {
       this.auction = data.auction;
-      console.log(this.auction);
+      this.percent = (100 - (this.auction.newestPrice / this.auction.price) * 100).toFixed(2);
       this.user = data.user;
     });
 
@@ -59,12 +68,14 @@ export class ProductCardComponent implements OnInit {
       }
     ];
     this.galleryImages = this.getImages();
+
+    this.deliveryDate1.setDate(3);
+    this.deliveryDate2.setDate(6);
   }
 
   // pobiera zdjecia
   getImages(){
     const images = [];
-    console.log('dziala');
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.auction.itemPhotos.length; i++) {
       images.push({
@@ -74,5 +85,17 @@ export class ProductCardComponent implements OnInit {
       });
     }
     return images;
+  }
+
+  quantityMINUS(){
+    if (this.quantity > 1){
+      this.quantity --;
+    }
+  }
+
+  quantityPLUS(){
+    if (this.quantity < this.auction.quantity){
+      this.quantity ++;
+    }
   }
 }

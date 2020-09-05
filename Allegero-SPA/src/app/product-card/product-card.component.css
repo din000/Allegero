@@ -49,3 +49,13 @@ input[type=number] {
 .ngx-gallery { 
   display: inline-block; margin-bottom: 20px;
  }
+
+ /* do delivery info */
+ .info-1{
+   position: relative;
+ }
+ .d-info{
+   position: absolute;
+   right: 35px;
+   top: 6px;
+ }
