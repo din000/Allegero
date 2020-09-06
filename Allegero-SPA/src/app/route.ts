@@ -7,6 +7,7 @@ import { MainResolver } from './_resolvers/main.resolver';
 import { ManyAuctionsResolver } from './_resolvers/manyAuctions.resolver';
 import { ProductCardResolver } from './_resolvers/productCard.resolver';
 import { UserResolver } from './_resolvers/user.resolver';
+import { ProductAddComponent } from './product-add/product-add.component';
 
 
 export const appRoutes: Routes = [
@@ -15,6 +16,7 @@ export const appRoutes: Routes = [
                                                             manyAuctions: ManyAuctionsResolver}},
     { path: 'productCard/:idAuction/:idUser', component: ProductCardComponent, resolve: {auction: ProductCardResolver,
                                                                                          user: UserResolver}},
+    { path: 'productAdd', component: ProductAddComponent},
     { path: 'polubienia', component: Responsik2Component},
     { path: '**', redirectTo: '', pathMatch: 'full'}
 ];

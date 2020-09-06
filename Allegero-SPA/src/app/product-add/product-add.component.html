@@ -1,0 +1,133 @@
+<div class="section-1">
+    <div class="product-add">
+        <div class="card" style="display: flex; flex-direction: row; height: 750px;">
+            <!-- LEWA CZESC ZE ZDJECIAMI -->
+            <div class="photos" style="width: 60%;">
+                <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"
+                    style="margin-left: 5%; margin-right: 5%; margin-top: 13%;"></ngx-gallery>
+            </div>
+            <!-- PRAWA CZESC Z INFO -->
+            <div class="desc" style="width: 40%;">
+                <header class="mt-3">
+                    <h4>Podstawowe dane:</h4>
+                </header>
+                <hr>
+                <h6>Nazwa aukcji:</h6>
+                <input class="textbox" style="width: 90%;">
+
+                <div class="price pt-4 m-0 row">
+                    <h6 style="padding-top: 3px; padding-right: 15px;">Cena:</h6>
+                    <input class="textbox pl-2 i1" style="width: 20%; border-radius: 9999px;">
+                    <h6 style="padding-top: 3px; padding-right: 15px; padding-left: 10px;">zl</h6>
+                </div>
+
+                <div class="price pt-4 m-0 row">
+                    <h6 style="padding-top: 3px; padding-right: 18px;">Ilosc:</h6>
+                    <input class="textbox pl-2 i1" style="width: 20%; border-radius: 9999px;">
+                    <h6 style="padding-top: 3px; padding-right: 15px; padding-left: 10px;">szt.</h6>
+                </div>
+
+                <div class="condition pt-4">
+                    <button *ngIf="condition != 'New'" class="btn btn-primary mt-2"
+                        style="width: 90%; height: 70px; border-radius: 10px;" (click)="setNew()">
+                        <h5 style="font-weight: bold;">Nowy</h5>
+                        <p>Fabrycznie zapakowany</p>
+                    </button>
+                    <button *ngIf="condition === 'New'" class="btn btn-primary mt-2"
+                        style="width: 90%; height: 70px; border-radius: 10px; border: 2px solid orange;">
+                        <h5 style="font-weight: bold;">Nowy</h5>
+                        <p>Fabrycznie zapakowany</p>
+                    </button>
+                    <button *ngIf="condition != 'Used'" class="btn btn-primary mt-2"
+                        style="width: 90%; height: 70px; border-radius: 10px;" (click)="setUsed()">
+                        <h5 style="font-weight: bold;">Uzywany</h5>
+                        <p>Przedmiot odpakowany i uzywany</p>
+                    </button>
+                    <button *ngIf="condition === 'Used'" class="btn btn-primary mt-2"
+                        style="width: 90%; height: 70px; border-radius: 10px; border: 2px solid orange;">
+                        <h5 style="font-weight: bold;">Uzywany</h5>
+                        <p>Przedmiot odpakowany i uzywany</p>
+                    </button>
+                    <button *ngIf="condition != 'Broken'" class="btn btn-primary mt-2"
+                        style="width: 90%; height: 70px; border-radius: 10px;" (click)="setBroken()">
+                        <h5 style="font-weight: bold;">Zepsuty</h5>
+                        <p>Posiada wade, nie nadaje sie do uzytku</p>
+                    </button>
+                    <button *ngIf="condition === 'Broken'" class="btn btn-primary mt-2"
+                        style="width: 90%; height: 70px; border-radius: 10px; border: 2px solid orange;">
+                        <h5 style="font-weight: bold;">Zepsuty</h5>
+                        <p>Posiada wade, nie nadaje sie do uzytku</p>
+                    </button>
+                </div>
+
+                <div class="promotion row m-0 pt-4" [formGroup]="basicInfo">
+                    <h6 style="margin-top: 1px;">Promocja:</h6>
+                    <label class="radio-inline ml-3">
+                        <input class="mr-1" type="radio" value="Yes" formControlName="isOccasion"> tak
+                    </label>
+                    <label class="radio-inline ml-3">
+                        <input class="mr-1" type="radio" value='No' formControlName="isOccasion"> nie
+                    </label>
+                </div>
+
+                <div *ngIf="basicInfo.get('isOccasion').value === 'Yes'" class="price pt-3 m-0 row">
+                    <h6 style="padding-top: 3px; padding-right: 15px;">Nowa cena:</h6>
+                    <input class="textbox pl-2 i1" style="width: 20%; border-radius: 9999px;">
+                    <h6 style="padding-top: 3px; padding-right: 15px; padding-left: 10px;">zl</h6>
+                </div>
+
+
+                <h6 class="pt-4">Kategoria:</h6>
+                <select style="width: 90%; height: 34px;">
+                    <option *ngFor="let item of categories">
+                        {{item.display}}
+                    </option>
+                </select>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section-1">
+    <div class="detailed-info">
+        <div class="card" style="display:flex; flex-direction: row; height:fit-contents">
+            <div class="body pl-5">
+                <h2 class="pt-4">Parametry</h2>
+                <hr>
+                <div class="info" style="display: flex; flex-direction: row;">
+                    <div class="c1" style="width: 290px;">
+                        <p>Stan:</p>
+                        <p>Detykowana karta:</p>
+                    </div>
+                    <div class="c1" style="width: 290px;">
+
+                        <p *ngIf="condition === null" style="font-weight: bold;">Brak inf.</p>
+                        <p *ngIf="condition === 'New'" style="font-weight: bold;">Nowy</p>
+                        <p *ngIf="condition === 'Used'" style="font-weight: bold;">Uzywany</p>
+                        <p *ngIf="condition === 'Broken'" style="font-weight: bold;">Zepsuty</p>
+
+                        <select style="width: 70px;">
+                            <option *ngFor="let item of dedicedCard">
+                                {{item.display}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="c1" style="width: 290px;">
+                        <p>Karta graficzna:</p>
+                        <p>RAM:</p>
+                    </div>
+                    <div class="c1" style="width: 290px; display:flex; flex-direction: column;">
+                        <input class="textbox" placeholder="Model karty graficznej">
+
+                        <select class="c1 mt-2" style="width: 70px;">
+                            <option *ngFor="let item of ram">
+                                {{item.display}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

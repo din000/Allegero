@@ -40,6 +40,7 @@ export class ProductCardComponent implements OnInit {
       this.auction = data.auction;
       this.percent = (100 - (this.auction.newestPrice / this.auction.price) * 100).toFixed(2);
       this.user = data.user;
+      console.log(this.auction);
     });
 
     this.galleryOptions = [

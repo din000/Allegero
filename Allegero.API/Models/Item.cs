@@ -30,7 +30,23 @@ namespace Allegero.API.Models
         
         public int ? BuyerId { get; set; }
         public User Buyer { get; set; }
-        
 
+        // glowne informacje o laptopach
+        public string Proccesor { get; set; }
+        public bool HaveDedictedCard { get; set; }
+        public string GraphicCard { get; set; }
+        public int RAM { get; set; }
+
+        // wiecej informacji o przedmiocie
+        public string Condition { get; set; }
+        // public string Facture { get; set; }
+        // public string Color { get; set; }
+        // public double Weight { get; set; }
+        // public string Size { get; set; }
+        // public string CameFrom { get; set; }
+
+        // kategoria
+        public string Category { get; set; }
+      
     }
 }

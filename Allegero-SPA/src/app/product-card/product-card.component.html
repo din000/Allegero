@@ -65,7 +65,7 @@
               <p class="p-0 m-0" style="font-size:small; font-weight: bold;">Zwrot</p>
               <p class="p-0 m-0" style="font-size:small;">14 dni na ostapienie od umowy</p>
             </div>
-            <a class="d-info p-0 m-0" href="#">DOSTAWA</a>
+            <a class="d-info p-0 m-0" href="#">ZWROT</a>
           </div>
           <div class="info-1 mb-3" style="display: flex; flex-direction: row;">
             <div class="icon mt-auto mb-auto mr-3"><i class="fa fa-paypal fa-2x"></i></div>
@@ -73,7 +73,7 @@
               <p class="p-0 m-0" style="font-size:small; font-weight: bold;">Platnosci</p>
               <p class="p-0 m-0" style="font-size:small;">Wygodne platnosci payu</p>
             </div>
-            <a class="d-info p-0 m-0" href="#">DOSTAWA</a>
+            <a class="d-info p-0 m-0" href="#">PLATNOSCI</a>
           </div>
         </div>
         <hr class="m-0 mb-2" style="width: 95%;">
@@ -108,42 +108,26 @@
 </div>
 
 <div class="section-1" style="padding-top: 20px;">
-  <div class="card" style="margin-left: 15%; margin-right: 15%; height: 350px; ">
+  <div class="card" style="margin-left: 15%; margin-right: 15%; height: fit-content; ">
     <div class="body pl-5">
       <h2 class="pt-4">Parametry</h2>
       <hr>
-      <div class="info" style="display: flex; flex-direction: row;">
+      <div *ngIf="auction.category === 'Laptopy'" class="info" style="display: flex; flex-direction: row;">
         <div class="c1" style="width: 290px;">
-          <p>Stan</p>
-          <p>Faktura</p>
-          <p>Przekatna</p>
-          <p>Rozdzielczosc</p>
-          <p>Matryca</p>
-          <p>Ekran dotykowy</p>
+          <p>Stan:</p>
+          <p>Detykowana karta:</p>
         </div>
         <div class="c1" style="width: 290px;">
-          <p>Stan</p>
-          <p>Faktura</p>
-          <p>Przekatna</p>
-          <p>Rozdzielczosc</p>
-          <p>Matryca</p>
-          <p>Ekran dotykowy</p>
+          <p style="font-weight: bold;">{{auction.condition}}</p>
+          <p style="font-weight: bold;">{{auction.haveDedictedCard}}</p>
         </div>
         <div class="c1" style="width: 290px;">
-          <p>Stan</p>
-          <p>Faktura</p>
-          <p>Przekatna</p>
-          <p>Rozdzielczosc</p>
-          <p>Matryca</p>
-          <p>Ekran dotykowy</p>
+          <p>Karta graficzna:</p>
+          <p>RAM:</p>
         </div>
         <div class="c1" style="width: 290px;">
-          <p>Stan</p>
-          <p>Faktura</p>
-          <p>Przekatna</p>
-          <p>Rozdzielczosc</p>
-          <p>Matryca</p>
-          <p>Ekran dotykowy</p>
+          <p style="font-weight: bold;">{{auction.graphicCard}}</p>
+          <p style="font-weight: bold;">{{auction.ram}} GB</p>
         </div>
       </div>
     </div>

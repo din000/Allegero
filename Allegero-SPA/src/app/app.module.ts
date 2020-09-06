@@ -26,6 +26,9 @@ import { MainResolver } from './_resolvers/main.resolver';
 import { ManyAuctionsResolver } from './_resolvers/manyAuctions.resolver';
 import { ProductCardResolver } from './_resolvers/productCard.resolver';
 import { UserResolver } from './_resolvers/user.resolver';
+import { ProductAddComponent } from './product-add/product-add.component';
+
+
 
 
 @NgModule({
@@ -35,7 +38,8 @@ import { UserResolver } from './_resolvers/user.resolver';
       ResponsikComponent,
       Responsik2Component,
       ProductCardComponent,
-      MainSiteComponent
+      MainSiteComponent,
+      ProductAddComponent,
    ],
    imports: [
       BrowserModule,
