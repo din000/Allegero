@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Allegero.API.Data
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : GenericRepository, IUserRepository
     {
         private readonly DataContext _context;
-        public UserRepository(DataContext context)
+        public UserRepository(DataContext context) : base(context)
         {
             _context = context;
         }
@@ -65,6 +65,51 @@ namespace Allegero.API.Data
                     return occasion;
                 }
             } while (true);
+        }
+
+        public async Task<Item> MakeDefaultAuction(int userId)
+        {
+             // sprawdza czy juz jest jakas edytowana aukcja
+            var isAuctionEditing = await _context.Items.FirstOrDefaultAsync(x => x.IsEditing == true && x.SellerId == userId);
+            if (isAuctionEditing != null)
+                throw new Exception("Aktualnie dodajesz juz aukcje, dokoncz ja albo anuluj");
+
+            var auction = new Item();
+            auction.Name = "Default";
+            auction.Price = 0;
+            auction.Quantity = 0;
+            auction.Description = "Default";
+            auction.DateAdded = DateTime.Now;
+            auction.IsOccasion = false;
+            auction.SellerId = userId;
+            auction.Category = "Default";
+            auction.HaveDedictedCard = false;
+            auction.RAM = 0;
+            auction.Condition = "Default";
+            auction.IsEditing = true;
+
+            Add(auction);
+            if (await SaveAll())
+                return auction;
+            
+            throw new Exception("Cos poszlo nie tak z dodaniem aukcji");
+        }
+
+        public async Task<Item> TakeEditingAuction(int userId)
+        {
+            var auction = await _context.Items.FirstOrDefaultAsync(x => x.SellerId == userId && x.IsEditing == true);
+            return auction;         
+        }
+
+        public async Task<Photo> GetPhoto(int id)
+        {
+            var photoFromDataBase = await _context.Photos.FirstOrDefaultAsync(p => p.Id == id);
+            return photoFromDataBase;
+        }
+
+        public async Task<Photo> GetMainPhoto(int auctionId)
+        {
+            return await _context.Photos.Where(u => u.ItemId == auctionId).FirstOrDefaultAsync(i => i.IsMain);
         }
     }
 }

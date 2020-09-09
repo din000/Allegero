@@ -4,12 +4,16 @@ using Allegero.API.Models;
 
 namespace Allegero.API.Data
 {
-    public interface IUserRepository 
+    public interface IUserRepository : IGenericRepository
     {
         Task<IEnumerable<Item>> GetAuctions();
         Task<IEnumerable<Item>> GetManyAuctions(int number);
         Task<Item> GetAuction(int auctionId);
         Task<User> GetUser(int userId);
         Task<Item> GetOccasion();
+        Task<Item> MakeDefaultAuction(int userId);
+        Task<Item> TakeEditingAuction(int userId);
+        Task<Photo> GetPhoto(int photoId);
+        Task<Photo> GetMainPhoto(int auctionId);
     }
 }

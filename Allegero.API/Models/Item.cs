@@ -47,6 +47,9 @@ namespace Allegero.API.Models
 
         // kategoria
         public string Category { get; set; }
+        
+        // czy auckja jest w AKTUALNIE w edycji
+        public bool IsEditing { get; set; }
       
     }
 }
