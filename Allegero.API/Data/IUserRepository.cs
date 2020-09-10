@@ -13,6 +13,7 @@ namespace Allegero.API.Data
         Task<Item> GetOccasion();
         Task<Item> MakeDefaultAuction(int userId);
         Task<Item> TakeEditingAuction(int userId);
+        Task DeleteEditingAuction(int userId);
         Task<Photo> GetPhoto(int photoId);
         Task<Photo> GetMainPhoto(int auctionId);
     }

@@ -54,5 +54,20 @@ namespace Allegero.API.Controllers
 
             return Ok(user);
         }
+
+        [HttpPost("default/{userId}")]
+        public async Task<IActionResult> MakeDefaultAuction(int userId, string makeOrNot)
+        {
+            if (makeOrNot == "Make")
+            {
+                var auction = await _repository.MakeDefaultAuction(userId);
+                return Ok(auction);
+            }             
+            else
+            {
+                await _repository.DeleteEditingAuction(userId);
+                return Ok();
+            }          
+        }
     }
 }

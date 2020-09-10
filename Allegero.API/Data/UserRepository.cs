@@ -95,6 +95,13 @@ namespace Allegero.API.Data
             throw new Exception("Cos poszlo nie tak z dodaniem aukcji");
         }
 
+        public async Task DeleteEditingAuction(int userId)
+        {
+            var auction = await _context.Items.FirstOrDefaultAsync(x => x.SellerId == userId && x.IsEditing ==true);
+
+            Delete(auction);
+        }
+
         public async Task<Item> TakeEditingAuction(int userId)
         {
             var auction = await _context.Items.FirstOrDefaultAsync(x => x.SellerId == userId && x.IsEditing == true);
