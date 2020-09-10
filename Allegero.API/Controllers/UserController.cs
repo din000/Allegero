@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Allegero.API.Data;
+using Allegero.API.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -56,9 +57,9 @@ namespace Allegero.API.Controllers
         }
 
         [HttpPost("default/{userId}")]
-        public async Task<IActionResult> MakeDefaultAuction(int userId, string makeOrNot)
+        public async Task<IActionResult> MakeDefaultAuction(int userId, [FromQuery] MakeOrDeleteDefaultAuction param)
         {
-            if (makeOrNot == "Make")
+            if (param.makeOrDelete == "make")
             {
                 var auction = await _repository.MakeDefaultAuction(userId);
                 return Ok(auction);
