@@ -3,6 +3,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { UserService } from '../_services/user.service';
 import { Item } from '../_models/Item';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-main-site',
@@ -17,6 +18,7 @@ export class MainSiteComponent implements OnInit {
   auctions5: Item[];
   auctions3: Item[];
   auctionsToSlider2: Item[];
+  defaultAuction: Item;
 
   // do okazji
   occasion: Item;
@@ -39,7 +41,8 @@ export class MainSiteComponent implements OnInit {
   currDayInMins: number; // trza to bylo to, ogolnie lipa ale nie chce mi sie juz tlumaczyc
 
   constructor(private userService: UserService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private authService: AuthService) { }
 
       // do slajderow
       customOptions: OwlOptions = {
@@ -157,7 +160,16 @@ export class MainSiteComponent implements OnInit {
     this.userService.getOccasion()
       .subscribe(response => {
           this.occasion = response;
-          console.log(this.occasion);
+          console.log('okazja:' + this.occasion);
         });
+  }
+
+  // tworzy domyslna aukcje do edycji
+  makeDefaultAuction() {
+    this.userService.makeDefaultAuction(this.authService.decodedToken.nameid, 'make')
+      .subscribe(response => {
+        console.log('dzialam');
+        console.log(response);
+      });
   }
 }

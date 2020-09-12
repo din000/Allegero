@@ -3,6 +3,9 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 // https://valor-software.com/ng2-file-upload/
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov/ngx-gallery';
+import { UserService } from '../_services/user.service';
+import { AuthService } from '../_services/auth.service';
+import { AlertifyService } from '../_services/_alertify.service';
 
 @Component({
   selector: 'app-product-add',
@@ -35,7 +38,10 @@ export class ProductAddComponent implements OnInit {
   galleryImages: NgxGalleryImage[];
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+              private userService: UserService,
+              private authService: AuthService,
+              private alertify: AlertifyService) { }
 
   // ng g component product-add --style=css
   // ng g component product-add --style=css
@@ -86,5 +92,14 @@ export class ProductAddComponent implements OnInit {
     this.basicInfo = this.formBuilder.group({
       isOccasion: ['No'],
     });
+  }
+
+  deleteDefaultAuction() {
+    this.userService.makeDefaultAuction(this.authService.decodedToken.nameid, 'delete')
+      .subscribe(next => {
+        this.alertify.success('Usunales defaultowa aukcje');
+      }, error => {
+        this.alertify.error(error);
+      });
   }
 }

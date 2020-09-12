@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Item } from '../_models/Item';
 import { map } from 'rxjs/operators';
 import { User } from '../_models/User';
@@ -27,5 +27,15 @@ export class UserService {
 
   getUser(id: number){
     return this.http.get<User>(this.baseUrl + 'user/' + id);
+  }
+
+  makeDefaultAuction(userId: number, makeOrDelete?){
+    let param = new HttpParams();
+
+    if (makeOrDelete != null){
+      param = param.append('makeOrDelete', makeOrDelete);
+    }
+
+    return this.http.get<Item>(this.baseUrl + 'default/' + userId, {params: param});
   }
 }

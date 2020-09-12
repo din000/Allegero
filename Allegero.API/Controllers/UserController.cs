@@ -56,7 +56,7 @@ namespace Allegero.API.Controllers
             return Ok(user);
         }
 
-        [HttpPost("default/{userId}")]
+        [HttpGet("default/{userId}")]
         public async Task<IActionResult> MakeDefaultAuction(int userId, [FromQuery] MakeOrDeleteDefaultAuction param)
         {
             if (param.makeOrDelete == "make")
@@ -69,6 +69,13 @@ namespace Allegero.API.Controllers
                 await _repository.DeleteEditingAuction(userId);
                 return Ok();
             }          
+        }
+
+        [HttpGet("asd/{userId}")]
+        public async Task<IActionResult> chuj(int userId)
+        {
+            await _repository.DeleteEditingAuction(userId);
+            return Ok("udalo sie");
         }
     }
 }

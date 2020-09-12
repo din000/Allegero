@@ -100,6 +100,8 @@ namespace Allegero.API.Data
             var auction = await _context.Items.FirstOrDefaultAsync(x => x.SellerId == userId && x.IsEditing ==true);
 
             Delete(auction);
+            if (await SaveAll())
+                return;
         }
 
         public async Task<Item> TakeEditingAuction(int userId)
