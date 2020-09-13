@@ -2,6 +2,7 @@ using System.Linq;
 using Allegero.API.Dtos;
 using Allegero.API.Models;
 using AutoMapper;
+using Tinderro.API.Dtos;
 
 namespace Allegero.API.Helpers
 {
@@ -14,6 +15,8 @@ namespace Allegero.API.Helpers
             CreateMap<User, UserForDetailedDto>();
             CreateMap<UserForRegisterDto, User>();
             CreateMap<ItemForCreateDto, Item>();
+            CreateMap<PhotoForAddDto, Photo>();
+            CreateMap<Photo, PhotoForReturnDto>();
         }
     }
 }

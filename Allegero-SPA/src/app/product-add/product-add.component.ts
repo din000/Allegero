@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 // https://valor-software.com/ng2-file-upload/
-import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov/ngx-gallery';
 import { UserService } from '../_services/user.service';
 import { AuthService } from '../_services/auth.service';
@@ -37,6 +37,12 @@ export class ProductAddComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
+
+  // uploader
+  uploader: FileUploader;
+  hasBaseDropZoneOver: true;
+  hasAnotherDropZoneOver: true;
+  response: string;
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
@@ -76,6 +82,9 @@ export class ProductAddComponent implements OnInit {
     ];
 
     // this.galleryImages = this.getImages();
+
+    // uploader
+    this.initializeUploader();
   }
 
   setNew(){
@@ -94,12 +103,35 @@ export class ProductAddComponent implements OnInit {
     });
   }
 
+  // usuniecie defaulcikowej aukcji
   deleteDefaultAuction() {
     this.userService.makeDefaultAuction(this.authService.decodedToken.nameid, 'delete')
       .subscribe(next => {
         this.alertify.success('Usunales defaultowa aukcje');
       }, error => {
-        this.alertify.error(error);
+        this.alertify.error('Nie ma czego usuwac :)');
       });
+  }
+
+  // do uploadera
+  public fileOverBase(e: any): void {
+    this.hasBaseDropZoneOver = e;
+  }
+  public fileOverAnother(e: any): void {
+    this.hasAnotherDropZoneOver = e;
+  }
+  initializeUploader() {
+      this.uploader = new FileUploader({
+        // tslint:disable-next-line: max-line-length
+        url: 'http://localhost:5000/api/user/photos/' + this.authService.decodedToken.nameid, // url
+        authToken: 'Bearer ' + localStorage.getItem('token'), // 'Bearer ' WAZNE musi byc spacja
+        isHTML5: true,
+        allowedFileType: ['image'],
+        removeAfterUpload: true,
+        autoUpload: false,
+        maxFileSize: 10 * 1024 * 1024
+      });
+
+      this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; }; // ta linijkia powoduje ze zdj wgl sie wysyla
   }
 }

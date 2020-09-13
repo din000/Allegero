@@ -4,6 +4,7 @@ import { UserService } from '../_services/user.service';
 import { Item } from '../_models/Item';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
+import { AlertifyService } from '../_services/_alertify.service';
 
 @Component({
   selector: 'app-main-site',
@@ -42,7 +43,8 @@ export class MainSiteComponent implements OnInit {
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private alertify: AlertifyService) { }
 
       // do slajderow
       customOptions: OwlOptions = {
@@ -168,8 +170,11 @@ export class MainSiteComponent implements OnInit {
   makeDefaultAuction() {
     this.userService.makeDefaultAuction(this.authService.decodedToken.nameid, 'make')
       .subscribe(response => {
+        this.alertify.success('Poprawnie edutujesz aukcje');
         console.log('dzialam');
         console.log(response);
+      }, error => {
+        this.alertify.error('Dokoncz poprzednia edycje !');
       });
   }
 }

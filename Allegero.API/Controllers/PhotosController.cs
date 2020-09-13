@@ -16,7 +16,8 @@ using Tinderro.API.Helpers;
 
 namespace Tinderro.API.Controllers
 {
-    [Route("api/users/{userId}/[controller]")]  
+    //[Authorize]
+    [Route("api/user/photos/")]  
     [ApiController]
     public class PhotosController : ControllerBase
     {
@@ -24,10 +25,11 @@ namespace Tinderro.API.Controllers
         public IMapper _mapper { get; set; }
         public IOptions<ClaudinarySettings> _claudinaryConfig { get; set; }
         private Cloudinary _cloudinary;
-        public PhotosController(IMapper mapper, IOptions<ClaudinarySettings> claudinary)
+        public PhotosController(IMapper mapper, IOptions<ClaudinarySettings> claudinary, IUserRepository repo)
         {
             _claudinaryConfig = claudinary;
             _mapper = mapper;
+            _repository = repo;
 
             // to jest od biblioteki cloudinary bla bla
             Account account = new Account(
@@ -39,14 +41,14 @@ namespace Tinderro.API.Controllers
             _cloudinary = new Cloudinary(account);
         }
 
-        [HttpPost]
+        [HttpPost("{userId}")]
         public async Task<IActionResult> AddPhotoForUser(int userId, [FromForm]PhotoForAddDto photoForAddDto) // FromForm mowi skad zdjecie bedzie pochodzic
         {
             // sprawdza id z id z tokena
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
     
-            var auction = await _repository.TakeEditingAuction(userId);  // pobranie uzytkownika z bazy
+            var auction = await _repository.TakeEditingAuction(userId); 
  
             // UWAGA DZIWNE ponizsza nazwa file MUSI ZGADZAC SIE z nazwa w POSTMANIE z NAZWA ZDJECIA wtf xd
             var file = photoForAddDto.File;// zrobienie pliku z klasy PhotoForAddDto zeby dane moglybyc zczytane 
@@ -67,15 +69,25 @@ namespace Tinderro.API.Controllers
             }
 
             photoForAddDto.Url = uploadResault.Uri.ToString();  // no i dajemy otrzymane id i url do naszej klasy ktora pozniej przeslemy
-            photoForAddDto.Public_id = uploadResault.PublicId;
+            photoForAddDto.PublicId = uploadResault.PublicId;
 
             var photo = _mapper.Map<Photo>(photoForAddDto); // mapujemy na photo z photoforadddto
 
-            if (!auction.ItemPhotos.Any(p => p.IsMain)) // sprawdza czy JUZ jakies zdjecie jest glowne
+            if (auction.ItemPhotos == null)
+            {
                 photo.IsMain = true;
+                photo.ItemId = auction.Id;
+                _repository.Add(photo);
+                // auction.ItemPhotos.Add(photo);
+            }
+            else
+            {
+                if (!auction.ItemPhotos.Any(p => p.IsMain)) // sprawdza czy JUZ jakies zdjecie jest glowne
+                    photo.IsMain = true;
 
-            auction.ItemPhotos.Add(photo);
-
+                auction.ItemPhotos.Add(photo);
+            }   
+            
             if (await _repository.SaveAll())
             {
                 var photoForReturn = _mapper.Map<PhotoForReturnDto>(photo); 

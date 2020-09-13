@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Tinderro.API.Helpers;
 
 namespace Allegero.API
 {
@@ -52,6 +53,7 @@ namespace Allegero.API
                                 ValidateAudience = false
                             };
                         });
+            services.Configure<ClaudinarySettings>(Configuration.GetSection("ClaudinarySettings")); // konfiguracja chmury ze zdjeciami
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

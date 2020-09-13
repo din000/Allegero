@@ -27,6 +27,7 @@ import { ManyAuctionsResolver } from './_resolvers/manyAuctions.resolver';
 import { ProductCardResolver } from './_resolvers/productCard.resolver';
 import { UserResolver } from './_resolvers/user.resolver';
 import { ProductAddComponent } from './product-add/product-add.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 
@@ -54,7 +55,9 @@ import { ProductAddComponent } from './product-add/product-add.component';
       ModalModule.forRoot(),
       HttpClientModule,
       // https://github.com/kolkov/ngx-gallery
-      NgxGalleryModule
+      NgxGalleryModule,
+      // https://valor-software.com/ng2-file-upload/
+      FileUploadModule
    ],
    providers: [
       AuthService,

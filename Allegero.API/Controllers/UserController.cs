@@ -74,8 +74,8 @@ namespace Allegero.API.Controllers
         [HttpGet("asd/{userId}")]
         public async Task<IActionResult> chuj(int userId)
         {
-            await _repository.DeleteEditingAuction(userId);
-            return Ok("udalo sie");
+            var auction = await _repository.TakeEditingAuction(userId);
+            return Ok(auction);
         }
     }
 }
