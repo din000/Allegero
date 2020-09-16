@@ -6,6 +6,9 @@ import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov
 import { UserService } from '../_services/user.service';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/_alertify.service';
+import { Photo } from '../_models/Photo';
+import { Item } from '../_models/Item';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-add',
@@ -30,13 +33,15 @@ export class ProductAddComponent implements OnInit {
 
   condition = null;
   basicInfo: FormGroup;
+  photos = [];
+  testowaAukcja: Item;
 
   // https://github.com/kolkov/ngx-gallery
   // https://github.com/kolkov/ngx-gallery
   // https://github.com/kolkov/ngx-gallery
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
-  images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
+  images = [944, 1011, 984, 999, 1000].map((n) => `https://picsum.photos/id/${n}/900/500`);
 
   // uploader
   uploader: FileUploader;
@@ -47,7 +52,8 @@ export class ProductAddComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
               private authService: AuthService,
-              private alertify: AlertifyService) { }
+              private alertify: AlertifyService,
+              private route: ActivatedRoute) { }
 
   // ng g component product-add --style=css
   // ng g component product-add --style=css
@@ -85,6 +91,11 @@ export class ProductAddComponent implements OnInit {
 
     // uploader
     this.initializeUploader();
+
+    // this.route.data.subscribe(data => {
+    //   this.testowaAukcja = data.auction;
+    //   this.photos = this.testowaAukcja.itemPhotos;
+    // });
   }
 
   setNew(){
@@ -103,6 +114,8 @@ export class ProductAddComponent implements OnInit {
     });
   }
 
+
+
   // usuniecie defaulcikowej aukcji
   deleteDefaultAuction() {
     this.userService.makeDefaultAuction(this.authService.decodedToken.nameid, 'delete')
@@ -120,6 +133,20 @@ export class ProductAddComponent implements OnInit {
   public fileOverAnother(e: any): void {
     this.hasAnotherDropZoneOver = e;
   }
+
+  // getImages(){
+  //   const images = [];
+  //   // tslint:disable-next-line: prefer-for-of
+  //   for (let i = 0; i < this.photos.length; i++) {
+  //     images.push({
+  //       small: this.photos[i].url,
+  //       medium: this.photos[i].url,
+  //       big: this.photos[i].url,
+  //     });
+  //   }
+  //   return images;
+  // }
+
   initializeUploader() {
       this.uploader = new FileUploader({
         // tslint:disable-next-line: max-line-length
@@ -128,10 +155,39 @@ export class ProductAddComponent implements OnInit {
         isHTML5: true,
         allowedFileType: ['image'],
         removeAfterUpload: true,
-        autoUpload: false,
+        autoUpload: true,
         maxFileSize: 10 * 1024 * 1024
       });
 
       this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; }; // ta linijkia powoduje ze zdj wgl sie wysyla
+
+      this.uploader.onSuccessItem = (item, respons, status, headers) => {
+        if (respons) {
+          const response: Photo = JSON.parse(respons); // parsujemy na response ktore jest klasy Photo
+          console.log(response);
+          const photo = {
+            id: response.id,
+            url: response.url,
+            isMain: response.isMain,
+            publicId: response.publicId,
+            item: response.item,
+            itemId: response.itemId
+          };
+
+          this.photos.push(photo); // dodajemy do naszej kolekcji zdjec
+          // this.galleryImages = this.getImages();
+
+          // const photos = [];
+          // if (photos.length === 0){
+          //   photos.push(photo); // dodajemy do naszej kolekcji zdjec
+          // }
+
+          // if (photo.isMain) {
+          // this.authService.changeUserPhoto(photo.url);
+          // this.authService.currentUser.photoUrl = photo.url; // aktualizujemy dla aktualnego uzytkownika glowne zdj
+          // localStorage.setItem('user', JSON.stringify(this.authService.currentUser)); // a teraz aktualizujemy go w local storage
+          // }
+        }
+      };
   }
 }
