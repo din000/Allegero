@@ -7,12 +7,13 @@
                     style="margin-left: 5%; margin-right: 5%; margin-top: 13%;"></ngx-gallery>
                 <hr> -->
                 <hr style="width: 80%; margin: 0px;">
-                <div class="itemek" *ngFor="let item of photos">
-                    <div class="itemko m-0 p-0" style="height: 80px; width: 80%; position: relative;">
+                <div class="itemek" *ngIf="photos">
+                    <div class="itemko m-0 p-0" style="height: 80px; width: 80%; position: relative;" *ngFor="let item of photos">
                       
                             <img src="{{item.url}}" alt="" style="padding: 5px; width: 120px; height: 80px;">
                             <button class="btn btn-warning" style="width: 40px; height: 40px; position: absolute; right: 100px; top: 19px; color: white;"><i class="fa fa-home"></i></button>
-                           <button class="btn btn-danger" style="width: 40px; height: 40px; position: absolute; right: 50px; top: 19px;"><i class="fa fa-trash"></i></button>
+                           <button class="btn btn-danger" style="width: 40px; height: 40px; position: absolute; right: 50px; top: 19px;"
+                                    (click)="deletePhoto(item.id)"><i class="fa fa-trash"></i></button>
                        <hr class="p-0 m-0">
         
                     </div>

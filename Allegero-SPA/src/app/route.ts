@@ -8,6 +8,7 @@ import { ManyAuctionsResolver } from './_resolvers/manyAuctions.resolver';
 import { ProductCardResolver } from './_resolvers/productCard.resolver';
 import { UserResolver } from './_resolvers/user.resolver';
 import { ProductAddComponent } from './product-add/product-add.component';
+import { AuthGuard } from './_guards/auth.guard';
 
 
 export const appRoutes: Routes = [

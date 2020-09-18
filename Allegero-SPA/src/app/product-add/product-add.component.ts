@@ -114,8 +114,6 @@ export class ProductAddComponent implements OnInit {
     });
   }
 
-
-
   // usuniecie defaulcikowej aukcji
   deleteDefaultAuction() {
     this.userService.makeDefaultAuction(this.authService.decodedToken.nameid, 'delete')
@@ -164,7 +162,6 @@ export class ProductAddComponent implements OnInit {
       this.uploader.onSuccessItem = (item, respons, status, headers) => {
         if (respons) {
           const response: Photo = JSON.parse(respons); // parsujemy na response ktore jest klasy Photo
-          console.log(response);
           const photo = {
             id: response.id,
             url: response.url,
@@ -189,5 +186,17 @@ export class ProductAddComponent implements OnInit {
           // }
         }
       };
+  }
+
+  deletePhoto(photoId: number){
+    this.alertify.confirm('Czy na pewno usunac zdj?', () => {
+      this.userService.deletePhoto(this.authService.decodedToken.nameid, photoId)
+      .subscribe(() => {
+        this.photos.splice(this.photos.findIndex(i => i.id === photoId), 1);
+        this.alertify.success('Zdj usuniete');
+      }, error => {
+        this.alertify.error('Nie udalo sie usunac zdj');
+      });
+    });
   }
 }

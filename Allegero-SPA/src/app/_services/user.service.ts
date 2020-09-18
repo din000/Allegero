@@ -38,4 +38,8 @@ export class UserService {
 
     return this.http.get<Item>(this.baseUrl + 'default/' + userId, {params: param});
   }
+
+  deletePhoto(userId: number, photoId: number){
+    return this.http.delete(this.baseUrl + 'photos/' + userId + '/' + photoId);
+  }
 }

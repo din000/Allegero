@@ -28,9 +28,14 @@ import { ProductCardResolver } from './_resolvers/productCard.resolver';
 import { UserResolver } from './_resolvers/user.resolver';
 import { ProductAddComponent } from './product-add/product-add.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { AuthGuard } from './_guards/auth.guard';
+import { JwtModule } from '@auth0/angular-jwt';
 
 
 
+export function TokenGetter() { // to jest do globalnej autoryzacji i juz jest ok z odswiezaniem
+   return localStorage.getItem('token');
+}
 
 @NgModule({
    declarations: [
@@ -57,7 +62,14 @@ import { FileUploadModule } from 'ng2-file-upload';
       // https://github.com/kolkov/ngx-gallery
       NgxGalleryModule,
       // https://valor-software.com/ng2-file-upload/
-      FileUploadModule
+      FileUploadModule,
+      JwtModule.forRoot({
+         config: {
+            tokenGetter: TokenGetter,
+            allowedDomains: ['localhost:5000'],
+            disallowedRoutes: ['localhost:5000/api/auth'],
+         }
+      }),
    ],
    providers: [
       AuthService,
@@ -68,6 +80,7 @@ import { FileUploadModule } from 'ng2-file-upload';
       ManyAuctionsResolver,
       ProductCardResolver,
       UserResolver,
+      AuthGuard,
    ],
    bootstrap: [
       AppComponent

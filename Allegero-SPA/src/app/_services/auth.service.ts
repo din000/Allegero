@@ -27,8 +27,13 @@ export class AuthService {
         if (data) {
           localStorage.setItem('token', data.token);
           localStorage.setItem('user', JSON.stringify(data.user));
-          // this.decodedToken = this.jwtHelper.decodeToken(data.token);
-          // this.currentUser = this.jwtHelper.decodeToken(data.user);
+          this.decodedToken = this.jwtHelper.decodeToken(data.token);
+          const user: User = JSON.parse(localStorage.getItem('user'));
+          this.currentUser = user;
+          // if (this.decodedToken === null && this.currentUser === null){
+          //   this.decodedToken = this.jwtHelper.decodeToken(data.token);
+          //   this.currentUser = this.jwtHelper.decodeToken(data.user);
+          // }
           // this.changeMainPhoto(this.currentUser.publicPhotoID);
         }
       }));

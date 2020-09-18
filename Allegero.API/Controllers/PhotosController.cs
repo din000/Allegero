@@ -141,21 +141,21 @@ namespace Tinderro.API.Controllers
             return BadRequest("Nie mozna ustawic zdj jako glownego");
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{userId}/{id}")]
         public async Task<IActionResult> Delete(int userId, int id)
         {
              if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var auction = await _repository.GetAuction(userId);
+            var auction = await _repository.TakeEditingAuction(userId);
 
             if (!auction.ItemPhotos.Any(p => p.Id == id)) // jezeli nie ma zdjec
                 return Unauthorized();
 
             var photo = await _repository.GetPhoto(id);
 
-            if (photo.IsMain)
-                return BadRequest("Nie mozna usunac glosnego zdj");
+            // if (photo.IsMain)
+            //     return BadRequest("Nie mozna usunac glosnego zdj");
 
             // ------------------------------
 
@@ -168,7 +168,7 @@ namespace Tinderro.API.Controllers
                     _repository.Delete(photo);
             }
             
-            if (photo.PublicId != null)
+            if (photo.PublicId == null)
                 _repository.Delete(photo);
 
             if (await _repository.SaveAll())
