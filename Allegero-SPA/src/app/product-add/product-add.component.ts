@@ -31,6 +31,9 @@ export class ProductAddComponent implements OnInit {
         {value: '16', display: '16 GB'},
         {value: '32', display: '32 GB'}];
 
+  numberOfDesc = 0;
+  partsOfDesc = [];
+
   condition = null;
   basicInfo: FormGroup;
   photos = [];
@@ -198,5 +201,10 @@ export class ProductAddComponent implements OnInit {
         this.alertify.error('Nie udalo sie usunac zdj');
       });
     });
+  }
+
+  numberOdDescPlus(){
+    this.numberOfDesc += 1;
+    this.partsOfDesc.push('part');
   }
 }
