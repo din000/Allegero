@@ -9,6 +9,7 @@ import { AlertifyService } from '../_services/_alertify.service';
 import { Photo } from '../_models/Photo';
 import { Item } from '../_models/Item';
 import { ActivatedRoute } from '@angular/router';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-product-add',
@@ -33,6 +34,57 @@ export class ProductAddComponent implements OnInit {
 
   numberOfDesc = 0;
   partsOfDesc = [];
+
+  // https://www.npmjs.com/package/@kolkov/angular-editor
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+      spellcheck: true,
+      height: 'auto',
+      minHeight: '0',
+      maxHeight: 'auto',
+      width: 'auto',
+      minWidth: '0',
+      translate: 'yes',
+      enableToolbar: true,
+      showToolbar: true,
+      placeholder: 'Enter text here...',
+      defaultParagraphSeparator: '',
+      defaultFontName: '',
+      defaultFontSize: '',
+      fonts: [
+        {class: 'arial', name: 'Arial'},
+        {class: 'times-new-roman', name: 'Times New Roman'},
+        {class: 'calibri', name: 'Calibri'},
+        {class: 'comic-sans-ms', name: 'Comic Sans MS'}
+      ],
+      customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ],
+    uploadUrl: 'http://localhost:5000/api/user/photos/' + this.authService.decodedToken.nameid, // url
+    uploadWithCredentials: false,
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      ['bold', 'italic'],
+      ['fontSize']
+    ]
+  };
+  htmlContent = '';
+
+  // formularz produktu
+  productForm: FormGroup;
 
   condition = null;
   basicInfo: FormGroup;
@@ -63,6 +115,10 @@ export class ProductAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.createBasicInfo();
+    // uploader
+    this.initializeUploader();
+    // tworzy formularz do dodawania produktu
+    this.createProductForm();
 
     this.galleryOptions = [
       {
@@ -91,14 +147,12 @@ export class ProductAddComponent implements OnInit {
     ];
 
     // this.galleryImages = this.getImages();
+  }
 
-    // uploader
-    this.initializeUploader();
-
-    // this.route.data.subscribe(data => {
-    //   this.testowaAukcja = data.auction;
-    //   this.photos = this.testowaAukcja.itemPhotos;
-    // });
+  createProductForm(){
+    this.productForm = this.formBuilder.group({
+      part1: ['1'],
+    });
   }
 
   setNew(){
@@ -205,6 +259,10 @@ export class ProductAddComponent implements OnInit {
 
   numberOdDescPlus(){
     this.numberOfDesc += 1;
-    this.partsOfDesc.push('part');
+    this.partsOfDesc.push(this.numberOfDesc.toString());
+  }
+
+  tescik(){
+    console.log(this.productForm.value);
   }
 }

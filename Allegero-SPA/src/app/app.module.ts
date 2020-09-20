@@ -30,7 +30,7 @@ import { ProductAddComponent } from './product-add/product-add.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { AuthGuard } from './_guards/auth.guard';
 import { JwtModule } from '@auth0/angular-jwt';
-
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 
 export function TokenGetter() { // to jest do globalnej autoryzacji i juz jest ok z odswiezaniem
@@ -70,6 +70,9 @@ export function TokenGetter() { // to jest do globalnej autoryzacji i juz jest o
             disallowedRoutes: ['localhost:5000/api/auth'],
          }
       }),
+      HttpClientModule,
+      // https://www.npmjs.com/package/@kolkov/angular-editor
+      AngularEditorModule,
    ],
    providers: [
       AuthService,
