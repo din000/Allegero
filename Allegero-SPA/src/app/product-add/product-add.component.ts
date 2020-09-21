@@ -34,14 +34,16 @@ export class ProductAddComponent implements OnInit {
 
   numberOfDesc = 0;
   partsOfDesc = [];
+  infoAboutParts: any = {};
+  parciki = [];
 
   // https://www.npmjs.com/package/@kolkov/angular-editor
   editorConfig: AngularEditorConfig = {
     editable: true,
       spellcheck: true,
       height: 'auto',
-      minHeight: '0',
-      maxHeight: 'auto',
+      minHeight: '350px',
+      maxHeight: '350px',
       width: 'auto',
       minWidth: '0',
       translate: 'yes',
@@ -152,6 +154,8 @@ export class ProductAddComponent implements OnInit {
   createProductForm(){
     this.productForm = this.formBuilder.group({
       part1: ['1'],
+      part2: ['2'],
+      part3: ['1'],
     });
   }
 
@@ -260,9 +264,21 @@ export class ProductAddComponent implements OnInit {
   numberOdDescPlus(){
     this.numberOfDesc += 1;
     this.partsOfDesc.push(this.numberOfDesc.toString());
+    this.parciki[this.numberOfDesc - 1] = 1;
   }
 
   tescik(){
-    console.log(this.productForm.value);
+    console.log(this.parciki);
+  }
+
+  dodanieParcika(partNumber: string, value: number){
+    const idd = Number(partNumber);
+    console.log(idd);
+    this.parciki[idd - 1] = value;
+  }
+
+  changeToNumber(partNumber: string){
+    const idd = Number(partNumber);
+    return idd;
   }
 }
