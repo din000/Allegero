@@ -35,7 +35,7 @@ export class ProductAddComponent implements OnInit {
   numberOfDesc = 0;
   partsOfDesc = [];
   infoAboutParts: any = {};
-  parciki = [];
+  parciki = [1, 1, 1];
 
   // https://www.npmjs.com/package/@kolkov/angular-editor
   editorConfig: AngularEditorConfig = {
@@ -153,9 +153,9 @@ export class ProductAddComponent implements OnInit {
 
   createProductForm(){
     this.productForm = this.formBuilder.group({
-      part1: ['1'],
-      part2: ['2'],
-      part3: ['1'],
+      part1: [1],
+      part2: [2],
+      part3: [3],
     });
   }
 
@@ -273,12 +273,15 @@ export class ProductAddComponent implements OnInit {
 
   dodanieParcika(partNumber: string, value: number){
     const idd = Number(partNumber);
-    console.log(idd);
     this.parciki[idd - 1] = value;
+    this.check(partNumber);
+    console.log('9999999');
   }
 
-  changeToNumber(partNumber: string){
+  check(partNumber: string){
     const idd = Number(partNumber);
-    return idd;
+    console.log('0');
+    return this.parciki[idd];
   }
+
 }

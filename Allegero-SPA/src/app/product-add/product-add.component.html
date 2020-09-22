@@ -115,7 +115,7 @@
                 </select>
 
                 <div class="butonik">
-                    <button class="btn btn-primary" (click)="tescik()">Usun</button>
+                    <button class="btn btn-primary" (click)="tescik()" >Usun</button>
                 </div>
 
             </div>
@@ -173,25 +173,25 @@
                 <h2 class="pt-4">Opis</h2>
                 <hr style="width: 100%; margin-left: 0px; margin-bottom: 25px;"> 
                 
-                <div *ngFor="let item of partsOfDesc" class="partOfDesc"
+                <div *ngFor="let item of partsOfDesc; let i = index" class="partOfDesc"
                       style="height: 490px; background-color: whitesmoke; width: 100%; margin-bottom: 0px; padding-top: 9px;">
 
                       <form [formGroup]="productForm">
                         <div class="row" style="margin-left: 41%;">
                          <div class="radio">
-                             <label class="mr-3"><input class="mr-2" type="radio" value="1" (click)="dodanieParcika(item, 1)" formControlName="part{{item}}">Uklad 1</label>
+                             <label class="mr-3"><input class="mr-2" type="radio" [value]="1" (click)="dodanieParcika(item, 1)" formControlName="part{{item}}">Uklad 1</label>
                            </div>
                            <div class="radio">
-                             <label class="mr-3"><input class="mr-2" type="radio" value="2" (click)="dodanieParcika(item, 2)" formControlName="part{{item}}">Uklad 2</label>
+                             <label class="mr-3"><input class="mr-2" type="radio" [value]="2" (click)="dodanieParcika(item, 2)" formControlName="part{{item}}">Uklad 2</label>
                            </div>
                            <div class="radio">
-                             <label><input class="mr-2" type="radio" value="3" (click)="dodanieParcika(item, 3)" formControlName="part{{item}}">Uklad 3</label>
+                             <label><input class="mr-2" type="radio" [value]="3" (click)="dodanieParcika(item, 3)" formControlName="part{{item}}">Uklad 3</label>
                            </div>
                         </div>
                      </form>
 
                      <!-- przypadek 1 -->
-                     <div *ngIf="parciki[changeToNumber(item)] === '1'" class="case-1 row p-0 m-0" style="width: 100%;">
+                     <div *ngIf="parciki[i] === 1" class="case-1 row p-0 m-0" style="width: 100%;">
                         <div class="part-1" style="width: 45%; margin-right: 1%; height: fit-content;">
                             <div ng2FileDrop
                                 [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
@@ -207,7 +207,7 @@
                         </div>
                      </div>
                      <!-- przypadek 2 -->
-                     <div *ngIf="productForm.get('part1').value === '2'" class="case-1 row p-0 m-0" style="width: 100%;">
+                     <div *ngIf="parciki[i] === 2" class="case-1 row p-0 m-0" style="width: 100%;">
                         <div class="part-2" style="width: 54%; height: 100%;  margin-right: 1%;">
                             <angular-editor [(ngModel)]="htmlContent" [config]="editorConfig"></angular-editor>
                         </div>
@@ -223,7 +223,7 @@
                         </div>
                      </div>
 
-                      <angular-editor *ngIf="productForm.get('part1').value === '3'" [(ngModel)]="htmlContent" [config]="editorConfig"></angular-editor>            
+                      <angular-editor *ngIf="parciki[i] === 3" [(ngModel)]="htmlContent" [config]="editorConfig"></angular-editor>            
                 </div>
 
                 <div class="button-1" style="position: relative; height: 150px;">
