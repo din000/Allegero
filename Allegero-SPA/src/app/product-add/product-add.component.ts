@@ -35,7 +35,7 @@ export class ProductAddComponent implements OnInit {
   numberOfDesc = 0;
   partsOfDesc = [];
   infoAboutParts: any = {};
-  parciki = [1, 1, 1];
+  parciki = [1, 1, 1, 1, 1];
 
   // https://www.npmjs.com/package/@kolkov/angular-editor
   editorConfig: AngularEditorConfig = {
@@ -106,6 +106,9 @@ export class ProductAddComponent implements OnInit {
   hasAnotherDropZoneOver: true;
   response: string;
 
+  // edytowana aukcja
+  editingAuction: Item;
+
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
               private authService: AuthService,
@@ -116,6 +119,13 @@ export class ProductAddComponent implements OnInit {
   // ng g component product-add --style=css
 
   ngOnInit(): void {
+    // laduje edytowana aukcje
+    this.loadEditingAuction();
+    // this.route.data.subscribe(data => {
+    //   this.editingAuction = data.routerEditingAuction;
+    //   console.log(this.editingAuction);
+    // });
+
     this.createBasicInfo();
     // uploader
     this.initializeUploader();
@@ -154,8 +164,20 @@ export class ProductAddComponent implements OnInit {
   createProductForm(){
     this.productForm = this.formBuilder.group({
       part1: [1],
-      part2: [2],
-      part3: [3],
+      part2: [1],
+      part3: [1],
+      part4: [1],
+      part5: [1],
+      p1_Img: [''],
+      p2_Img: [''],
+      p3_Img: [''],
+      p4_Img: [''],
+      p5_Img: [''],
+      p1_Desc: [''],
+      p2_Desc: [''],
+      p3_Desc: [''],
+      p4_Desc: [''],
+      p5_Desc: [''],
     });
   }
 
@@ -249,6 +271,16 @@ export class ProductAddComponent implements OnInit {
       };
   }
 
+  setPhotoSecondId(secondId: number){
+    console.log('dziala :D');
+    this.userService.setAuctionSecondId(this.authService.decodedToken.nameid, secondId)
+      .subscribe(response => {
+        this.alertify.success('Dodales zdj');
+      }, error => {
+        this.alertify.error(error);
+      });
+  }
+
   deletePhoto(photoId: number){
     this.alertify.confirm('Czy na pewno usunac zdj?', () => {
       this.userService.deletePhoto(this.authService.decodedToken.nameid, photoId)
@@ -262,6 +294,9 @@ export class ProductAddComponent implements OnInit {
   }
 
   numberOdDescPlus(){
+    if (this.numberOfDesc == null){
+      this.numberOfDesc = 0;
+    }
     this.numberOfDesc += 1;
     this.partsOfDesc.push(this.numberOfDesc.toString());
     this.parciki[this.numberOfDesc - 1] = 1;
@@ -282,6 +317,13 @@ export class ProductAddComponent implements OnInit {
     const idd = Number(partNumber);
     console.log('0');
     return this.parciki[idd];
+  }
+
+  loadEditingAuction(){
+    this.userService.takeEditingAuction(this.authService.decodedToken.nameid)
+      .subscribe(response => {
+        this.editingAuction = response;
+      })
   }
 
 }

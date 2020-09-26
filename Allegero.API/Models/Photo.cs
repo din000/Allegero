@@ -10,5 +10,8 @@ namespace Allegero.API.Models
         // 2 linijki do wyswietlenia powiazanej rzeczy
         public Item Item { get; set; }
         public int ItemId { get; set; }
+
+        // do opisu pod aukja
+        public int SecondId { get; set; }
     }
 }

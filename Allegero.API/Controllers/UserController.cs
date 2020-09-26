@@ -77,5 +77,12 @@ namespace Allegero.API.Controllers
             var auction = await _repository.TakeEditingAuction(userId);
             return Ok(auction);
         }
+
+        [HttpGet("editingAuction/{userId}")]
+        public async Task<IActionResult> TakeEditingAuction(int userId)
+        {
+            var editingAuction = await _repository.TakeEditingAuction(userId);
+            return Ok(editingAuction);
+        }
     }
 }

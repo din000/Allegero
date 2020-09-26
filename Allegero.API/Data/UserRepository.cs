@@ -24,13 +24,13 @@ namespace Allegero.API.Data
 
         public async Task<IEnumerable<Item>> GetAuctions()
         {
-            var auctions = _context.Items.AsQueryable();
+            var auctions = await _context.Items.ToArrayAsync();
             return auctions;
         }
 
         public async Task<IEnumerable<Item>> GetManyAuctions(int number)
         {
-            var auctions = _context.Items.Take(number).Include(p => p.ItemPhotos).AsQueryable();
+            var auctions = await _context.Items.Take(number).Include(p => p.ItemPhotos).ToArrayAsync();
             return auctions;
         }
 
@@ -119,6 +119,13 @@ namespace Allegero.API.Data
         public async Task<Photo> GetMainPhoto(int auctionId)
         {
             return await _context.Photos.Where(u => u.ItemId == auctionId).FirstOrDefaultAsync(i => i.IsMain);
+        }
+
+        public async Task<Photo> GetLastAuctionPhoto(int auctionId)
+        {
+            var lastPhoto = await _context.Photos.LastOrDefaultAsync(i => i.ItemId == auctionId);
+            
+            return lastPhoto;
         }
     }
 }

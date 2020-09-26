@@ -16,5 +16,6 @@ namespace Allegero.API.Data
         Task DeleteEditingAuction(int userId);
         Task<Photo> GetPhoto(int photoId);
         Task<Photo> GetMainPhoto(int auctionId);
+        Task<Photo> GetLastAuctionPhoto(int auctionId);
     }
 }

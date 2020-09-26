@@ -41,8 +41,8 @@ namespace Tinderro.API.Controllers
             _cloudinary = new Cloudinary(account);
         }
 
-        [HttpPost("{userId}")]
-        public async Task<IActionResult> AddPhotoForUser(int userId, [FromForm]PhotoForAddDto photoForAddDto) // FromForm mowi skad zdjecie bedzie pochodzic
+        [HttpPost("{userId}/{secondId}")]
+        public async Task<IActionResult> AddPhotoForUser(int userId, [FromForm]PhotoForAddDto photoForAddDto, int ? secondId) // FromForm mowi skad zdjecie bedzie pochodzic
         {
             // sprawdza id z id z tokena
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
@@ -73,6 +73,15 @@ namespace Tinderro.API.Controllers
 
             var photo = _mapper.Map<Photo>(photoForAddDto); // mapujemy na photo z photoforadddto
 
+            if (secondId == null)
+            {
+                photo.SecondId = 12;
+            }
+            else
+            {
+                photo.SecondId = (int)secondId;
+            }
+
             if (auction.ItemPhotos == null)
             {
                 photo.IsMain = true;
@@ -87,6 +96,7 @@ namespace Tinderro.API.Controllers
 
                 auction.ItemPhotos.Add(photo);
             }   
+
             
             if (await _repository.SaveAll())
             {
@@ -141,6 +151,22 @@ namespace Tinderro.API.Controllers
             return BadRequest("Nie mozna ustawic zdj jako glownego");
         }
 
+        // ustawia secondId dla zdj (zeby bylo ladnie w opisie aukcji)
+        [HttpPost("{userId}/secondId/{secondId}")]
+        public async Task<IActionResult> SetSecondId(int userId, int secondId)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            
+            var lastPhoto = await _repository.GetLastAuctionPhoto(userId);
+            lastPhoto.SecondId = secondId;
+
+            if (await _repository.SaveAll())
+                return NoContent();
+
+            return BadRequest("Nie da sie ustawic secondId");
+        }
+
         [HttpDelete("{userId}/{id}")]
         public async Task<IActionResult> Delete(int userId, int id)
         {
@@ -176,5 +202,6 @@ namespace Tinderro.API.Controllers
 
             return BadRequest("Nie udalo sie usunac zdj");
         }
+
     }
 }

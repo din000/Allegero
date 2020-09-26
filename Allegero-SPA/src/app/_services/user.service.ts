@@ -42,4 +42,12 @@ export class UserService {
   deletePhoto(userId: number, photoId: number){
     return this.http.delete(this.baseUrl + 'photos/' + userId + '/' + photoId);
   }
+
+  setAuctionSecondId(userId: number, secondId: number){
+    return this.http.post(this.baseUrl + 'photos/' + userId + '/secondId/' + secondId, {});
+  }
+
+  takeEditingAuction(userId: number){
+    return this.http.get(this.baseUrl + 'editingAuction/' + userId);
+  }
 }
