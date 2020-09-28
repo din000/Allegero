@@ -121,10 +121,6 @@ export class ProductAddComponent implements OnInit {
   ngOnInit(): void {
     // laduje edytowana aukcje
     this.loadEditingAuction();
-    // this.route.data.subscribe(data => {
-    //   this.editingAuction = data.routerEditingAuction;
-    //   console.log(this.editingAuction);
-    // });
 
     this.createBasicInfo();
     // uploader
@@ -253,7 +249,6 @@ export class ProductAddComponent implements OnInit {
             item: response.item,
             itemId: response.itemId
           };
-
           this.photos.push(photo); // dodajemy do naszej kolekcji zdjec
           // this.galleryImages = this.getImages();
 
@@ -273,7 +268,7 @@ export class ProductAddComponent implements OnInit {
 
   setPhotoSecondId(secondId: number){
     console.log('dziala :D');
-    this.userService.setAuctionSecondId(this.authService.decodedToken.nameid, secondId)
+    this.userService.setAuctionSecondId(this.editingAuction.id, secondId)
       .subscribe(response => {
         this.alertify.success('Dodales zdj');
       }, error => {
@@ -323,7 +318,8 @@ export class ProductAddComponent implements OnInit {
     this.userService.takeEditingAuction(this.authService.decodedToken.nameid)
       .subscribe(response => {
         this.editingAuction = response;
-      })
+        console.log(this.editingAuction);
+      });
   }
 
 }

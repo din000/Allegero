@@ -48,6 +48,6 @@ export class UserService {
   }
 
   takeEditingAuction(userId: number){
-    return this.http.get(this.baseUrl + 'editingAuction/' + userId);
+    return this.http.get<Item>(this.baseUrl + 'editingAuction/' + userId);
   }
 }

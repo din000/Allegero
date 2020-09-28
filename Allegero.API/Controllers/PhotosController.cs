@@ -41,7 +41,7 @@ namespace Tinderro.API.Controllers
             _cloudinary = new Cloudinary(account);
         }
 
-        [HttpPost("{userId}/{secondId}")]
+        [HttpPost("{userId}")]
         public async Task<IActionResult> AddPhotoForUser(int userId, [FromForm]PhotoForAddDto photoForAddDto, int ? secondId) // FromForm mowi skad zdjecie bedzie pochodzic
         {
             // sprawdza id z id z tokena

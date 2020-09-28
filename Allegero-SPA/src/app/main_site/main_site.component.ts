@@ -171,8 +171,6 @@ export class MainSiteComponent implements OnInit {
     this.userService.makeDefaultAuction(this.authService.decodedToken.nameid, 'make')
       .subscribe(response => {
         this.alertify.success('Poprawnie edutujesz aukcje');
-        console.log('dzialam');
-        console.log(response);
       }, error => {
         this.alertify.error('Dokoncz poprzednia edycje !');
       });

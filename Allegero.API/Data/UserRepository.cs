@@ -121,9 +121,14 @@ namespace Allegero.API.Data
             return await _context.Photos.Where(u => u.ItemId == auctionId).FirstOrDefaultAsync(i => i.IsMain);
         }
 
-        public async Task<Photo> GetLastAuctionPhoto(int auctionId)
+        public async Task<Photo> GetLastAuctionPhoto(int userId)
         {
-            var lastPhoto = await _context.Photos.LastOrDefaultAsync(i => i.ItemId == auctionId);
+            var auction = await TakeEditingAuction(userId);
+            var auctionid = auction.Id;
+
+            int id = (from n in _context.Photos.Where(i => i.ItemId == auctionid).OrderByDescending(n => n.Id) select n.Id).FirstOrDefault();
+            
+            var lastPhoto = await GetPhoto(id);
             
             return lastPhoto;
         }
