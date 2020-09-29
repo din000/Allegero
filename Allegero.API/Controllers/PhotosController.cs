@@ -152,8 +152,8 @@ namespace Tinderro.API.Controllers
         }
 
         // ustawia secondId dla zdj (zeby bylo ladnie w opisie aukcji)
-        [HttpPost("{userId}/secondId/{secondId}")]
-        public async Task<IActionResult> SetSecondId(int userId, int secondId)
+        [HttpPost("{userId}/{auctionId}/secondId/{secondId}")]
+        public async Task<IActionResult> SetSecondId(int auctionId, int secondId, int userId)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();

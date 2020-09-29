@@ -10,6 +10,7 @@ import { Photo } from '../_models/Photo';
 import { Item } from '../_models/Item';
 import { ActivatedRoute } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-product-add',
@@ -117,6 +118,7 @@ export class ProductAddComponent implements OnInit {
 
   // ng g component product-add --style=css
   // ng g component product-add --style=css
+
 
   ngOnInit(): void {
     // laduje edytowana aukcje
@@ -250,6 +252,7 @@ export class ProductAddComponent implements OnInit {
             itemId: response.itemId
           };
           this.photos.push(photo); // dodajemy do naszej kolekcji zdjec
+          this.alertify.success('Dodales zdj');
           // this.galleryImages = this.getImages();
 
           // const photos = [];
@@ -267,13 +270,13 @@ export class ProductAddComponent implements OnInit {
   }
 
   setPhotoSecondId(secondId: number){
-    console.log('dziala :D');
-    this.userService.setAuctionSecondId(this.editingAuction.id, secondId)
-      .subscribe(response => {
-        this.alertify.success('Dodales zdj');
-      }, error => {
-        this.alertify.error(error);
-      });
+    timer(1500).subscribe(x =>
+      this.userService.setAuctionSecondId(this.authService.decodedToken.nameid, this.editingAuction.id, secondId)
+        .subscribe(response => {
+            this.alertify.success('Zmieniono secondId pomyslnie');
+            }, error => {
+            this.alertify.error(error);
+            }));
   }
 
   deletePhoto(photoId: number){
@@ -322,4 +325,7 @@ export class ProductAddComponent implements OnInit {
       });
   }
 
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
 }

@@ -199,7 +199,7 @@
                             <div class="part-1" style="width: 45%; margin-right: 1%; height: fit-content;">
                                 <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
                                     (fileOver)="fileOverBase($event)" [uploader]="uploader"
-                                    (dragleave)="setPhotoSecondId(i)"
+                                    (drop)="setPhotoSecondId(i)"
                                     class="card bg-faded p-3 my-drop-zone text-center"
                                     style="width: 550px; height: 350px; position: relative;">
                                     <p style="position: absolute; top: 47%; right: 44%;">Dodaj zdj</p>

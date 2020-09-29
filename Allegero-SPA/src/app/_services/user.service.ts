@@ -43,8 +43,8 @@ export class UserService {
     return this.http.delete(this.baseUrl + 'photos/' + userId + '/' + photoId);
   }
 
-  setAuctionSecondId(userId: number, secondId: number){
-    return this.http.post(this.baseUrl + 'photos/' + userId + '/secondId/' + secondId, {});
+  setAuctionSecondId(userId: number, auctionId: number, secondId: number){
+    return this.http.post(this.baseUrl + 'photos/' + userId + '/' + auctionId + '/secondId/' + secondId, {});
   }
 
   takeEditingAuction(userId: number){
