@@ -43,6 +43,10 @@ export class UserService {
     return this.http.delete(this.baseUrl + 'photos/' + userId + '/' + photoId);
   }
 
+  setMainPhoto(userId: number, auctionId: number, photoId: number){
+    return this.http.post(this.baseUrl + 'photos/' + userId + '/' + auctionId + '/' + photoId + '/setMain', {});
+  }
+
   setAuctionSecondId(userId: number, auctionId: number, secondId: number){
     return this.http.post(this.baseUrl + 'photos/' + userId + '/' + auctionId + '/secondId/' + secondId, {});
   }

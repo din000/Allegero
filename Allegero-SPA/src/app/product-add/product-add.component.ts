@@ -37,6 +37,7 @@ export class ProductAddComponent implements OnInit {
   partsOfDesc = [];
   infoAboutParts: any = {};
   parciki = [1, 1, 1, 1, 1];
+  liczbaParcikow = 0;
 
   // https://www.npmjs.com/package/@kolkov/angular-editor
   editorConfig: AngularEditorConfig = {
@@ -291,11 +292,21 @@ export class ProductAddComponent implements OnInit {
     });
   }
 
+  setMainPhoto(photoId: number){
+    this.userService.setMainPhoto(this.authService.decodedToken.nameid, this.editingAuction.id, photoId)
+      .subscribe(response => {
+        this.alertify.success('Zmieniles zdj glowne');
+      }, error => {
+        this.alertify.error(error);
+      });
+  }
+
   numberOdDescPlus(){
     if (this.numberOfDesc == null){
       this.numberOfDesc = 0;
     }
     this.numberOfDesc += 1;
+    this.liczbaParcikow += 1;
     this.partsOfDesc.push(this.numberOfDesc.toString());
     this.parciki[this.numberOfDesc - 1] = 1;
   }
@@ -304,11 +315,11 @@ export class ProductAddComponent implements OnInit {
     console.log(this.parciki);
   }
 
+  // to tak naprawde ustawia 1 z 3 opcji w parciku
   dodanieParcika(partNumber: string, value: number){
     const idd = Number(partNumber);
     this.parciki[idd - 1] = value;
     this.check(partNumber);
-    console.log('9999999');
   }
 
   check(partNumber: string){
@@ -321,7 +332,6 @@ export class ProductAddComponent implements OnInit {
     this.userService.takeEditingAuction(this.authService.decodedToken.nameid)
       .subscribe(response => {
         this.editingAuction = response;
-        console.log(this.editingAuction);
       });
   }
 

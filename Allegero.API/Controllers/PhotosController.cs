@@ -125,23 +125,23 @@ namespace Tinderro.API.Controllers
             return Ok(photoForReturn);
         }
 
-        [HttpPost("{id}/setMain")]
-        public async Task<IActionResult> SetMainPhoto(int userId, int id)
+        [HttpPost("{userId}/{auctionId}/{photoId}/setMain")]
+        public async Task<IActionResult> SetMainPhoto(int userId, int auctionId, int photoId)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var auction = await _repository.GetAuction(id);
+            var auction = await _repository.GetAuction(auctionId);
 
-            if (!auction.ItemPhotos.Any(p => p.Id == id)) // jezeli nie ma zdjec
-                return Unauthorized();
+            if (auction.ItemPhotos == null) // jezeli nie ma zdjec
+                return BadRequest();
 
-            var photo = await _repository.GetPhoto(id);
+            var photo = await _repository.GetPhoto(photoId);
 
             if (photo.IsMain)
                 return BadRequest("To zdj jest juz glowne");
 
-            var currentMainPhoto = await _repository.GetMainPhoto(userId);
+            var currentMainPhoto = await _repository.GetMainPhoto(auctionId);
             currentMainPhoto.IsMain = false;
             photo.IsMain = true;
 
