@@ -155,7 +155,7 @@ export class ProductAddComponent implements OnInit {
       }
     ];
 
-    // this.galleryImages = this.getImages();
+    /// this.galleryImages = this.getImages();
   }
 
   createProductForm(){
