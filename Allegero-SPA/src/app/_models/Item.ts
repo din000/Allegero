@@ -35,4 +35,17 @@ export interface Item {
     // okazja
     isOccasion: boolean;
     whenOccasionWasStarted: Date;
+
+    // opis
+    numberOfDescParts: number;
+    part1: number;
+    part2: number;
+    part3: number;
+    part4: number;
+    part5: number;
+    p1_Desc: string;
+    p2_Desc: string;
+    p3_Desc: string;
+    p4_Desc: string;
+    p5_Desc: string;
 }

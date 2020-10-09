@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
 using Allegero.API.Data;
 using Allegero.API.Dtos;
+using Allegero.API.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,9 +14,11 @@ namespace Allegero.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _repository;
-        public UserController(IUserRepository repository)
+        private readonly IMapper _mapper;
+        public UserController(IUserRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
         [HttpGet]
         public async Task<IActionResult> GetAuctions()
@@ -83,6 +87,14 @@ namespace Allegero.API.Controllers
         {
             var editingAuction = await _repository.TakeEditingAuction(userId);
             return Ok(editingAuction);
+        }
+
+        [HttpPost("addItem")]
+        public async Task<IActionResult> AddItem(ItemForCreateDto itemForCreateDto)
+        {
+            var item = _mapper.Map<Item>(itemForCreateDto);
+            await _repository.AddItem(item);
+            return Ok();
         }
     }
 }

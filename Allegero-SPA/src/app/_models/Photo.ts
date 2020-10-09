@@ -7,4 +7,5 @@ export interface Photo {
     publicId: string;
     item: Item;
     itemId: number;
+    secondId: number;
 }

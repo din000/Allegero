@@ -132,5 +132,15 @@ namespace Allegero.API.Data
             
             return lastPhoto;
         }
+
+        public async Task<Item> AddItem(Item item)
+        {
+            Add(item);
+            if (await SaveAll())
+            {
+                return item;
+            }
+            throw new Exception("Nie udalo sie dodac aukcji ze strony API");
+        }
     }
 }

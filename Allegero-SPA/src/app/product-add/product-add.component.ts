@@ -35,7 +35,7 @@ export class ProductAddComponent implements OnInit {
 
   numberOfDesc = 0;
   partsOfDesc = [];
-  infoAboutParts: any = {};
+  // infoAboutParts: any = {};
   parciki = [1, 1, 1, 1, 1];
   liczbaParcikow = 0;
 
@@ -85,15 +85,12 @@ export class ProductAddComponent implements OnInit {
       ['fontSize']
     ]
   };
-  htmlContent = '';
 
   // formularz produktu
   productForm: FormGroup;
 
   condition = null;
-  basicInfo: FormGroup;
   photos = [];
-  testowaAukcja: Item;
 
   // https://github.com/kolkov/ngx-gallery
   // https://github.com/kolkov/ngx-gallery
@@ -111,6 +108,9 @@ export class ProductAddComponent implements OnInit {
   // edytowana aukcja
   editingAuction: Item;
 
+  // aukcja do wyslania do API
+  item: Item;
+
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
               private authService: AuthService,
@@ -124,8 +124,6 @@ export class ProductAddComponent implements OnInit {
   ngOnInit(): void {
     // laduje edytowana aukcje
     this.loadEditingAuction();
-
-    this.createBasicInfo();
     // uploader
     this.initializeUploader();
     // tworzy formularz do dodawania produktu
@@ -162,21 +160,28 @@ export class ProductAddComponent implements OnInit {
 
   createProductForm(){
     this.productForm = this.formBuilder.group({
+      numberOfDescParts: this.numberOfDesc,
       part1: [1],
       part2: [1],
       part3: [1],
       part4: [1],
       part5: [1],
-      p1_Img: [''],
-      p2_Img: [''],
-      p3_Img: [''],
-      p4_Img: [''],
-      p5_Img: [''],
       p1_Desc: [''],
       p2_Desc: [''],
       p3_Desc: [''],
       p4_Desc: [''],
       p5_Desc: [''],
+      isOccasion: ['No'],
+      name: [''],
+      price: [null],
+      quantity: [null],
+      condition: this.condition,
+      newestPrice: [null],
+      category: this.categories,
+      // szczegoly kategorii laptopow:
+      haveDedictedCard: this.dedicedCard,
+      graphicCard: [''],
+      ram: this.ram,
     });
   }
 
@@ -190,14 +195,8 @@ export class ProductAddComponent implements OnInit {
     this.condition = 'Broken';
   }
 
-  createBasicInfo(){
-    this.basicInfo = this.formBuilder.group({
-      isOccasion: ['No'],
-    });
-  }
-
   // usuniecie defaulcikowej aukcji
-  deleteDefaultAuction() {
+  deleteEditinfAuction() {
     this.userService.makeDefaultAuction(this.authService.decodedToken.nameid, 'delete')
       .subscribe(next => {
         this.alertify.success('Usunales defaultowa aukcje');
@@ -248,11 +247,15 @@ export class ProductAddComponent implements OnInit {
             id: response.id,
             url: response.url,
             isMain: response.isMain,
-            publicId: response.publicId,
-            item: response.item,
-            itemId: response.itemId
+            // publicId: response.publicId,
+            // item: response.item,
+            // itemId: response.itemId,
+            secondId: response.secondId
           };
-          this.photos.push(photo); // dodajemy do naszej kolekcji zdjec
+          console.log(photo);
+          if (photo.secondId === 12){
+            this.photos.push(photo); // dodajemy do naszej kolekcji zdjec
+          }
           this.alertify.success('Dodales zdj');
           // this.galleryImages = this.getImages();
 
@@ -337,5 +340,15 @@ export class ProductAddComponent implements OnInit {
 
   delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
+  addItem(){
+    this.item = Object.assign({}, this.productForm.value);
+
+    this.userService.addItem(this.item).subscribe(() => {
+      this.alertify.success('Dodales item');
+    }, error => {
+      this.alertify.error('Nie dodales itemku');
+    });
   }
 }
