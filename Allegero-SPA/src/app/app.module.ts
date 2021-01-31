@@ -31,6 +31,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { AuthGuard } from './_guards/auth.guard';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { EditingAutcionResolver } from './_resolvers/editingAuction.resolver';
 
 
 export function TokenGetter() { // to jest do globalnej autoryzacji i juz jest ok z odswiezaniem
@@ -84,6 +85,7 @@ export function TokenGetter() { // to jest do globalnej autoryzacji i juz jest o
       ProductCardResolver,
       UserResolver,
       AuthGuard,
+      EditingAutcionResolver,
    ],
    bootstrap: [
       AppComponent

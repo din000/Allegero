@@ -125,7 +125,10 @@ export class ProductAddComponent implements OnInit {
   ngOnInit(): void {
     
     // laduje edytowana aukcje
-    this.loadEditingAuction();
+    // this.loadEditingAuction();
+    this.route.data.subscribe(data => {
+      this.editingAuction = data.editingAuctionRoute;
+    });
   
     // uploader
     this.initializeUploader();
@@ -385,8 +388,8 @@ export class ProductAddComponent implements OnInit {
     // console.log(this.condition);
     // console.log(this.item);
     // console.log(this.productForm.value);
-    console.log(this.photos);
-    // console.log(this.editingAuction.itemPhotos);
+    // console.log(this.photos);
+    console.log(this.editingAuction);
   }
 
   tescikoweLadowanieZdj(){

@@ -43,7 +43,7 @@ export class MainSiteComponent implements OnInit {
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
-              private authService: AuthService,
+              public authService: AuthService,
               private alertify: AlertifyService) { }
 
       // do slajderow
