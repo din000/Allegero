@@ -225,6 +225,7 @@ export class ProductAddComponent implements OnInit {
       // ogolnie tutaj nie trzeba dawac small medium big bo nie dajemy tego do ngxGalery tylko do zwyklej tablicy zdjec photos[]
       // dodatkowo jezeli tego uzyjemy w ngInit to przez to ze jest to metoda asynchroniczna to komputer nie zdazy zaladowac edytowanej aukcji wiec lepiej to przenisc do lodadEditingAuction()
       images.push({
+        photoId: this.editingAuction.itemPhotos[i].id,
         small: this.editingAuction.itemPhotos[i].url,
         medium: this.editingAuction.itemPhotos[i].url,
         big: this.editingAuction.itemPhotos[i].url,
@@ -251,7 +252,7 @@ export class ProductAddComponent implements OnInit {
         if (respons) {
           const response: Photo = JSON.parse(respons); // parsujemy na response ktore jest klasy Photo
           const photo = {
-            id: response.id,
+            photoId: response.id,
             url: response.url,
             isMain: response.isMain,
             // publicId: response.publicId,
@@ -260,6 +261,7 @@ export class ProductAddComponent implements OnInit {
             secondId: response.secondId
           };
           console.log(photo);
+          // jezlei secondId = 12 tzn ze zdj naleza nie do parcikow tylko do tych glownych
           if (photo.secondId === 12){
             this.photos.push(photo); // dodajemy do naszej kolekcji zdjec
           }
@@ -280,7 +282,9 @@ export class ProductAddComponent implements OnInit {
       };
   }
 
+  // musi tak robic zeby zdjecia mialy jakas kolejnosc w parcikach opisu XD
   setPhotoSecondId(secondId: number){
+    console.log("dziala second");
     timer(1500).subscribe(x =>
       this.userService.setAuctionSecondId(this.authService.decodedToken.nameid, this.editingAuction.id, secondId)
         .subscribe(response => {
@@ -290,11 +294,15 @@ export class ProductAddComponent implements OnInit {
             }));
   }
 
-  deletePhoto(photoId: number){
+  deletePhoto(photoId: number, photoIndex: number){
     this.alertify.confirm('Czy na pewno usunac zdj?', () => {
       this.userService.deletePhoto(this.authService.decodedToken.nameid, photoId)
       .subscribe(() => {
-        this.photos.splice(this.photos.findIndex(i => i.id === photoId), 1);
+        // console.log(this.photos);
+        // console.log(photoId);
+        // var removed = this.photos.splice(this.photos.findIndex(i => i.id === photoId), 1); // to nie dzialalo bo usuwalo zawsze ostatnia pozycje
+        this.photos.splice(photoIndex, 1);
+        // console.log(removed);
         this.alertify.success('Zdj usuniete');
       }, error => {
         this.alertify.error('Nie udalo sie usunac zdj');
@@ -345,9 +353,10 @@ export class ProductAddComponent implements OnInit {
         for (let i = 0; i < this.editingAuction.itemPhotos.length; i++) {
           // ogolnie tutaj nie trzeba dawac small medium big bo nie dajemy tego do ngxGalery tylko do zwyklej tablicy zdjec photos[]
           this.photos.push({
-            small: this.editingAuction.itemPhotos[i].url,
-            medium: this.editingAuction.itemPhotos[i].url,
-            big: this.editingAuction.itemPhotos[i].url,
+            photoId: this.editingAuction.itemPhotos[i].id,
+            url: this.editingAuction.itemPhotos[i].url,
+            // medium: this.editingAuction.itemPhotos[i].url,
+            // big: this.editingAuction.itemPhotos[i].url,
           });       
         }
       });
@@ -359,8 +368,8 @@ export class ProductAddComponent implements OnInit {
 
   addItem(){
     this.item = Object.assign({}, this.productForm.value);
-    console.log(this.condition.value);
-    console.log(this.condition);
+    // console.log(this.condition.value);
+    // console.log(this.condition);
     // this.item.condition = this.condition;
     // this.item.name = 'asdasdasdasdasd';
     // this.item.condition = 'asd';
@@ -377,7 +386,7 @@ export class ProductAddComponent implements OnInit {
     // console.log(this.item);
     // console.log(this.productForm.value);
     console.log(this.photos);
-    console.log(this.editingAuction.itemPhotos);
+    // console.log(this.editingAuction.itemPhotos);
   }
 
   tescikoweLadowanieZdj(){
