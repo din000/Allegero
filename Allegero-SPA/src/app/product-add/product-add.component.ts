@@ -11,6 +11,7 @@ import { Item } from '../_models/Item';
 import { ActivatedRoute } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { timer } from 'rxjs';
+import { MainResolver } from '../_resolvers/main.resolver';
 
 @Component({
   selector: 'app-product-add',
@@ -122,8 +123,10 @@ export class ProductAddComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
     // laduje edytowana aukcje
     this.loadEditingAuction();
+  
     // uploader
     this.initializeUploader();
     // tworzy formularz do dodawania produktu
@@ -156,21 +159,23 @@ export class ProductAddComponent implements OnInit {
     ];
 
     /// this.galleryImages = this.getImages();
+    //   // ladujemy zdjecia
+    // this.photos = this.getImages();
   }
 
   createProductForm(){
     this.productForm = this.formBuilder.group({
       numberOfDescParts: this.numberOfDesc,
-      part1: [1],
-      part2: [1],
-      part3: [1],
-      part4: [1],
-      part5: [1],
-      p1_Desc: [''],
-      p2_Desc: [''],
-      p3_Desc: [''],
-      p4_Desc: [''],
-      p5_Desc: [''],
+      // part1: [1],
+      // part2: [1],
+      // part3: [1],
+      // part4: [1],
+      // part5: [1],
+      // p1_Desc: [''],
+      // p2_Desc: [''],
+      // p3_Desc: [''],
+      // p4_Desc: [''],
+      // p5_Desc: [''],
       isOccasion: ['No'],
       name: [''],
       price: [null],
@@ -213,18 +218,20 @@ export class ProductAddComponent implements OnInit {
     this.hasAnotherDropZoneOver = e;
   }
 
-  // getImages(){
-  //   const images = [];
-  //   // tslint:disable-next-line: prefer-for-of
-  //   for (let i = 0; i < this.photos.length; i++) {
-  //     images.push({
-  //       small: this.photos[i].url,
-  //       medium: this.photos[i].url,
-  //       big: this.photos[i].url,
-  //     });
-  //   }
-  //   return images;
-  // }
+  getImages(){
+    const images = [];
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.editingAuction.itemPhotos.length; i++) {
+      // ogolnie tutaj nie trzeba dawac small medium big bo nie dajemy tego do ngxGalery tylko do zwyklej tablicy zdjec photos[]
+      // dodatkowo jezeli tego uzyjemy w ngInit to przez to ze jest to metoda asynchroniczna to komputer nie zdazy zaladowac edytowanej aukcji wiec lepiej to przenisc do lodadEditingAuction()
+      images.push({
+        small: this.editingAuction.itemPhotos[i].url,
+        medium: this.editingAuction.itemPhotos[i].url,
+        big: this.editingAuction.itemPhotos[i].url,
+      });
+    }
+    return images;
+  }
 
   initializeUploader() {
       this.uploader = new FileUploader({
@@ -335,6 +342,14 @@ export class ProductAddComponent implements OnInit {
     this.userService.takeEditingAuction(this.authService.decodedToken.nameid)
       .subscribe(response => {
         this.editingAuction = response;
+        for (let i = 0; i < this.editingAuction.itemPhotos.length; i++) {
+          // ogolnie tutaj nie trzeba dawac small medium big bo nie dajemy tego do ngxGalery tylko do zwyklej tablicy zdjec photos[]
+          this.photos.push({
+            small: this.editingAuction.itemPhotos[i].url,
+            medium: this.editingAuction.itemPhotos[i].url,
+            big: this.editingAuction.itemPhotos[i].url,
+          });       
+        }
       });
   }
 
@@ -344,11 +359,28 @@ export class ProductAddComponent implements OnInit {
 
   addItem(){
     this.item = Object.assign({}, this.productForm.value);
-
-    this.userService.addItem(this.item).subscribe(() => {
+    console.log(this.condition.value);
+    console.log(this.condition);
+    // this.item.condition = this.condition;
+    // this.item.name = 'asdasdasdasdasd';
+    // this.item.condition = 'asd';
+    this.userService.addItem(this.authService.decodedToken.nameid, this.item).subscribe(() => {
       this.alertify.success('Dodales item');
     }, error => {
       this.alertify.error('Nie dodales itemku');
     });
+  }
+
+  showUser(){
+    // console.log(this.authService.decodedToken.nameid);
+    // console.log(this.condition);
+    // console.log(this.item);
+    // console.log(this.productForm.value);
+    console.log(this.photos);
+    console.log(this.editingAuction.itemPhotos);
+  }
+
+  tescikoweLadowanieZdj(){
+    this.galleryImages = this.getImages();
   }
 }

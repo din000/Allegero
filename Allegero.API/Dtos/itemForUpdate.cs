@@ -1,35 +1,22 @@
 using System;
 using System.Collections.Generic;
+using Allegero.API.Models;
 
-namespace Allegero.API.Models
+namespace Allegero.API.Dtos
 {
-    public class Item
+    public class itemForUpdate
     {
-        public Item()
-        {
-            DateAdded = DateTime.Now;
-        }
-        public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
         public decimal ? NewestPrice { get; set; }
         public int Quantity { get; set; } // ilosc
-        public string Description { get; set; }
-        public DateTime DateAdded { get; set; }
+
 
         // info do okazji (czy jest i ile czasu bla bla)
         public bool IsOccasion { get; set; }
-        public DateTime ? WhenOccasionWasStarted { get; set; }
-
+        public DateTime ? WhenOccasionWasStarted { get; set; } 
         // kolekcja zdj danej rzeczy
         public ICollection<Photo> ItemPhotos { get; set; }
-        
-        // 2 linijki do wyswietlenia powiazanego userka
-        public int SellerId { get; set; }
-        public User Seller { get; set; }
-        
-        public int ? BuyerId { get; set; }
-        public User Buyer { get; set; }
 
         // glowne informacje o laptopach
         public string Proccesor { get; set; }
@@ -47,9 +34,6 @@ namespace Allegero.API.Models
 
         // kategoria
         public string Category { get; set; }
-        
-        // czy auckja jest w AKTUALNIE w edycji
-        public bool IsEditing { get; set; }
 
         // opis
         public int NumberOfDescParts { get; set; }
@@ -63,6 +47,5 @@ namespace Allegero.API.Models
         public string P3_Desc { get; set; }
         public string P4_Desc { get; set; }
         public string P5_Desc { get; set; }
-      
     }
 }

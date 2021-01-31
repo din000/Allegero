@@ -11,7 +11,7 @@
                     <div class="itemko m-0 p-0" style="height: 80px; width: 80%; position: relative;"
                         *ngFor="let item of photos">
 
-                        <img src="{{item.url}}" alt="" style="padding: 5px; width: 120px; height: 80px;">
+                        <img src="{{item.small}}" alt="" style="padding: 5px; width: 120px; height: 80px;">
                         <button class="btn btn-warning"
                             style="width: 40px; height: 40px; position: absolute; right: 100px; top: 19px; color: white;"
                             (click)="setMainPhoto(item.id)"><i
@@ -119,6 +119,8 @@
                 <div class="butonik">
                     <button class="btn btn-primary" (click)="deleteEditinfAuction()">Usun</button>
                     <button class="btn btn-success" (click)="addItem()">Dodaj aukcje</button>
+                    <button class="btn btn-success" (click)="showUser()">Pokaz userka</button>
+                    <button class="btn btn-success" (click)="tescikoweLadowanieZdj()">zaladuj zdj</button>        
                 </div>
 
             </div>
@@ -240,3 +242,4 @@
         </div>
     </div>
 </div>
+

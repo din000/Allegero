@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Allegero.API.Data;
 using Allegero.API.Dtos;
@@ -95,6 +96,21 @@ namespace Allegero.API.Controllers
             var item = _mapper.Map<Item>(itemForCreateDto);
             await _repository.AddItem(item);
             return Ok();
+        }
+
+        [HttpPut("{userId}")]
+        public async Task<IActionResult> UpdateUser(int userId, itemForUpdate itemForUpdate)
+        {
+            var itemFromDataBase = await _repository.TakeEditingAuction(userId);
+            // var dupa = _mapper.Map<Item>(itemForUpdate);
+            //_mapper.Map(itemForUpdate, itemFromDataBase);
+            // metoda SaveAll zwraca true albo false wiec jak zapis powiodl sie to nic nie zwraca
+            _mapper.Map(itemForUpdate, itemFromDataBase); // hoho tutaj trzeba bylo dodac mappera z itemForUpdate na Itemek
+            itemFromDataBase.Name = "ciekawe2";
+            if (await _repository.SaveAll())
+                return NoContent();
+            
+            throw new Exception("Nie masz uprawnień albo nie wprowadziles zmian");
         }
     }
 }

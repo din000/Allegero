@@ -7,7 +7,7 @@ import { Photo } from './Photo';
 // niestety po przemysleniu klasa Item to laptopy !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // niestety po przemysleniu klasa Item to laptopy !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // niestety po przemysleniu klasa Item to laptopy !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// niestety po przemysleniu klasa Item to laptopy !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// niestety po przemysleniu klasa Item to laptopy !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
 
 export interface Item {
     id: number;
@@ -23,7 +23,7 @@ export interface Item {
     buyerId: number;
     buyer: User;
 
-    // glowne info o laptopach
+    // glowne info o laptopach 
     condition: string;
     haveDedictedCard: boolean;
     graphicCard: string;
@@ -48,4 +48,5 @@ export interface Item {
     p3_Desc: string;
     p4_Desc: string;
     p5_Desc: string;
+    
 }

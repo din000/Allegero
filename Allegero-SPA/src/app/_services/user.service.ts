@@ -55,7 +55,7 @@ export class UserService {
     return this.http.get<Item>(this.baseUrl + 'editingAuction/' + userId);
   }
 
-  addItem(item: Item){
-    return this.http.post(this.baseUrl + 'addItem', item);
+  addItem(userId: number, item: Item){
+    return this.http.put(this.baseUrl + userId, item);
   }
 }

@@ -17,6 +17,7 @@ namespace Allegero.API.Helpers
             CreateMap<ItemForCreateDto, Item>();
             CreateMap<PhotoForAddDto, Photo>();
             CreateMap<Photo, PhotoForReturnDto>();
+            CreateMap<itemForUpdate, Item>(); // to cos nie dziala ;/
         }
     }
 }
