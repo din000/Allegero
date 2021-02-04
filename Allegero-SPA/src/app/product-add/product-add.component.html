@@ -120,7 +120,7 @@
                     <button class="btn btn-primary" (click)="deleteEditinfAuction()">Usun</button>
                     <button class="btn btn-success" (click)="addItem()">Dodaj aukcje</button>
                     <button class="btn btn-success" (click)="showUser()">Pokaz userka</button>
-                    <button class="btn btn-success" (click)="tescikoweLadowanieZdj()">zaladuj zdj</button>        
+                    <button class="btn btn-success" (click)="setGraphicCardField()">zaladuj zdj</button>        
                 </div>
 
             </div>
@@ -146,9 +146,10 @@
                         <p *ngIf="condition === 'Used'" style="font-weight: bold;">Uzywany</p>
                         <p *ngIf="condition === 'Broken'" style="font-weight: bold;">Zepsuty</p>
 
-                        <select style="width: 70px;">
-                            <option *ngFor="let item of dedicedCard">
-                                {{item.display}}
+                        <select style="width: 70px;" formControlName="haveDedictedCard">
+                            <option [value]="item" *ngFor="let item of dedicedCard">
+                                <p *ngIf="item === 'Yes'">Tak</p>
+                                <p *ngIf="item === 'No'" (click)="setGraphicCardField()">Nie</p>
                             </option>
                         </select>
                     </div>
@@ -157,11 +158,11 @@
                         <p>RAM:</p>
                     </div>
                     <div class="c1" style="width: 290px; display:flex; flex-direction: column;">
-                        <input class="textbox" placeholder="Model karty graficznej"formControlName="graphicCard">
+                        <input class="textbox" placeholder="Model karty graficznej" formControlName="graphicCard">
 
-                        <select class="c1 mt-2" style="width: 70px;">
-                            <option *ngFor="let item of ram">
-                                {{item.display}}
+                        <select class="c1 mt-2" style="width: 70px;" formControlName="ram">
+                            <option [value]=item *ngFor="let item of ram">
+                                {{item}}
                             </option>
                         </select>
                     </div>
@@ -242,5 +243,7 @@
         </div>
     </div>
 </div>
+
+
 
 

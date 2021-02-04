@@ -46,17 +46,17 @@ namespace Allegero.API.Data
             do
             {
                 DateTime currDate = DateTime.Now;
-                var occasion = await _context.Items.Include(p => p.ItemPhotos).FirstOrDefaultAsync(i => i.IsOccasion == true);
+                var occasion = await _context.Items.Include(p => p.ItemPhotos).FirstOrDefaultAsync(i => i.IsOccasion == "Yes");
 
                 if (currDate.CompareTo(occasion.WhenOccasionWasStarted) == 1)
                 {
-                    occasion.IsOccasion = false;
+                    occasion.IsOccasion = "No";
                     _context.Items.Update(occasion);
                     await _context.SaveChangesAsync();
                 }
                 if (currDate.CompareTo(occasion.WhenOccasionWasStarted) == 0)
                 {
-                     occasion.IsOccasion = false;
+                     occasion.IsOccasion = "No";
                     _context.Items.Update(occasion);
                     await _context.SaveChangesAsync();
                 }
@@ -80,10 +80,10 @@ namespace Allegero.API.Data
             auction.Quantity = 0;
             auction.Description = "Default";
             auction.DateAdded = DateTime.Now;
-            auction.IsOccasion = false;
+            auction.IsOccasion = "No";
             auction.SellerId = userId;
             auction.Category = "Default";
-            auction.HaveDedictedCard = false;
+            auction.HaveDedictedCard = "No";
             auction.RAM = 0;
             auction.Condition = "Default";
             auction.IsEditing = true;

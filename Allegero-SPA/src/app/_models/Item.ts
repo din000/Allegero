@@ -25,7 +25,7 @@ export interface Item {
 
     // glowne info o laptopach 
     condition: string;
-    haveDedictedCard: boolean;
+    haveDedictedCard: string;
     graphicCard: string;
     ram: number;
 
@@ -33,7 +33,7 @@ export interface Item {
     category: string;
 
     // okazja
-    isOccasion: boolean;
+    isOccasion: string;
     whenOccasionWasStarted: Date;
 
     // opis

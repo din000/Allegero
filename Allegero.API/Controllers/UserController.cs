@@ -106,7 +106,7 @@ namespace Allegero.API.Controllers
             //_mapper.Map(itemForUpdate, itemFromDataBase);
             // metoda SaveAll zwraca true albo false wiec jak zapis powiodl sie to nic nie zwraca
             _mapper.Map(itemForUpdate, itemFromDataBase); // hoho tutaj trzeba bylo dodac mappera z itemForUpdate na Itemek
-            itemFromDataBase.Name = "ciekawe2";
+            // itemFromDataBase.Name = "ciekawe2";
             if (await _repository.SaveAll())
                 return NoContent();
             

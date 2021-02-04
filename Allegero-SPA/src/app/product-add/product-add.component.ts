@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 // https://valor-software.com/ng2-file-upload/
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov/ngx-gallery';
@@ -13,6 +13,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { timer } from 'rxjs';
 import { MainResolver } from '../_resolvers/main.resolver';
 
+
 @Component({
   selector: 'app-product-add',
   templateUrl: './product-add.component.html',
@@ -23,16 +24,20 @@ export class ProductAddComponent implements OnInit {
   categories = [{value: 'laptops', display: 'Laptopy'},
                 {value: 'pc', display: 'PC'}];
 
-  dedicedCard = [{value: 'Yes', display: 'Tak'},
-                {value: 'No', display: 'Nie'}];
+  // dedicedCard = [{value: 'Yes', display: 'Tak'},
+  //               {value: 'No', display: 'Nie'}];
 
-  ram = [{value: '1', display: '1 GB'},
-        {value: '2', display: '2 GB'},
-        {value: '4', display: '4 GB'},
-        {value: '8', display: '8 GB'},
-        {value: '12', display: '12 GB'},
-        {value: '16', display: '16 GB'},
-        {value: '32', display: '32 GB'}];
+  dedicedCard: any = ['Yes', 'No'];
+  ram: any = ['1', '2', '4', '8', '12', '16', '32']
+
+
+  // ram2 = [{value: '1', display: '1 GB'},
+  //       {value: '2', display: '2 GB'},
+  //       {value: '4', display: '4 GB'},
+  //       {value: '8', display: '8 GB'},
+  //       {value: '12', display: '12 GB'},
+  //       {value: '16', display: '16 GB'},
+  //       {value: '32', display: '32 GB'}];
 
   numberOfDesc = 0;
   partsOfDesc = [];
@@ -129,6 +134,13 @@ export class ProductAddComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.editingAuction = data.editingAuctionRoute;
     });
+
+    // zaladowanie zdjec
+    this.photos = this.getImages();
+
+    // zaladowanie szczegolow
+    this.condition = this.editingAuction.condition;
+    // this.dedicedCard = "Yes";
   
     // uploader
     this.initializeUploader();
@@ -179,17 +191,17 @@ export class ProductAddComponent implements OnInit {
       // p3_Desc: [''],
       // p4_Desc: [''],
       // p5_Desc: [''],
-      isOccasion: ['No'],
-      name: [''],
-      price: [null],
-      quantity: [null],
+      isOccasion: [this.editingAuction.isOccasion],
+      name: [this.editingAuction.name],
+      price: [this.editingAuction.price],
+      quantity: [this.editingAuction.quantity],
       condition: this.condition,
-      newestPrice: [null],
+      newestPrice: [this.editingAuction.newestPrice],
       category: this.categories,
       // szczegoly kategorii laptopow:
-      haveDedictedCard: this.dedicedCard,
-      graphicCard: [''],
-      ram: this.ram,
+      haveDedictedCard: [this.editingAuction.haveDedictedCard],
+      graphicCard: [this.editingAuction.graphicCard],
+      ram: [this.editingAuction.ram],
     });
   }
 
@@ -229,9 +241,9 @@ export class ProductAddComponent implements OnInit {
       // dodatkowo jezeli tego uzyjemy w ngInit to przez to ze jest to metoda asynchroniczna to komputer nie zdazy zaladowac edytowanej aukcji wiec lepiej to przenisc do lodadEditingAuction()
       images.push({
         photoId: this.editingAuction.itemPhotos[i].id,
-        small: this.editingAuction.itemPhotos[i].url,
-        medium: this.editingAuction.itemPhotos[i].url,
-        big: this.editingAuction.itemPhotos[i].url,
+        url: this.editingAuction.itemPhotos[i].url,
+        // medium: this.editingAuction.itemPhotos[i].url,
+        // big: this.editingAuction.itemPhotos[i].url,
       });
     }
     return images;
@@ -311,6 +323,7 @@ export class ProductAddComponent implements OnInit {
         this.alertify.error('Nie udalo sie usunac zdj');
       });
     });
+    this.loadEditingAuction();
   }
 
   setMainPhoto(photoId: number){
@@ -353,15 +366,16 @@ export class ProductAddComponent implements OnInit {
     this.userService.takeEditingAuction(this.authService.decodedToken.nameid)
       .subscribe(response => {
         this.editingAuction = response;
-        for (let i = 0; i < this.editingAuction.itemPhotos.length; i++) {
-          // ogolnie tutaj nie trzeba dawac small medium big bo nie dajemy tego do ngxGalery tylko do zwyklej tablicy zdjec photos[]
-          this.photos.push({
-            photoId: this.editingAuction.itemPhotos[i].id,
-            url: this.editingAuction.itemPhotos[i].url,
-            // medium: this.editingAuction.itemPhotos[i].url,
-            // big: this.editingAuction.itemPhotos[i].url,
-          });       
-        }
+        // to mozna pominac bo resolverem zaladowalem aukcje
+        // for (let i = 0; i < this.editingAuction.itemPhotos.length; i++) {
+        //   // ogolnie tutaj nie trzeba dawac small medium big bo nie dajemy tego do ngxGalery tylko do zwyklej tablicy zdjec photos[]
+        //   this.photos.push({
+        //     photoId: this.editingAuction.itemPhotos[i].id,
+        //     url: this.editingAuction.itemPhotos[i].url,
+        //     // medium: this.editingAuction.itemPhotos[i].url,
+        //     // big: this.editingAuction.itemPhotos[i].url,
+        //   });       
+        // }
       });
   }
 
@@ -390,9 +404,17 @@ export class ProductAddComponent implements OnInit {
     // console.log(this.productForm.value);
     // console.log(this.photos);
     console.log(this.editingAuction);
+    // console.log(this.productForm.get('name').value);
+    // console.log(this.dedicedCard);
+    // console.log(this.editingAuction);
+    // console.log(this.productForm.get("haveDedictedCard").value);
   }
 
   tescikoweLadowanieZdj(){
     this.galleryImages = this.getImages();
+  }
+
+  setGraphicCardField(){
+    this.productForm.get('graphicCard').disable();
   }
 }

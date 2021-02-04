@@ -18,7 +18,7 @@ namespace Allegero.API.Models
         public DateTime DateAdded { get; set; }
 
         // info do okazji (czy jest i ile czasu bla bla)
-        public bool IsOccasion { get; set; }
+        public string IsOccasion { get; set; }
         public DateTime ? WhenOccasionWasStarted { get; set; }
 
         // kolekcja zdj danej rzeczy
@@ -33,7 +33,7 @@ namespace Allegero.API.Models
 
         // glowne informacje o laptopach
         public string Proccesor { get; set; }
-        public bool HaveDedictedCard { get; set; }
+        public string HaveDedictedCard { get; set; }
         public string GraphicCard { get; set; }
         public int RAM { get; set; }
 
