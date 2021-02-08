@@ -6,6 +6,10 @@ namespace Allegero.API.Dtos
 {
     public class itemForUpdate
     {
+        public itemForUpdate()
+        {
+            NewestPrice = null;
+        }
         public string Name { get; set; }
         public decimal Price { get; set; }
         public decimal ? NewestPrice { get; set; }
@@ -13,14 +17,14 @@ namespace Allegero.API.Dtos
 
 
         // info do okazji (czy jest i ile czasu bla bla)
-        public bool IsOccasion { get; set; }
+        public string IsOccasion { get; set; }
         public DateTime ? WhenOccasionWasStarted { get; set; } 
         // kolekcja zdj danej rzeczy
         public ICollection<Photo> ItemPhotos { get; set; }
 
         // glowne informacje o laptopach
         public string Proccesor { get; set; }
-        public bool HaveDedictedCard { get; set; }
+        public string HaveDedictedCard { get; set; }
         public string GraphicCard { get; set; }
         public int RAM { get; set; }
 

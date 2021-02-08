@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Item } from '../_models/Item';
 import { map } from 'rxjs/operators';
 import { User } from '../_models/User';
+import { Item2 } from '../_models/item2';
 
 @Injectable({
   providedIn: 'root'

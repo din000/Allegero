@@ -82,10 +82,10 @@ namespace Allegero.API.Data
             auction.DateAdded = DateTime.Now;
             auction.IsOccasion = "No";
             auction.SellerId = userId;
-            auction.Category = "Default";
+            auction.Category = "pc";
             auction.HaveDedictedCard = "No";
-            auction.RAM = 0;
-            auction.Condition = "Default";
+            auction.RAM = 4;
+            auction.Condition = "New";
             auction.IsEditing = true;
 
             Add(auction);

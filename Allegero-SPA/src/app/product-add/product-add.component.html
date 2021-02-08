@@ -110,9 +110,9 @@
 
 
                 <h6 class="pt-4">Kategoria:</h6>
-                <select style="width: 90%; height: 34px;">
-                    <option *ngFor="let item of categories">
-                        {{item.display}}
+                <select style="width: 90%; height: 34px;" formControlName="category">
+                    <option [value]=item *ngFor="let item of categories">
+                        {{item}}
                     </option>
                 </select>
 

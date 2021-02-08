@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { timer } from 'rxjs';
 import { MainResolver } from '../_resolvers/main.resolver';
+import { Item2 } from '../_models/item2';
 
 
 @Component({
@@ -21,14 +22,15 @@ import { MainResolver } from '../_resolvers/main.resolver';
 })
 export class ProductAddComponent implements OnInit {
 
-  categories = [{value: 'laptops', display: 'Laptopy'},
-                {value: 'pc', display: 'PC'}];
+  // categories = [{value: 'laptops', display: 'Laptopy'},
+  //               {value: 'pc', display: 'PC'}];
 
   // dedicedCard = [{value: 'Yes', display: 'Tak'},
   //               {value: 'No', display: 'Nie'}];
 
   dedicedCard: any = ['Yes', 'No'];
   ram: any = ['1', '2', '4', '8', '12', '16', '32']
+  categories: any = ['laptops', 'pc']
 
 
   // ram2 = [{value: '1', display: '1 GB'},
@@ -129,9 +131,13 @@ export class ProductAddComponent implements OnInit {
 
   ngOnInit(): void {
     
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // ogolnie stworzenie eukacji dziala TYLKO WTEDY gdy komputer szybko chodzi, trzeba zrobic zeby ladowal strone PO STWORZENIU defaultowej aukcji
+
     // laduje edytowana aukcje
     // this.loadEditingAuction();
     this.route.data.subscribe(data => {
+      
       this.editingAuction = data.editingAuctionRoute;
     });
 
@@ -195,9 +201,9 @@ export class ProductAddComponent implements OnInit {
       name: [this.editingAuction.name],
       price: [this.editingAuction.price],
       quantity: [this.editingAuction.quantity],
-      condition: this.condition,
+      // condition: [this.editingAuction.condition],
       newestPrice: [this.editingAuction.newestPrice],
-      category: this.categories,
+      category: [this.editingAuction.category],
       // szczegoly kategorii laptopow:
       haveDedictedCard: [this.editingAuction.haveDedictedCard],
       graphicCard: [this.editingAuction.graphicCard],
@@ -385,6 +391,19 @@ export class ProductAddComponent implements OnInit {
 
   addItem(){
     this.item = Object.assign({}, this.productForm.value);
+    // this.item.numberOfDescParts = 1;
+    // this.item.isOccasion = "No";
+    // this.item.price = 1231;
+    // this.item.quantity = 12;
+    this.item.condition = this.condition;
+    // this.item.newestPrice = 123;
+    // this.item.category = "asd";
+    // this.item.haveDedictedCard = "Yes";
+    // this.item.graphicCard = "asd";
+    // this.item.ram = 8;
+    // this.item.category = "21dsdiusdasd";
+    // console.log(this.item);
+    // this.item.newestPrice = 10;
     // console.log(this.condition.value);
     // console.log(this.condition);
     // this.item.condition = this.condition;
