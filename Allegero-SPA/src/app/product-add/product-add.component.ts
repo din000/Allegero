@@ -461,7 +461,7 @@ export class ProductAddComponent implements OnInit {
         
       }, error => {
         this.loadEditingAuction();        
-        this.alertify.error('Dokoncz poprzednia edycje !');
+        this.alertify.error(error); // error z api "Dokoncz porzeednia edycje"
       });
   }
 

@@ -72,7 +72,8 @@ namespace Allegero.API.Data
              // sprawdza czy juz jest jakas edytowana aukcja
             var isAuctionEditing = await _context.Items.FirstOrDefaultAsync(x => x.IsEditing == true && x.SellerId == userId);
             if (isAuctionEditing != null)
-                throw new Exception("Aktualnie dodajesz juz aukcje, dokoncz ja albo anuluj");
+                return(null);
+                // throw new Exception("Aktualnie dodajesz juz aukcje, dokoncz ja albo anuluj");
 
             var auction = new Item();
             auction.Name = "Default";

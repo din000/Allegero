@@ -67,7 +67,9 @@ namespace Allegero.API.Controllers
             if (param.makeOrDelete == "make")
             {
                 var auction = await _repository.MakeDefaultAuction(userId);
-                return Ok(auction);
+                if (auction != null)
+                    return Ok(auction);
+                return BadRequest("API: Dokoncz poprzednia edycje");
             }             
             else
             {
@@ -87,7 +89,10 @@ namespace Allegero.API.Controllers
         public async Task<IActionResult> TakeEditingAuction(int userId)
         {
             var editingAuction = await _repository.TakeEditingAuction(userId);
-            return Ok(editingAuction);
+            if (editingAuction != null)
+                return Ok(editingAuction);
+
+            return BadRequest("pinokio");
         }
 
         [HttpPost("addItem")]
