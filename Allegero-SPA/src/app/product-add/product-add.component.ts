@@ -115,6 +115,7 @@ export class ProductAddComponent implements OnInit {
 
   // edytowana aukcja
   editingAuction: Item;
+  isDataAvailable = false;
 
   // aukcja do wyslania do API
   item: Item;
@@ -130,28 +131,18 @@ export class ProductAddComponent implements OnInit {
 
 
   ngOnInit(): void {
-    
+   
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // ogolnie stworzenie eukacji dziala TYLKO WTEDY gdy komputer szybko chodzi, trzeba zrobic zeby ladowal strone PO STWORZENIU defaultowej aukcji
 
-    // laduje edytowana aukcje
-    // this.loadEditingAuction();
-    this.route.data.subscribe(data => {
-      
-      this.editingAuction = data.editingAuctionRoute;
-    });
 
-    // zaladowanie zdjec
-    this.photos = this.getImages();
+      this.makeDefaultAuction();
+    // this.route.data.subscribe(data => { 
+    //   this.editingAuction = data.editingAuctionRoute;
+    // });
 
-    // zaladowanie szczegolow
-    this.condition = this.editingAuction.condition;
-    // this.dedicedCard = "Yes";
-  
     // uploader
     this.initializeUploader();
-    // tworzy formularz do dodawania produktu
-    this.createProductForm();
 
     this.galleryOptions = [
       {
@@ -368,10 +359,23 @@ export class ProductAddComponent implements OnInit {
     return this.parciki[idd];
   }
 
+  // wszystko musi byc w tym bo np formularz czy pobranie zdj ma nastapic po zaladowaniu danych
   loadEditingAuction(){
     this.userService.takeEditingAuction(this.authService.decodedToken.nameid)
       .subscribe(response => {
         this.editingAuction = response;
+        
+        // tworzy formularz do dodawania produktu
+        this.createProductForm();
+
+        // zaladowanie zdjec
+        this.photos = this.getImages();
+
+        // zaladowanie szczegolow
+        this.condition = this.editingAuction.condition;
+
+        // laduje strone dopiero po zaladowaniu danych
+        this.isDataAvailable = true;
         // to mozna pominac bo resolverem zaladowalem aukcje
         // for (let i = 0; i < this.editingAuction.itemPhotos.length; i++) {
         //   // ogolnie tutaj nie trzeba dawac small medium big bo nie dajemy tego do ngxGalery tylko do zwyklej tablicy zdjec photos[]
@@ -436,4 +440,29 @@ export class ProductAddComponent implements OnInit {
   setGraphicCardField(){
     this.productForm.get('graphicCard').disable();
   }
+
+  makeDefaultAuction() {
+    this.userService.makeDefaultAuction(this.authService.decodedToken.nameid, 'make')
+      .subscribe(response => {
+        this.editingAuction = response;
+        
+        // tworzy formularz do dodawania produktu
+        this.createProductForm();
+
+        // zaladowanie zdjec
+        this.photos = this.getImages();
+
+        // zaladowanie szczegolow
+        this.condition = this.editingAuction.condition;
+
+        // laduje strone dopiero po zaladowaniu danych
+        this.isDataAvailable = true;
+        this.alertify.success('Poprawnie edutujesz aukcje');
+        
+      }, error => {
+        this.loadEditingAuction();        
+        this.alertify.error('Dokoncz poprzednia edycje !');
+      });
+  }
+
 }

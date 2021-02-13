@@ -90,8 +90,10 @@ namespace Allegero.API.Data
 
             Add(auction);
             if (await SaveAll())
+            {
+                auction = await _context.Items.Include(p => p.ItemPhotos).FirstOrDefaultAsync(x => x.SellerId == userId && x.IsEditing == true);
                 return auction;
-            
+            }    
             throw new Exception("Cos poszlo nie tak z dodaniem aukcji");
         }
 
