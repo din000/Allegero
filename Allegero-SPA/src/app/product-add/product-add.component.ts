@@ -41,11 +41,11 @@ export class ProductAddComponent implements OnInit {
   //       {value: '16', display: '16 GB'},
   //       {value: '32', display: '32 GB'}];
 
-  numberOfDesc = 0;
-  partsOfDesc = [];
+  numberOfDesc = 0; // ktory opisik edytujemy
+  partsOfDesc = []; // przechiwuje numer parcika od 1 do 5
   // infoAboutParts: any = {};
-  parciki = [1, 1, 1, 1, 1];
-  liczbaParcikow = 0;
+  // parciki = [1, 1, 1, 1, 1];
+  liczbaParcikow = 0; // musi byc zeby ograniczyc maksmalna liczbe parcikow do 5
 
   // https://www.npmjs.com/package/@kolkov/angular-editor
   editorConfig: AngularEditorConfig = {
@@ -175,19 +175,20 @@ export class ProductAddComponent implements OnInit {
     // this.photos = this.getImages();
   }
 
+  // tutaj moze i moznabyloby ladowac OD RAZU z responsika jak sie pobiera aukcje a nie tak XD
   createProductForm(){
     this.productForm = this.formBuilder.group({
-      numberOfDescParts: this.numberOfDesc,
-      // part1: [1],
-      // part2: [1],
-      // part3: [1],
-      // part4: [1],
-      // part5: [1],
-      // p1_Desc: [''],
-      // p2_Desc: [''],
-      // p3_Desc: [''],
-      // p4_Desc: [''],
-      // p5_Desc: [''],
+      numberOfDescParts: [this.editingAuction.numberOfDescParts],
+      part1: [this.editingAuction.part1],
+      part2: [this.editingAuction.part2],
+      part3: [this.editingAuction.part3],
+      part4: [this.editingAuction.part4],
+      part5: [this.editingAuction.part5],
+      p1_Desc: [''],
+      p2_Desc: [''],
+      p3_Desc: [''],
+      p4_Desc: [''],
+      p5_Desc: [''],
       isOccasion: [this.editingAuction.isOccasion],
       name: [this.editingAuction.name],
       price: [this.editingAuction.price],
@@ -339,25 +340,21 @@ export class ProductAddComponent implements OnInit {
     this.numberOfDesc += 1;
     this.liczbaParcikow += 1;
     this.partsOfDesc.push(this.numberOfDesc.toString());
-    this.parciki[this.numberOfDesc - 1] = 1;
-  }
-
-  tescik(){
-    console.log(this.parciki);
+    // this.parciki[this.numberOfDesc - 1] = 1;
   }
 
   // to tak naprawde ustawia 1 z 3 opcji w parciku
-  dodanieParcika(partNumber: string, value: number){
-    const idd = Number(partNumber);
-    this.parciki[idd - 1] = value;
-    this.check(partNumber);
-  }
+  // dodanieParcika(partNumber: string, value: number){
+  //   const idd = Number(partNumber);
+  //   this.parciki[idd - 1] = value;
+  //   this.check(partNumber);
+  // }
 
-  check(partNumber: string){
-    const idd = Number(partNumber);
-    console.log('0');
-    return this.parciki[idd];
-  }
+  // check(partNumber: string){
+  //   const idd = Number(partNumber);
+  //   console.log('0');
+  //   return this.parciki[idd];
+  // }
 
   // wszystko musi byc w tym bo np formularz czy pobranie zdj ma nastapic po zaladowaniu danych
   loadEditingAuction(){
@@ -373,6 +370,11 @@ export class ProductAddComponent implements OnInit {
 
         // zaladowanie szczegolow
         this.condition = this.editingAuction.condition;
+        this.numberOfDesc = this.editingAuction.numberOfDescParts;
+        for (let i = 0; i < this.editingAuction.numberOfDescParts; i++) {
+          this.partsOfDesc.push(i+1); // i + 1 bo pogmatwalem i teraz trzeba sie tego trzymac XD czysta logika XD
+          this.liczbaParcikow ++;
+        }
 
         // laduje strone dopiero po zaladowaniu danych
         this.isDataAvailable = true;
@@ -400,6 +402,7 @@ export class ProductAddComponent implements OnInit {
     // this.item.price = 1231;
     // this.item.quantity = 12;
     this.item.condition = this.condition;
+    this.item.numberOfDescParts = this.numberOfDesc;
     // this.item.newestPrice = 123;
     // this.item.category = "asd";
     // this.item.haveDedictedCard = "Yes";
@@ -426,11 +429,12 @@ export class ProductAddComponent implements OnInit {
     // console.log(this.item);
     // console.log(this.productForm.value);
     // console.log(this.photos);
-    console.log(this.editingAuction);
+    // console.log(this.editingAuction);
     // console.log(this.productForm.get('name').value);
     // console.log(this.dedicedCard);
     // console.log(this.editingAuction);
     // console.log(this.productForm.get("haveDedictedCard").value);
+    // console.log(this.parciki);
   }
 
   tescikoweLadowanieZdj(){
@@ -460,7 +464,7 @@ export class ProductAddComponent implements OnInit {
         this.alertify.success('Poprawnie edutujesz aukcje');
         
       }, error => {
-        this.loadEditingAuction();        
+        this.loadEditingAuction();      
         this.alertify.error(error); // error z api "Dokoncz porzeednia edycje"
       });
   }
