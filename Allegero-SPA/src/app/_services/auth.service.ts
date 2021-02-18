@@ -17,6 +17,7 @@ export class AuthService {
 
   basicPhoto = new BehaviorSubject<string>('../../assets/user.png');
   currentPhoto = this.basicPhoto.asObservable();
+  static decodedToken: any;
 
   constructor(private http: HttpClient) { }
 

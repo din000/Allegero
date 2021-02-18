@@ -59,4 +59,8 @@ export class UserService {
   addItem(userId: number, item: Item){
     return this.http.put(this.baseUrl + userId, item);
   }
+
+  addPhoto(userId: number, secondId: number, selectedPhoto: File){
+    return this.http.post('http://localhost:5000/api/user/photos/' + userId + '/' + secondId, selectedPhoto); 
+  }
 }

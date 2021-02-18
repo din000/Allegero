@@ -26,7 +26,8 @@
                     </div>
                 </div>
 
-                <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)"
+                <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="initializeUploader(12, $event)"
+                    
                     [uploader]="uploader" class="card bg-faded p-3 my-drop-zone text-center"
                     style="width: 80%; border-left: none; border-right: none;">
                     <i class="fa fa-plus-square-o fa-3x"></i>
@@ -207,8 +208,7 @@
                         <div *ngIf="productForm.get('part' + item).value === 1" class="case-1 row p-0 m-0" style="width: 100%;">
                             <div class="part-1" style="width: 45%; margin-right: 1%; height: fit-content;">
                                 <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
-                                    (fileOver)="fileOverBase($event)" [uploader]="uploader"
-                                    (drop)="setPhotoSecondId(i)"
+                                    (fileOver)="initializeUploader(item, $event)" [uploader]="uploader"
                                     class="card bg-faded p-3 my-drop-zone text-center"
                                     style="width: 550px; height: 350px; position: relative;">
                                     <p style="position: absolute; top: 47%; right: 44%;">Dodaj zdj</p>
@@ -225,8 +225,7 @@
                             </div>
                             <div class="part-1" style="width: 45%; height: fit-content;">
                                 <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
-                                    (fileOver)="fileOverBase($event)" [uploader]="uploader"
-                                    (dragleave)="setPhotoSecondId(i)"
+                                    (fileOver)="initializeUploader(item, $event)" [uploader]="uploader"
                                     class="card bg-faded p-3 my-drop-zone text-center"
                                     style="width: 550px; height: 350px; position: relative;  margin-right: 0%;">
                                     <p style="position: absolute; top: 47%; right: 44%;">Dodaj zdj</p>

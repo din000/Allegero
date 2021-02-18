@@ -41,7 +41,7 @@ namespace Tinderro.API.Controllers
             _cloudinary = new Cloudinary(account);
         }
 
-        [HttpPost("{userId}")]
+        [HttpPost("{userId}/{secondId}")]
         public async Task<IActionResult> AddPhotoForUser(int userId, [FromForm]PhotoForAddDto photoForAddDto, int ? secondId) // FromForm mowi skad zdjecie bedzie pochodzic
         {
             // sprawdza id z id z tokena
@@ -73,14 +73,7 @@ namespace Tinderro.API.Controllers
 
             var photo = _mapper.Map<Photo>(photoForAddDto); // mapujemy na photo z photoforadddto
 
-            if (secondId == null)
-            {
-                photo.SecondId = 12;
-            }
-            else
-            {
-                photo.SecondId = (int)secondId;
-            }
+            photo.SecondId = (int)secondId;
 
             if (auction.ItemPhotos == null)
             {

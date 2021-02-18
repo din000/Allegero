@@ -88,6 +88,11 @@ namespace Allegero.API.Data
             auction.RAM = 4;
             auction.Condition = "New";
             auction.IsEditing = true;
+            auction.Part1 = 1;
+            auction.Part2 = 2;
+            auction.Part3 = 1;
+            auction.Part4 = 1;
+            auction.Part5 = 1;
 
             Add(auction);
             if (await SaveAll())

@@ -28,11 +28,6 @@ export class ProductAddComponent implements OnInit {
   // dedicedCard = [{value: 'Yes', display: 'Tak'},
   //               {value: 'No', display: 'Nie'}];
 
-  dedicedCard: any = ['Yes', 'No'];
-  ram: any = ['1', '2', '4', '8', '12', '16', '32']
-  categories: any = ['laptops', 'pc']
-
-
   // ram2 = [{value: '1', display: '1 GB'},
   //       {value: '2', display: '2 GB'},
   //       {value: '4', display: '4 GB'},
@@ -40,6 +35,10 @@ export class ProductAddComponent implements OnInit {
   //       {value: '12', display: '12 GB'},
   //       {value: '16', display: '16 GB'},
   //       {value: '32', display: '32 GB'}];
+
+  dedicedCard: any = ['Yes', 'No'];
+  ram: any = ['1', '2', '4', '8', '12', '16', '32']
+  categories: any = ['laptops', 'pc']
 
   numberOfDesc = 0; // ktory opisik edytujemy
   partsOfDesc = []; // przechiwuje numer parcika od 1 do 5
@@ -109,9 +108,13 @@ export class ProductAddComponent implements OnInit {
 
   // uploader
   uploader: FileUploader;
-  hasBaseDropZoneOver: true;
+  hasBaseDropZoneOver: true; // tutaj przechowywane jest zdj
   hasAnotherDropZoneOver: true;
   response: string;
+  url: string; // url do dodawania zdj API
+
+  // moj uploader
+  selectedPhoto: File;
 
   // edytowana aukcja
   editingAuction: Item;
@@ -136,13 +139,14 @@ export class ProductAddComponent implements OnInit {
     // ogolnie stworzenie eukacji dziala TYLKO WTEDY gdy komputer szybko chodzi, trzeba zrobic zeby ladowal strone PO STWORZENIU defaultowej aukcji
 
 
-      this.makeDefaultAuction();
+    this.makeDefaultAuction();
     // this.route.data.subscribe(data => { 
     //   this.editingAuction = data.editingAuctionRoute;
     // });
 
     // uploader
-    this.initializeUploader();
+    // this.initializeUploader(12);
+
 
     this.galleryOptions = [
       {
@@ -225,6 +229,7 @@ export class ProductAddComponent implements OnInit {
 
   // do uploadera
   public fileOverBase(e: any): void {
+    // this.url = 'http://localhost:5000/api/user/photos/' + this.authService.decodedToken.nameid + '/' + secondId;
     this.hasBaseDropZoneOver = e;
   }
   public fileOverAnother(e: any): void {
@@ -247,10 +252,13 @@ export class ProductAddComponent implements OnInit {
     return images;
   }
 
-  initializeUploader() {
+  // trzeba fileoverbase(e) dac do tegobo inaczej secondId nie dalo rady ustawic a tak smiga i dziala :D
+  initializeUploader(secondId: number, e: any) {
+      this.fileOverBase(e);
+
       this.uploader = new FileUploader({
         // tslint:disable-next-line: max-line-length
-        url: 'http://localhost:5000/api/user/photos/' + this.authService.decodedToken.nameid, // url
+        url: 'http://localhost:5000/api/user/photos/' + this.authService.decodedToken.nameid + '/' + secondId, // url
         authToken: 'Bearer ' + localStorage.getItem('token'), // 'Bearer ' WAZNE musi byc spacja
         isHTML5: true,
         allowedFileType: ['image'],
@@ -303,7 +311,7 @@ export class ProductAddComponent implements OnInit {
         .subscribe(response => {
             this.alertify.success('Zmieniono secondId pomyslnie');
             }, error => {
-            this.alertify.error(error);
+            this.alertify.error("Nie udalo sie ustawic secondId");
             }));
   }
 
@@ -435,6 +443,7 @@ export class ProductAddComponent implements OnInit {
     // console.log(this.editingAuction);
     // console.log(this.productForm.get("haveDedictedCard").value);
     // console.log(this.parciki);
+    console.log(this.uploader);
   }
 
   tescikoweLadowanieZdj(){
@@ -469,4 +478,17 @@ export class ProductAddComponent implements OnInit {
       });
   }
 
+  onPhotoChange(event){
+    this.selectedPhoto = event.target.files[0];
+  }
+
+  onUpload(secondId: number){
+    this.userService.addPhoto(this.authService.decodedToken.nameid, secondId, this.selectedPhoto)
+      .subscribe(response => {
+        //const respons: Photo = JSON.parse(response);
+        console.log(response);
+      }, error => {
+        this.alertify.error("SPA: Nie dodano zdj");
+      });
+    } 
 }

@@ -18,7 +18,7 @@ export const appRoutes: Routes = [
                                                             manyAuctions: ManyAuctionsResolver}},
     { path: 'productCard/:idAuction/:idUser', component: ProductCardComponent, resolve: {auction: ProductCardResolver,
                                                                                          user: UserResolver}},
-    { path: 'productAdd/:idUser', component: ProductAddComponent, resolve: {editingAuctionRoute: EditingAutcionResolver}},
+    { path: 'productAdd/:idUser', component: ProductAddComponent, resolve: {}},
     { path: 'polubienia', component: Responsik2Component},
     { path: '**', redirectTo: '', pathMatch: 'full'}
 ];
