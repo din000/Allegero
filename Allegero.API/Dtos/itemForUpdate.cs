@@ -20,7 +20,7 @@ namespace Allegero.API.Dtos
         public string IsOccasion { get; set; }
         public DateTime ? WhenOccasionWasStarted { get; set; } 
         // kolekcja zdj danej rzeczy
-        public ICollection<Photo> ItemPhotos { get; set; }
+        // public ICollection<Photo> ItemPhotos { get; set; }
 
         // glowne informacje o laptopach
         public string Proccesor { get; set; }

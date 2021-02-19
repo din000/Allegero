@@ -57,7 +57,7 @@ export class UserService {
   }
 
   addItem(userId: number, item: Item){
-    return this.http.put(this.baseUrl + userId, item);
+    return this.http.post(this.baseUrl + userId, item);
   }
 
   addPhoto(userId: number, secondId: number, selectedPhoto: File){

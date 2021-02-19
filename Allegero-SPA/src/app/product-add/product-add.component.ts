@@ -98,6 +98,7 @@ export class ProductAddComponent implements OnInit {
 
   condition = null;
   photos = [];
+  photosOfDesc = [];
 
   // https://github.com/kolkov/ngx-gallery
   // https://github.com/kolkov/ngx-gallery
@@ -242,12 +243,28 @@ export class ProductAddComponent implements OnInit {
     for (let i = 0; i < this.editingAuction.itemPhotos.length; i++) {
       // ogolnie tutaj nie trzeba dawac small medium big bo nie dajemy tego do ngxGalery tylko do zwyklej tablicy zdjec photos[]
       // dodatkowo jezeli tego uzyjemy w ngInit to przez to ze jest to metoda asynchroniczna to komputer nie zdazy zaladowac edytowanej aukcji wiec lepiej to przenisc do lodadEditingAuction()
-      images.push({
-        photoId: this.editingAuction.itemPhotos[i].id,
-        url: this.editingAuction.itemPhotos[i].url,
-        // medium: this.editingAuction.itemPhotos[i].url,
-        // big: this.editingAuction.itemPhotos[i].url,
-      });
+      if (this.editingAuction.itemPhotos[i].secondId === 12){
+        images.push({
+          photoId: this.editingAuction.itemPhotos[i].id,
+          url: this.editingAuction.itemPhotos[i].url,
+          // medium: this.editingAuction.itemPhotos[i].url,
+          // big: this.editingAuction.itemPhotos[i].url,
+        });
+      }   
+    }
+    return images;
+  }
+
+  getImagesOfDesc(){
+    const images = [];
+    for (let i = 0; i < this.editingAuction.itemPhotos.length; i++) {
+      if (this.editingAuction.itemPhotos[i].secondId != 12){
+        images.push({
+          photoId: this.editingAuction.itemPhotos[i].id,
+          url: this.editingAuction.itemPhotos[i].url,
+          secondId: this.editingAuction.itemPhotos[i].secondId,
+        });
+      }   
     }
     return images;
   }
@@ -285,6 +302,8 @@ export class ProductAddComponent implements OnInit {
           // jezlei secondId = 12 tzn ze zdj naleza nie do parcikow tylko do tych glownych
           if (photo.secondId === 12){
             this.photos.push(photo); // dodajemy do naszej kolekcji zdjec
+          } else {
+            this.photosOfDesc.push(photo);
           }
           this.alertify.success('Dodales zdj');
           // this.galleryImages = this.getImages();
@@ -375,6 +394,7 @@ export class ProductAddComponent implements OnInit {
 
         // zaladowanie zdjec
         this.photos = this.getImages();
+        this.photosOfDesc = this.getImagesOfDesc();
 
         // zaladowanie szczegolow
         this.condition = this.editingAuction.condition;
@@ -443,7 +463,8 @@ export class ProductAddComponent implements OnInit {
     // console.log(this.editingAuction);
     // console.log(this.productForm.get("haveDedictedCard").value);
     // console.log(this.parciki);
-    console.log(this.uploader);
+    // console.log(this.uploader);
+    console.log(this.photosOfDesc.length);
   }
 
   tescikoweLadowanieZdj(){
@@ -463,7 +484,7 @@ export class ProductAddComponent implements OnInit {
         this.createProductForm();
 
         // zaladowanie zdjec
-        this.photos = this.getImages();
+        // this.photos = this.getImages();
 
         // zaladowanie szczegolow
         this.condition = this.editingAuction.condition;

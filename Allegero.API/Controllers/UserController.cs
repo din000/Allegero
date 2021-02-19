@@ -103,8 +103,8 @@ namespace Allegero.API.Controllers
             return Ok();
         }
 
-        [HttpPut("{userId}")]
-        public async Task<IActionResult> UpdateUser(int userId, itemForUpdate itemForUpdate)
+        [HttpPost("{userId}")]
+        public async Task<IActionResult> UpdateItem(int userId, itemForUpdate itemForUpdate)
         {
             var itemFromDataBase = await _repository.TakeEditingAuction(userId);
             // var dupa = _mapper.Map<Item>(itemForUpdate);
