@@ -4,6 +4,7 @@ import { Item } from '../_models/Item';
 import { map } from 'rxjs/operators';
 import { User } from '../_models/User';
 import { Item2 } from '../_models/item2';
+import { Product_Categories } from '../_models/Product_Categories';
 
 @Injectable({
   providedIn: 'root'
@@ -62,5 +63,9 @@ export class UserService {
 
   addPhoto(userId: number, secondId: number, selectedPhoto: File){
     return this.http.post('http://localhost:5000/api/user/photos/' + userId + '/' + secondId, selectedPhoto); 
+  }
+
+  getProduct_Categories(){
+    return this.http.get<Product_Categories>(this.baseUrl + 'product_categories')
   }
 }
