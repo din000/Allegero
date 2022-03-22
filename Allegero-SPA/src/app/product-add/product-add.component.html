@@ -114,15 +114,15 @@
 
                 <h6 class="pt-4">Kategoria:</h6>
                 <select style="width: 90%; height: 34px;" formControlName="category">
-                    <option [value]=item *ngFor="let item of categories">
-                        {{item}}
+                    <option [value]=item *ngFor="let item of product_categories">
+                        {{item.categoryName}}
                     </option>
                 </select>
 
                 <div class="butonik">
                     <button class="btn btn-primary" (click)="deleteEditinfAuction()">Usun</button>
                     <button class="btn btn-success" (click)="addItem()">Dodaj aukcje</button>
-                    <button class="btn btn-success" (click)="showUser()">Pokaz userka</button>
+                    <button class="btn btn-success" (click)="loadProduct_Categories()">Pokaz userka</button>
                     <button class="btn btn-success" (click)="setGraphicCardField()">zaladuj zdj</button>        
                 </div>
 

@@ -13,6 +13,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { timer } from 'rxjs';
 import { MainResolver } from '../_resolvers/main.resolver';
 import { Item2 } from '../_models/item2';
+import { Product_Categories } from '../_models/Product_Categories';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class ProductAddComponent implements OnInit {
   dedicedCard: any = ['Yes', 'No'];
   ram: any = ['1', '2', '4', '8', '12', '16', '32']
   categories: any = ['laptops', 'pc']
+  product_categories: Product_Categories[]; // kategoria ladowana z bazy
 
   numberOfDesc = 0; // ktory opisik edytujemy
   partsOfDesc = []; // przechiwuje numer parcika od 1 do 5
@@ -178,6 +180,8 @@ export class ProductAddComponent implements OnInit {
     /// this.galleryImages = this.getImages();
     //   // ladujemy zdjecia
     // this.photos = this.getImages();
+
+    this.loadProduct_Categories();
   }
 
   // tutaj moze i moznabyloby ladowac OD RAZU z responsika jak sie pobiera aukcje a nie tak XD
@@ -512,4 +516,12 @@ export class ProductAddComponent implements OnInit {
         this.alertify.error("SPA: Nie dodano zdj");
       });
     } 
+  
+  loadProduct_Categories(){
+    this.userService.getProduct_Categories()
+      .subscribe(response => {
+        this.product_categories = response;
+        console.log(this.product_categories);
+      })
+  }
 }

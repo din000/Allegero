@@ -66,6 +66,6 @@ export class UserService {
   }
 
   getProduct_Categories(){
-    return this.http.get<Product_Categories>(this.baseUrl + 'product_categories')
+    return this.http.get<Product_Categories[]>(this.baseUrl + 'product_categories')
   }
 }
