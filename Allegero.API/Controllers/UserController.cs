@@ -95,6 +95,13 @@ namespace Allegero.API.Controllers
             return BadRequest("pinokio");
         }
 
+        [HttpGet("product_categories")]
+        public async Task<IActionResult> GetProduct_Categories()
+        {
+            var Product_Categories = await _repository.GetProduct_Categories();
+            return Ok(Product_Categories);
+        }
+
         [HttpPost("addItem")]
         public async Task<IActionResult> AddItem(ItemForCreateDto itemForCreateDto)
         {

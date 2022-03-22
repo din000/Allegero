@@ -150,5 +150,11 @@ namespace Allegero.API.Data
             }
             throw new Exception("Nie udalo sie dodac aukcji ze strony API");
         }
+
+        public async Task<IEnumerable<Product_Categories>> GetProduct_Categories ()
+        {
+            var Product_Categories = await _context.Product_Categories.ToArrayAsync();
+            return Product_Categories;
+        }
     }
 }

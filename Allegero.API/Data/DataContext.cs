@@ -11,6 +11,7 @@ namespace Allegero.API.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<Product_Categories> Product_Categories {get; set;}
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

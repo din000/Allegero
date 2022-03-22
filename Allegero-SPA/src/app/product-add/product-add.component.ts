@@ -452,7 +452,7 @@ export class ProductAddComponent implements OnInit {
   }
 
   showUser(){
-    // console.log(this.authService.decodedToken.nameid);
+    console.log(this.authService.decodedToken.nameid);
     // console.log(this.condition);
     // console.log(this.item);
     // console.log(this.productForm.value);
@@ -464,7 +464,7 @@ export class ProductAddComponent implements OnInit {
     // console.log(this.productForm.get("haveDedictedCard").value);
     // console.log(this.parciki);
     // console.log(this.uploader);
-    console.log(this.photosOfDesc.length);
+    // console.log(this.photosOfDesc.length);
   }
 
   tescikoweLadowanieZdj(){
