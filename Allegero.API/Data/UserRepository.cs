@@ -83,7 +83,7 @@ namespace Allegero.API.Data
             auction.DateAdded = DateTime.Now;
             auction.IsOccasion = "No";
             auction.SellerId = userId;
-            auction.Category = "pc";
+            auction.Category = "laptops";
             auction.HaveDedictedCard = "No";
             auction.RAM = 4;
             auction.Condition = "New";

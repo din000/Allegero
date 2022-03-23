@@ -10,6 +10,7 @@ import { UserResolver } from './_resolvers/user.resolver';
 import { ProductAddComponent } from './product-add/product-add.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { EditingAutcionResolver } from './_resolvers/editingAuction.resolver';
+import { product_CategoriesResolver } from './_resolvers/product_Categories.resolver';
 
 
 export const appRoutes: Routes = [
@@ -18,7 +19,7 @@ export const appRoutes: Routes = [
                                                             manyAuctions: ManyAuctionsResolver}},
     { path: 'productCard/:idAuction/:idUser', component: ProductCardComponent, resolve: {auction: ProductCardResolver,
                                                                                          user: UserResolver}},
-    { path: 'productAdd/:idUser', component: ProductAddComponent, resolve: {}},
+    { path: 'productAdd/:idUser', component: ProductAddComponent, resolve: {r_product_Categories: product_CategoriesResolver}},
     { path: 'polubienia', component: Responsik2Component},
     { path: '**', redirectTo: '', pathMatch: 'full'}
 ];

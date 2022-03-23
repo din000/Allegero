@@ -39,7 +39,7 @@ export class ProductAddComponent implements OnInit {
 
   dedicedCard: any = ['Yes', 'No'];
   ram: any = ['1', '2', '4', '8', '12', '16', '32']
-  categories: any = ['laptops', 'pc']
+  // categories: any = ['laptops', 'pc']
   product_categories: Product_Categories[]; // kategoria ladowana z bazy
 
   numberOfDesc = 0; // ktory opisik edytujemy
@@ -130,7 +130,8 @@ export class ProductAddComponent implements OnInit {
               private userService: UserService,
               private authService: AuthService,
               private alertify: AlertifyService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute
+              ) { }
 
   // ng g component product-add --style=css
   // ng g component product-add --style=css
@@ -181,7 +182,11 @@ export class ProductAddComponent implements OnInit {
     //   // ladujemy zdjecia
     // this.photos = this.getImages();
 
-    this.loadProduct_Categories();
+    //this.loadProduct_Categories();
+    // this.route.data.subscribe(data => {
+    //   this.product_categories = data.r_product_Categories;
+    // });
+    // console.log(this.product_categories);
   }
 
   // tutaj moze i moznabyloby ladowac OD RAZU z responsika jak sie pobiera aukcje a nie tak XD
@@ -392,6 +397,7 @@ export class ProductAddComponent implements OnInit {
     this.userService.takeEditingAuction(this.authService.decodedToken.nameid)
       .subscribe(response => {
         this.editingAuction = response;
+        this.loadProduct_Categories();
         
         // tworzy formularz do dodawania produktu
         this.createProductForm();
@@ -483,6 +489,9 @@ export class ProductAddComponent implements OnInit {
     this.userService.makeDefaultAuction(this.authService.decodedToken.nameid, 'make')
       .subscribe(response => {
         this.editingAuction = response;
+
+        // stworzy kategorie produktu
+        this.loadProduct_Categories();
         
         // tworzy formularz do dodawania produktu
         this.createProductForm();
@@ -518,10 +527,14 @@ export class ProductAddComponent implements OnInit {
     } 
   
   loadProduct_Categories(){
-    this.userService.getProduct_Categories()
-      .subscribe(response => {
-        this.product_categories = response;
-        console.log(this.product_categories);
-      })
+     this.userService.getProduct_Categories()
+       .subscribe(response => {
+         this.product_categories = response;
+         console.log(this.product_categories);
+     })
   }
+
+  chuj(){
+    console.log(this.productForm);
+ }
 }
