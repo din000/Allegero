@@ -30,8 +30,9 @@ namespace Allegero.API.Data
 
         public async Task<IEnumerable<Item>> GetManyAuctions(int number)
         {
-            var auctions = await _context.Items.Take(number).Include(p => p.ItemPhotos).ToArrayAsync();
-            return auctions;
+            //var auctions = await _context.Items.Take(number).Include(p => p.ItemPhotos).Where(i => i.Id).ToArrayAsync();
+            var randomAuctions = await _context.Items.OrderBy(x => Guid.NewGuid()).Where(x => x.IsEditing != true).Take(number).Include(p => p.ItemPhotos).ToArrayAsync();
+            return randomAuctions;
         }
 
         public async Task<User> GetUser(int userId)
@@ -89,7 +90,7 @@ namespace Allegero.API.Data
             auction.Condition = "New";
             auction.IsEditing = true;
             auction.Part1 = 1;
-            auction.Part2 = 2;
+            auction.Part2 = 1;
             auction.Part3 = 1;
             auction.Part4 = 1;
             auction.Part5 = 1;

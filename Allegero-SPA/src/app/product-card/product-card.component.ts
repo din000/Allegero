@@ -3,6 +3,8 @@ import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov
 import { ActivatedRoute } from '@angular/router';
 import { Item } from '../_models/Item';
 import { User } from '../_models/User';
+import { AuthService } from '../_services/auth.service';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-product-card',
@@ -16,6 +18,7 @@ export class ProductCardComponent implements OnInit {
   // https://github.com/kolkov/ngx-gallery
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
+  photosOfDesc = []; // zdjecia do opisu
 
   // info o aukcji
   przykladowaOcena = 4;
@@ -25,6 +28,7 @@ export class ProductCardComponent implements OnInit {
   // konkretna aukcja i uzytkownik
   auction: Item;
   user: User;
+  numberOfDescParts: any; // liczba parcikow do wyswietlania
 
   // procent obnizki
   percent: string;
@@ -33,11 +37,15 @@ export class ProductCardComponent implements OnInit {
   deliveryDate1 = new Date();
   deliveryDate2 = new Date();
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,
+              private authService: AuthService,
+              private userService: UserService) { }
 
   ngOnInit(): void {
     this.route.data.subscribe(data => {
       this.auction = data.auction;
+      this.photosOfDesc = this.getImagesOfDesc();
+      this.numberOfDescParts = new Array(this.auction.numberOfDescParts); // liczba parcikow opisu
       this.percent = (100 - (this.auction.newestPrice / this.auction.price) * 100).toFixed(2);
       this.user = data.user;
       console.log(this.auction);
@@ -84,6 +92,20 @@ export class ProductCardComponent implements OnInit {
         medium: this.auction.itemPhotos[i].url,
         big: this.auction.itemPhotos[i].url,
       });
+    }
+    return images;
+  }
+
+  getImagesOfDesc(){
+    const images = [];
+    for (let i = 0; i < this.auction.itemPhotos.length; i++) {
+      if (this.auction.itemPhotos[i].secondId != 12){
+        images.push({
+          photoId: this.auction.itemPhotos[i].id,
+          url: this.auction.itemPhotos[i].url,
+          secondId: this.auction.itemPhotos[i].secondId,
+        });
+      }   
     }
     return images;
   }

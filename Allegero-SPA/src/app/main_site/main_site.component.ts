@@ -106,10 +106,11 @@ export class MainSiteComponent implements OnInit {
         this.secondsLeft = this.curDate.getSeconds();
       }
 
+      // tego przypadku juz nie chcialo mnie sie liczyc XD
       if (this.curDate.getDate() - occasionEnd.getDate() > 0){
-        this.hoursLeft = 0;
-        this.minLeft = 0;
-        this.secondsLeft = 0;
+        this.hoursLeft = 10;
+        this.minLeft = 10;
+        this.secondsLeft = 30;
         // this.pauseTimer();
       }
     });

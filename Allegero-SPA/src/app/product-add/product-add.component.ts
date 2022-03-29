@@ -410,7 +410,8 @@ export class ProductAddComponent implements OnInit {
         this.condition = this.editingAuction.condition;
         this.numberOfDesc = this.editingAuction.numberOfDescParts;
         for (let i = 0; i < this.editingAuction.numberOfDescParts; i++) {
-          this.partsOfDesc.push(i+1); // i + 1 bo pogmatwalem i teraz trzeba sie tego trzymac XD czysta logika XD
+          // partsOfDesc jest zrobione po to zeby w html mozna bylo zfrobic petle
+          this.partsOfDesc.push(i+1); // i + 1 bo pogmatwalem i teraz trzeba sie tego trzymac XD czysta logika XD + ogolnie ile jest parcikow
           this.liczbaParcikow ++;
         }
 
@@ -441,6 +442,7 @@ export class ProductAddComponent implements OnInit {
     // this.item.quantity = 12;
     this.item.condition = this.condition;
     this.item.numberOfDescParts = this.numberOfDesc;
+    this.item.isEditing = 0;
     // this.item.newestPrice = 123;
     // this.item.category = "asd";
     // this.item.haveDedictedCard = "Yes";
@@ -535,6 +537,6 @@ export class ProductAddComponent implements OnInit {
   }
 
   chuj(){
-    console.log(this.productForm);
+    console.log(this.partsOfDesc + ' + ' + this.numberOfDesc);
  }
 }

@@ -10,6 +10,7 @@ import { Photo } from './Photo';
 // niestety po przemysleniu klasa Item to laptopy !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
 
 export interface Item {
+    //[x: string]: any;
     id: number;
     name: string;
     price: number;
@@ -35,6 +36,9 @@ export interface Item {
     // okazja
     isOccasion: string;
     whenOccasionWasStarted: Date;
+
+    // czy jest edytowana
+    isEditing: number;
 
     // opis
     numberOfDescParts: number;

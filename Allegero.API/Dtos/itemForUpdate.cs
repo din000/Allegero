@@ -39,6 +39,9 @@ namespace Allegero.API.Dtos
         // kategoria
         public string Category { get; set; }
 
+        // czy jest edytowana
+        public int IsEditing { get; set; }
+
         // opis
         public int NumberOfDescParts { get; set; }
         public int Part1 { get; set; }
