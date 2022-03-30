@@ -44,7 +44,7 @@
           <ng-template carouselSlide *ngFor="let item of auctionsToSlider2">
             <div class="pr-1 pl-1" style="padding-top: 50px;">
               <div class="card" style="height: 150px; border: 0px solid;" (click)="owlCar.prev()">
-                <img class="p-2 img-circle rounded-circle mx-auto" style="height: 8rem; width: 8rem;" src="{{item.itemPhotos[0].url}}">
+                <img class="p-2 img-circle rounded-circle mx-auto" style="height: 8rem; width: 8rem;" src="{{item.itemPhotos[0].url}}" [routerLink]="['/productCard', item.id, item.sellerId]">
                 <div class="text-center">
                   <span class="text">{{item.name}}</span>
                 </div>
@@ -133,7 +133,8 @@
         </div>
         <div class="desc ml-2" style="width: 200px; height: 80px; margin-top: auto; margin-bottom: auto;">
           <h5 class="m-0">{{item.name}}</h5>
-          <h4 class="m-0">{{item.price}}zl</h4>
+          <h4 *ngIf="item.newestPrice != null" class="m-0">{{item.newestPrice}}zl</h4>
+          <h4 *ngIf="item.newestPrice === null" class="m-0">{{item.price}}zl</h4>
           <p>{{item.description}}</p>
         </div>
       </div>

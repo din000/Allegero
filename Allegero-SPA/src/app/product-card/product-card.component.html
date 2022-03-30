@@ -32,12 +32,12 @@
         </div>
 
         <div class="price-etc mt-5">
-          <h4 *ngIf="auction.isOccasion" class="card mb-0"
+          <h4 *ngIf="auction.isOccasion === 'Yes'" class="card mb-0"
             style="width: fit-content; background-color: rgb(9, 199, 9); color: white; display: inline-block;">-{{percent}}%</h4>
-          <h5 *ngIf="auction.isOccasion" class="mb-0" style="display: inline-block; padding-left: 2%; text-decoration: line-through; color: grey;">
+          <h5 *ngIf="auction.isOccasion === 'Yes'" class="mb-0" style="display: inline-block; padding-left: 2%; text-decoration: line-through; color: grey;">
             {{auction.price}}zł</h5>
-          <h1 *ngIf="auction.isOccasion" >{{auction.newestPrice}}zl</h1>
-          <h1 *ngIf="!auction.isOccasion" >{{auction.price}}zl</h1>
+          <h1 *ngIf="auction.isOccasion === 'Yes'" >{{auction.newestPrice}}zl</h1>
+          <h1 *ngIf="auction.isOccasion === 'No'" >{{auction.price}}zl</h1>
         </div>
 
         <p class="mt-5 mb-0" style="color: grey">3 osoby kupily 3 sztuki</p>
@@ -118,16 +118,16 @@
           <p>Detykowana karta:</p>
         </div>
         <div class="c1" style="width: 290px;">
-          <p style="font-weight: bold;">{{auction.condition}}</p>
-          <p style="font-weight: bold;">{{auction.haveDedictedCard}}</p>
+          <p style="font-weight: bold; height: 24px;">{{auction.condition}}</p>
+          <p style="font-weight: bold; height: 24px;">{{auction.haveDedictedCard}}</p>
         </div>
         <div class="c1" style="width: 290px;">
           <p>Karta graficzna:</p>
           <p>RAM:</p>
         </div>
         <div class="c1" style="width: 290px;">
-          <p style="font-weight: bold;">{{auction.graphicCard}}</p>
-          <p style="font-weight: bold;">{{auction.ram}} GB</p>
+          <p style="font-weight: bold; height: 24px;">{{auction.graphicCard}}</p>
+          <p style="font-weight: bold; height: 24px;">{{auction.ram}} GB</p>
         </div>
       </div>
     </div>
@@ -136,136 +136,136 @@
 
 <div class="section-1" style="padding-top: 20px; padding-bottom: 50px;">
   <div class="card" style="margin-left: 15%; margin-right: 15%;  ">
-    <div class="body pl-5 pb-5">
+    <div class="body pl-5 pb-3">
       <h2 class="pt-4">Opis</h2>
       <hr>
         <!-- <div *ngFor="let item of numberOfDescParts; let i = index" class="partOfDesc">  -->
           <!-- parcik 1 -->
             <!-- przypadek 1 -->
-            <div *ngIf="auction.part1 === 1" class="case-1 row p-0 m-0" style="width: 100%;">
+            <div *ngIf="auction.part1 === 1" class="case-1 row p-0 m-0 mb-4" style="width: 100%;">
               <div class="part-1" style="width: 45%; margin-right: 1%; height: fit-content;">
                 <img *ngIf="photosOfDesc[0] != null" style="width: 100%; height: 350px;" src={{photosOfDesc[0].url}} alt="1">
               </div>
               <div class="part-2" style="width: 54%; height: 100%;">
-                asd
+                {{auction.p1_Desc}}
               </div>
             </div> 
             <!-- przypadek 2 -->
-            <div *ngIf="auction.part1 === 2" class="case-1 row p-0 m-0" style="width: 100%;">
+            <div *ngIf="auction.part1 === 2" class="case-1 row p-0 m-0 mb-4" style="width: 100%;">
               <div class="part-2" style="width: 54%; height: 100%;">
-                asd
+                {{auction.p1_Desc}}
               </div>
               <div class="part-1" style="width: 45%; margin-right: 1%; height: fit-content;">
                 <img *ngIf="photosOfDesc[0] != null" style="width: 100%; height: 350px;" src={{photosOfDesc[0].url}} alt="1">
               </div>
             </div> 
             <!-- przypadek 3 -->       
-            <div *ngIf="auction.part1 === 3" class="case-1 row p-0 m-0" style="width: 100%;">
+            <div *ngIf="auction.part1 === 3" class="case-1 row p-0 m-0 mb-4" style="width: 100%;">
               <div class="part-1" style="width: 45%; margin-right: 1%; height: fit-content;">
                 {{auction.p1_Desc}}
               </div>
             </div> 
             <!-- parcik 2 -->
             <!-- przypadek 1 -->
-            <div *ngIf="auction.part1 === 1" class="case-1 row p-0 m-0" style="width: 100%;">
+            <div *ngIf="auction.part2 === 1" class="case-1 row p-0 m-0 mb-4" style="width: 100%;">
               <div class="part-1" style="width: 45%; margin-right: 1%; height: fit-content;">
                 <img *ngIf="photosOfDesc[1] != null" style="width: 100%; height: 350px;" src={{photosOfDesc[1].url}} alt="1">
               </div>
               <div class="part-2" style="width: 54%; height: 100%;">
-                asd
+                {{auction.p2_Desc}}
               </div>
             </div> 
             <!-- przypadek 2 -->
-            <div *ngIf="auction.part1 === 2" class="case-1 row p-0 m-0" style="width: 100%;">
+            <div *ngIf="auction.part2 === 2" class="case-1 row p-0 m-0 mb-4" style="width: 100%;">
               <div class="part-2" style="width: 54%; height: 100%;">
-                asd
+                {{auction.p2_Desc}}
               </div>
               <div class="part-1" style="width: 45%; margin-right: 1%; height: fit-content;">
                 <img *ngIf="photosOfDesc[1] != null" style="width: 100%; height: 350px;" src={{photosOfDesc[1].url}} alt="1">
               </div>
             </div> 
             <!-- przypadek 3 -->       
-            <div *ngIf="auction.part1 === 3" class="case-1 row p-0 m-0" style="width: 100%;">
+            <div *ngIf="auction.part2 === 3" class="case-1 row p-0 m-0 mb-4" style="width: 100%;">
               <div class="part-1" style="width: 45%; margin-right: 1%; height: fit-content;">
                 {{auction.p2_Desc}}
               </div>
             </div>                             
             <!-- parcik 3 -->
             <!-- przypadek 1 -->
-            <div *ngIf="auction.part1 === 1" class="case-1 row p-0 m-0" style="width: 100%;">
+            <div *ngIf="auction.part3 === 1" class="case-1 row p-0 m-0 mb-4" style="width: 100%;">
               <div class="part-1" style="width: 45%; margin-right: 1%; height: fit-content;">
                 <img *ngIf="photosOfDesc[2] != null" style="width: 100%; height: 350px;" src={{photosOfDesc[2].url}} alt="1">
               </div>
               <div class="part-2" style="width: 54%; height: 100%;">
-                asd
+                {{auction.p3_Desc}}
               </div>
             </div> 
             <!-- przypadek 2 -->
-            <div *ngIf="auction.part1 === 2" class="case-1 row p-0 m-0" style="width: 100%;">
+            <div *ngIf="auction.part3 === 2" class="case-1 row p-0 m-0 mb-4" style="width: 100%;">
               <div class="part-2" style="width: 54%; height: 100%;">
-                asd
+                {{auction.p3_Desc}}
               </div>
               <div class="part-1" style="width: 45%; margin-right: 1%; height: fit-content;">
                 <img *ngIf="photosOfDesc[2] != null" style="width: 100%; height: 350px;" src={{photosOfDesc[2].url}} alt="1">
               </div>
             </div> 
             <!-- przypadek 3 -->       
-            <div *ngIf="auction.part1 === 3" class="case-1 row p-0 m-0" style="width: 100%;">
+            <div *ngIf="auction.part3 === 3" class="case-1 row p-0 m-0 mb-4" style="width: 100%;">
               <div class="part-1" style="width: 45%; margin-right: 1%; height: fit-content;">
                 {{auction.p3_Desc}}
               </div>
             </div> 
             <!-- parcik 4 -->
             <!-- przypadek 1 -->
-            <div *ngIf="auction.part1 === 1" class="case-1 row p-0 m-0" style="width: 100%;">
+            <div *ngIf="auction.part4 === 1" class="case-1 row p-0 m-0 mb-4" style="width: 100%;">
               <div class="part-1" style="width: 45%; margin-right: 1%; height: fit-content;">
                 <img *ngIf="photosOfDesc[3] != null" style="width: 100%; height: 350px;" src={{photosOfDesc[3].url}} alt="1">
               </div>
               <div class="part-2" style="width: 54%; height: 100%;">
-                asd
+                {{auction.p4_Desc}}
               </div>
             </div> 
             <!-- przypadek 2 -->
-            <div *ngIf="auction.part1 === 2" class="case-1 row p-0 m-0" style="width: 100%;">
+            <div *ngIf="auction.part4 === 2" class="case-1 row p-0 m-0 mb-4" style="width: 100%;">
               <div class="part-2" style="width: 54%; height: 100%;">
-                asd
+                {{auction.p4_Desc}}
               </div>
               <div class="part-1" style="width: 45%; margin-right: 1%; height: fit-content;">
                 <img *ngIf="photosOfDesc[3] != null" style="width: 100%; height: 350px;" src={{photosOfDesc[3].url}} alt="1">
               </div>
             </div> 
             <!-- przypadek 3 -->       
-            <div *ngIf="auction.part1 === 3" class="case-1 row p-0 m-0" style="width: 100%;">
+            <div *ngIf="auction.part4 === 3" class="case-1 row p-0 m-0 mb-4" style="width: 100%;">
               <div class="part-1" style="width: 45%; margin-right: 1%; height: fit-content;">
                 {{auction.p4_Desc}}
               </div>
             </div>
             <!-- parcik 5 -->
             <!-- przypadek 1 -->
-            <div *ngIf="auction.part1 === 1" class="case-1 row p-0 m-0" style="width: 100%;">
+            <div *ngIf="auction.part5 === 1" class="case-1 row p-0 m-0 mb-4" style="width: 100%;">
               <div class="part-1" style="width: 45%; margin-right: 1%; height: fit-content;">
                 <img *ngIf="photosOfDesc[4] != null" style="width: 100%; height: 350px;" src={{photosOfDesc[4].url}} alt="1">
               </div>
               <div class="part-2" style="width: 54%; height: 100%;">
-                asd
+                {{auction.p5_Desc}}
               </div>
             </div> 
             <!-- przypadek 2 -->
-            <div *ngIf="auction.part1 === 2" class="case-1 row p-0 m-0" style="width: 100%;">
+            <div *ngIf="auction.part5 === 2" class="case-1 row p-0 m-0 mb-4" style="width: 100%;">
               <div class="part-2" style="width: 54%; height: 100%;">
-                asd
+                {{auction.p5_Desc}}
               </div>
               <div class="part-1" style="width: 45%; margin-right: 1%; height: fit-content;">
                 <img *ngIf="photosOfDesc[4] != null" style="width: 100%; height: 350px;" src={{photosOfDesc[4].url}} alt="1">
               </div>
             </div> 
             <!-- przypadek 3 -->       
-            <div *ngIf="auction.part1 === 3" class="case-1 row p-0 m-0" style="width: 100%;">
+            <div *ngIf="auction.part5 === 3" class="case-1 row p-0 m-0 mb-4" style="width: 100%;">
               <div class="part-1" style="width: 45%; margin-right: 1%; height: fit-content;">
                 {{auction.p5_Desc}}
               </div>
             </div>                                           
-      
+        <hr>
         <!-- </div> -->
   </div>
 </div>
